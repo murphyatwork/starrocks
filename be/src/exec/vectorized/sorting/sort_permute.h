@@ -133,4 +133,24 @@ private:
 // Compare result of column, value must be -1,0,1
 using CompareVector = std::vector<int8_t>;
 
+struct PermutatedColumn {
+    const Column& column;
+    const Permutation& perm;
+
+    PermutatedColumn() = delete;
+    PermutatedColumn(const Column& in_column, const Permutation& in_perm) : column(in_column), perm(in_perm) {}
+
+    size_t num_rows() const;
+    size_t size() const;
+    int get_row_index(int row) const;
+
+    std::string debug_string() const;
+
+    std::string debug_string(std::pair<int, int> range) const;
+
+    int compare_at(const PermutatedColumn& rhs, int row, int sort_order, int null_first) const;
+
+    int compare_at(int lhs_row, int rhs_row, const PermutatedColumn& rhs, int sort_order, int null_first) const;
+};
+
 } // namespace starrocks::vectorized
