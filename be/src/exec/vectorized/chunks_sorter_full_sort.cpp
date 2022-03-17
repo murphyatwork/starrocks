@@ -3,7 +3,6 @@
 #include "chunks_sorter_full_sort.h"
 
 #include "column/type_traits.h"
-#include "exec/vectorized/sorting/sort_permute.h"
 #include "exec/vectorized/sorting/sorting.h"
 #include "exprs/expr.h"
 #include "gutil/casts.h"
@@ -21,10 +20,6 @@ public:
     template <PrimitiveType PT, bool stable>
     static Status sort_on_not_null_column(RuntimeState* state, Column* column, bool is_asc_order, Permutation& perm) {
         return sort_on_not_null_column_within_range<PT, stable>(state, column, is_asc_order, perm, 0, perm.size());
-    }
-
-    static Status sort_and_tie_helper(Column* column, bool is_asc, bool is_null_first, Permutation& perm) {
-        return Status::OK();
     }
 
     // Sort on type-known column, and the column may have NULL values in the sorting range.

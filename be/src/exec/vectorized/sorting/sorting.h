@@ -29,4 +29,15 @@ int compare_column(const ColumnPtr column, std::vector<int8_t>& cmp_result, Datu
 void compare_columns(const Columns columns, std::vector<int8_t>& cmp_result, const std::vector<Datum>& rhs_values,
                      const std::vector<int>& sort_orders, const std::vector<int>& null_firsts);
 
+// Merge two sorted column in column-wise style
+void merge_and_tie_column(const ColumnPtr column, PermutatedColumn& lhs, PermutatedColumn& rhs,
+                          std::pair<int, int> lhs_range, std::pair<int, int> rhs_range, int sort_order, int null_firs,
+                          int limit, Permutation& output);
+
+Status sort_permutated_chunk(PermutatedChunk& chunk, const std::vector<int>& sort_orders,
+                             const std::vector<int>& null_firsts);
+
+ChunkPtr merge_sorted_chunks_and_copy(const PermutatedChunk& lhs_chunk, const PermutatedChunk& rhs_chunk,
+                                      const std::vector<int>& sort_orders, const std::vector<int>& null_firsts,
+                                      int limit);
 } // namespace starrocks::vectorized

@@ -4,6 +4,8 @@
 
 #include <vector>
 
+#include "column/chunk.h"
+#include "column/column.h"
 #include "column/vectorized_fwd.h"
 #include "simd/simd.h"
 
@@ -151,6 +153,43 @@ struct PermutatedColumn {
     int compare_at(const PermutatedColumn& rhs, int row, int sort_order, int null_first) const;
 
     int compare_at(int lhs_row, int rhs_row, const PermutatedColumn& rhs, int sort_order, int null_first) const;
+};
+
+struct PermutatedChunk {
+    ChunkPtr chunk;
+    Permutation perm;
+    bool sorted = false;
+
+    PermutatedChunk() = default;
+    PermutatedChunk(ChunkPtr in_chunk, const Permutation& in_perm) : chunk(in_chunk), perm(in_perm) {}
+    PermutatedChunk(ChunkPtr in_chunk) : chunk(in_chunk) {
+        int rows = in_chunk->num_rows();
+        perm.resize(rows);
+        for (int i = 0; i < rows; i++) {
+            perm[i].index_in_chunk = i;
+        }
+    }
+    PermutatedChunk(const PermutatedChunk& other) : chunk(other.chunk), perm(other.perm) {}
+    PermutatedChunk(PermutatedChunk&& other) : chunk(std::move(other.chunk)), perm(std::move(other.perm)) {}
+
+    size_t num_rows() const { return chunk->num_rows(); }
+    size_t num_columns() const { return chunk->num_columns(); }
+    const ColumnPtr get_column(int col) const { return chunk->get_column_by_index(col); }
+    void resize(int rows) {
+        chunk->set_num_rows(rows);
+        perm.resize(rows);
+    }
+
+    void filter(const std::vector<uint8_t>& filter) {
+        size_t new_rows = SIMD::count_nonzero(filter);
+        chunk->filter(filter);
+        perm.resize(new_rows);
+        for (int i = 0; i < perm.size(); i++) {
+            perm[i].index_in_chunk = i;
+        }
+    }
+
+    PermutatedColumn get_permutated_column(int col) const { return PermutatedColumn(*get_column(col), perm); }
 };
 
 } // namespace starrocks::vectorized

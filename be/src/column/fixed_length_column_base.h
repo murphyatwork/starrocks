@@ -128,6 +128,8 @@ public:
         _data.resize(_data.size() + count, DefaultValueGenerator<ValueType>::next_value());
     }
 
+    void append_permutation(const Columns& columns, const Permutation& perm) override;
+
     Status update_rows(const Column& src, const uint32_t* indexes) override;
 
     uint32_t serialize(size_t idx, uint8_t* pos) override;

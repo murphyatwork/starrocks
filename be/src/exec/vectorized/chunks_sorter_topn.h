@@ -4,7 +4,7 @@
 
 #include "column/vectorized_fwd.h"
 #include "exec/vectorized/chunks_sorter.h"
-#include "exec/vectorized/sorting/sort_permute.h"
+#include "exec/vectorized/sorting/sorting.h"
 #include "exprs/expr_context.h"
 #include "util/runtime_profile.h"
 

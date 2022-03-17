@@ -6,7 +6,6 @@
 #include "column/fixed_length_column.h"
 #include "column/vectorized_fwd.h"
 #include "exec/vectorized/sorting/sort_helper.h"
-#include "exec/vectorized/sorting/sort_merge.h"
 #include "gutil/casts.h"
 #include "runtime/large_int_value.h"
 #include "storage/decimal12.h"
@@ -74,23 +73,6 @@ void FixedLengthColumnBase<T>::append_permutation(const Columns& columns, const 
         const T* raw_data = reinterpret_cast<const T*>(columns[p.chunk_index]->raw_data());
         _data[old_size + i] = raw_data[p.index_in_chunk];
     }
-}
-
-template <typename T>
-void FixedLengthColumnBase<T>::merge_and_tie(int sort_order, int null_first, PermutatedColumn& lhs,
-                                             PermutatedColumn& rhs, std::pair<int, int> lhs_range,
-                                             std::pair<int, int> rhs_range, Tie& tie, Permutation& output,
-                                             int output_begin, int limit) const {
-    std::array<const PermutatedColumn*, 2> columns{&lhs, &rhs};
-    const Container& rhs_data = down_cast<const FixedLengthColumnBase<T>&>(rhs.column).get_data();
-    auto cmp = [&](int lhs_chunk, int lhs_idx, int rhs_chunk, int rhs_idx) {
-        int lhs_perm = columns[lhs_chunk]->perm[lhs_idx].index_in_chunk;
-        int rhs_perm = columns[rhs_chunk]->perm[rhs_idx].index_in_chunk;
-        T x = _data[lhs_perm];
-        T y = rhs_data[rhs_perm];
-        return SorterComparator<T>::compare(x, y) * sort_order;
-    };
-    merge_sorted_impl(lhs, rhs, output, tie, lhs_range, rhs_range, cmp, output_begin, limit, null_first);
 }
 
 template <typename T>

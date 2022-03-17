@@ -1,52 +1,14 @@
 // This file is licensed under the Elastic License 2.0. Copyright 2021-present, StarRocks Limited.
 
-#pragma once
-
 #include "column/chunk.h"
 #include "column/column.h"
+#include "column/column_visitor_adapter.h"
 #include "column/json_column.h"
 #include "exec/vectorized/sorting/sort_helper.h"
 #include "exec/vectorized/sorting/sort_permute.h"
 #include "simd/simd.h"
 
 namespace starrocks::vectorized {
-
-struct PermutatedChunk {
-    ChunkPtr chunk;
-    Permutation perm;
-    bool sorted = false;
-
-    PermutatedChunk() = default;
-    PermutatedChunk(ChunkPtr in_chunk, const Permutation& in_perm) : chunk(in_chunk), perm(in_perm) {}
-    PermutatedChunk(ChunkPtr in_chunk) : chunk(in_chunk) {
-        int rows = in_chunk->num_rows();
-        perm.resize(rows);
-        for (int i = 0; i < rows; i++) {
-            perm[i].index_in_chunk = i;
-        }
-    }
-    PermutatedChunk(const PermutatedChunk& other) : chunk(other.chunk), perm(other.perm) {}
-    PermutatedChunk(PermutatedChunk&& other) : chunk(std::move(other.chunk)), perm(std::move(other.perm)) {}
-
-    size_t num_rows() const { return chunk->num_rows(); }
-    size_t num_columns() const { return chunk->num_columns(); }
-    const ColumnPtr get_column(int col) const { return chunk->get_column_by_index(col); }
-    void resize(int rows) {
-        chunk->set_num_rows(rows);
-        perm.resize(rows);
-    }
-
-    void filter(const std::vector<uint8_t>& filter) {
-        size_t new_rows = SIMD::count_nonzero(filter);
-        chunk->filter(filter);
-        perm.resize(new_rows);
-        for (int i = 0; i < perm.size(); i++) {
-            perm[i].index_in_chunk = i;
-        }
-    }
-
-    PermutatedColumn get_permutated_column(int col) const { return PermutatedColumn(*get_column(col), perm); }
-};
 
 struct MergeResult {
     static ChunkPtr create(const PermutatedChunk& lhs, const PermutatedChunk& rhs, const Permutation& merged) {
@@ -114,10 +76,8 @@ static inline void merge_sorted_impl(const PermutatedColumn& lhs, const Permutat
     DCHECK_LE(lhs_range.second, lhs.size());
     DCHECK_LE(rhs_range.second, rhs.size());
 
-#ifndef NDEBUG
-    fmt::print("start merge {} {}, output_idx= {}, result={}\n", lhs.debug_string(lhs_range),
+    VLOG(2) << fmt::format("start merge {} {}, output_idx= {}, result={}", lhs.debug_string(lhs_range),
                rhs.debug_string(rhs_range), output_idx, print_permutation(result));
-#endif
 
     const int lhs_end = lhs_range.second;
     const int rhs_end = rhs_range.second;
@@ -188,10 +148,8 @@ static inline void merge_sorted(const PermutatedColumn& lhs, const PermutatedCol
     DCHECK_LE(lhs_range.second, lhs.size());
     DCHECK_LE(rhs_range.second, rhs.size());
 
-#ifndef NDEBUG
-    fmt::print("start merge {} {}, output_idx= {}, result={}\n", lhs.debug_string(lhs_range),
+    VLOG(2) << fmt::format("start merge {} {}, output_idx= {}, result={}", lhs.debug_string(lhs_range),
                rhs.debug_string(rhs_range), output_idx, print_permutation(result));
-#endif
 
     const int lhs_end = lhs_range.second;
     const int rhs_end = rhs_range.second;
@@ -276,8 +234,9 @@ static inline void merge_sorted_chunks(const PermutatedChunk& lhs_chunk, const P
         DCHECK(null_first == 1 || null_first == -1);
 
         if (col_idx == 0) {
-            lhs_column.column.merge_and_tie(sort_order, null_first, lhs_column, rhs_column, {0, lhs_column.size()},
-                                            {0, rhs_column.size()}, tie, result, 0, limit);
+            // TODO(mofei)
+            // merge_and_tie_column(lhs_column.column, sort_order, null_first, lhs_column, rhs_column, {0, lhs_column.size()},
+            // {0, rhs_column.size()}, tie, result, 0, limit);
             // merge_sorted(lhs_column, rhs_column, result, tie, {0, lhs_column.size()}, {0, rhs_column.size()},
             //  sort_order, null_first, limit, 0);
         } else {
@@ -320,8 +279,9 @@ static inline void merge_sorted_chunks(const PermutatedChunk& lhs_chunk, const P
                 }
                 DCHECK_EQ(last - first, (lhs_range.second - lhs_range.first) + (rhs_range.second - rhs_range.first));
 
-                lhs_column.column.merge_and_tie(sort_order, null_first, lhs_column, rhs_column, lhs_range, rhs_range,
-                                                tie, result, first, limit);
+                // TODO(mofei)
+                // merge_and_tie_column(lhs_column.column, sort_order, null_first, lhs_column, rhs_column, {0, lhs_column.size()},
+                // {0, rhs_column.size()}, tie, reuslt, 0, limit);
                 // merge_sorted(lhs_column, rhs_column, result, tie, lhs_range, rhs_range, sort_order, null_first, limit,
                 //  first);
             }
@@ -330,24 +290,24 @@ static inline void merge_sorted_chunks(const PermutatedChunk& lhs_chunk, const P
 #ifndef NDEBUG
         auto merge_column =
                 unpermute_column(std::vector<const Column*>({&lhs_column.column, &rhs_column.column}), result, limit);
-        fmt::print("merge {} and {} into {}\n", lhs_column.debug_string(), rhs_column.debug_string(),
+        VLOG(2) << fmt::format("merge {} and {} into {}", lhs_column.debug_string(), rhs_column.debug_string(),
                    merge_column->debug_string());
-        fmt::print("tie become: [{}]\n", fmt::join(tie, ","));
+        VLOG(2) << fmt::format("tie become: [{}]\n", fmt::join(tie, ","));
 #endif
     }
 }
 
-inline ChunkPtr merge_sorted_chunks_and_copy(const PermutatedChunk& lhs_chunk, const PermutatedChunk& rhs_chunk,
-                                             const std::vector<int>& sort_orders, const std::vector<int>& null_firsts,
-                                             int limit) {
+ChunkPtr merge_sorted_chunks_and_copy(const PermutatedChunk& lhs_chunk, const PermutatedChunk& rhs_chunk,
+                                      const std::vector<int>& sort_orders, const std::vector<int>& null_firsts,
+                                      int limit) {
     Permutation result_perm;
     merge_sorted_chunks(lhs_chunk, rhs_chunk, sort_orders, null_firsts, result_perm, limit);
     result_perm.resize(limit);
     return MergeResult::create(lhs_chunk, rhs_chunk, result_perm);
 }
 
-inline Status sort_permutated_chunk(PermutatedChunk& chunk, const std::vector<int>& sort_orders,
-                                    const std::vector<int>& null_firsts) {
+Status sort_permutated_chunk(PermutatedChunk& chunk, const std::vector<int>& sort_orders,
+                             const std::vector<int>& null_firsts) {
     const Columns& columns = chunk.chunk->columns();
     if (columns.size() < 1) {
         return Status::OK();
@@ -362,11 +322,11 @@ inline Status sort_permutated_chunk(PermutatedChunk& chunk, const std::vector<in
     }
 
     for (int col_index = 0; col_index < columns.size(); col_index++) {
-        Column* column = columns[col_index].get();
         bool is_asc_order = (sort_orders[col_index] == 1);
         bool is_null_first = is_asc_order ? (null_firsts[col_index] == -1) : (null_firsts[col_index] == 1);
         bool build_tie = col_index != columns.size() - 1;
-        column->sort_and_tie(is_asc_order, is_null_first, permutation, tie, range, build_tie);
+        sort_and_tie_column(false, columns[col_index], is_asc_order, is_null_first, permutation, tie, range, build_tie);
+        // column->sort_and_tie(is_asc_order, is_null_first, permutation, tie, range, build_tie);
     }
     for (int i = 0; i < num_rows; i++) {
         chunk.perm[i].index_in_chunk = permutation[i].index_in_chunk;
@@ -374,4 +334,53 @@ inline Status sort_permutated_chunk(PermutatedChunk& chunk, const std::vector<in
 
     return Status::OK();
 }
+
+class ColumnMerge final : public ColumnVisitorAdapter<ColumnMerge> {
+public:
+    ColumnMerge() : ColumnVisitorAdapter(this) {}
+
+    Status do_visit(const vectorized::NullableColumn& column) { return Status::OK(); }
+    Status do_visit(const vectorized::ConstColumn& column) {
+        // noop
+        return Status::OK();
+    }
+
+    Status do_visit(const vectorized::ArrayColumn& column) { return Status::OK(); }
+
+    Status do_visit(const vectorized::BinaryColumn& column) { return Status::OK(); }
+
+    template <class T>
+    Status do_visit(const vectorized::FixedLengthColumnBase<T>& column) {
+        /*
+        std::array<const PermutatedColumn*, 2> columns{&lhs, &rhs};
+        const Container& rhs_data = down_cast<const FixedLengthColumnBase<T>&>(rhs.column).get_data();
+        auto cmp = [&](int lhs_chunk, int lhs_idx, int rhs_chunk, int rhs_idx) {
+            int lhs_perm = columns[lhs_chunk]->perm[lhs_idx].index_in_chunk;
+            int rhs_perm = columns[rhs_chunk]->perm[rhs_idx].index_in_chunk;
+            T x = _data[lhs_perm];
+            T y = rhs_data[rhs_perm];
+            return SorterComparator<T>::compare(x, y) * sort_order;
+        };
+        merge_sorted_impl(lhs, rhs, output, tie, lhs_range, rhs_range, cmp, output_begin, limit, null_first);
+        */
+
+        return Status::OK();
+    }
+
+    template <typename T>
+    Status do_visit(const vectorized::ObjectColumn<T>& column) {
+        return Status::OK();
+    }
+
+    Status do_visit(const vectorized::JsonColumn& column) { return Status::OK(); }
+
+private:
+};
+
+void merge_and_tie_column(const ColumnPtr& column, PermutatedColumn& lhs, PermutatedColumn& rhs,
+                          std::pair<int, int> lhs_range, std::pair<int, int> rhs_range, int sort_order, int null_firs,
+                          int limit, Permutation& output) {
+    // TODO(mofei)
+}
+
 } // namespace starrocks::vectorized
