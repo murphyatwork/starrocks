@@ -157,6 +157,16 @@ void NullableColumn::append_value_multiple_times(const void* value, size_t count
     null_column_data().insert(null_column_data().end(), count, 0);
 }
 
+void NullableColumn::append_permutation(const Columns& columns, const Permutation& perm) {
+    for (auto& p : perm) {
+        DCHECK_LT(p.chunk_index, columns.size());
+        DCHECK_LT(p.index_in_chunk, columns[p.chunk_index]->size());
+        const auto& column = down_cast<const NullableColumn&>(columns[p.chunk_index]);
+        Datum datum = column.get(p.index_in_chunk);
+        append_datum(datum);
+    }
+}
+
 Status NullableColumn::update_rows(const Column& src, const uint32_t* indexes) {
     DCHECK_EQ(_null_column->size(), _data_column->size());
     size_t replace_num = src.size();

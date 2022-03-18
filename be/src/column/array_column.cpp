@@ -129,6 +129,16 @@ void ArrayColumn::append_default(size_t count) {
     _offsets->append_value_multiple_times(&offset, count);
 }
 
+void ArrayColumn::append_permutation(const Columns& columns, const Permutation& perm) {
+    // TODO: optimize
+    for (auto& p : perm) {
+        DCHECK_LT(p.chunk_index, columns.size());
+        DCHECK_LT(p.index_in_chunk, columns[p.chunk_index]->size());
+        auto& column = down_cast<const ArrayColumn&>(columns[perm.chunk_index]);
+        append_datum(column.get(p.index_in_chunk));
+    }
+}
+
 Status ArrayColumn::update_rows(const Column& src, const uint32_t* indexes) {
     const auto& array_column = down_cast<const ArrayColumn&>(src);
 

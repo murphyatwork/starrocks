@@ -34,6 +34,10 @@ void ConstColumn::append_value_multiple_times(const Column& src, uint32_t index,
     append(src, index, size);
 }
 
+void ConstColumn::append_permutation(const Columns& columns, const Permutation& perm) {
+    DCHECK(false) << "not supported";
+}
+
 Status ConstColumn::update_rows(const Column& src, const uint32_t* indexes) {
     return Status::NotSupported("ConstColumn does not support update");
 }

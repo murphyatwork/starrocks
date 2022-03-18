@@ -80,6 +80,8 @@ public:
 
     void append_default(size_t count) override;
 
+    void append_permutation(const Columns& columns, const Permutation& perm) override;
+    
     Status update_rows(const Column& src, const uint32_t* indexes) override;
 
     void remove_first_n_values(size_t count) override {}

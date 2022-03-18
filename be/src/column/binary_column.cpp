@@ -185,6 +185,18 @@ void BinaryColumn::append_value_multiple_times(const void* value, size_t count) 
     _slices_cache = false;
 }
 
+void BinaryColumn::append_permutation(const Columns& columns, const Permutation& perm) {
+    Buffer<Slice> strings;
+    strings.reserve(perm.size());
+    for (auto& p : perm) {
+        DCHECK_LT(p.chunk_index, columns.size());
+        DCHECK_LT(p.index_in_chunk, columns[p.chunk_index]->size());
+        const auto& column = down_cast<const BinaryColumn&>(columns[p.chunk_index]);
+        string.append(column.get_slice(p.index_in_chunk));
+    }
+    append_strings(strings);
+}
+
 void BinaryColumn::_build_slices() const {
     DCHECK(_offsets.size() > 0);
     _slices_cache = false;

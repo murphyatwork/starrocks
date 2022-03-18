@@ -115,6 +115,8 @@ public:
 
     void append_default(size_t count) override { _size += count; }
 
+    void append_permutation(const Columns& columns, const Permutation& perm) override;
+    
     Status update_rows(const Column& src, const uint32_t* indexes) override;
 
     uint32_t serialize(size_t idx, uint8_t* pos) override { return _data->serialize(0, pos); }
