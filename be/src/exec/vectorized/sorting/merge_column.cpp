@@ -10,12 +10,14 @@
 #include "column/nullable_column.h"
 #include "column/type_traits.h"
 #include "column/vectorized_fwd.h"
+#include "common/linux/linux_libc_support.h"
 #include "exec/vectorized/join_hash_map.h"
 #include "exec/vectorized/sorting/sort_helper.h"
 #include "exec/vectorized/sorting/sort_permute.h"
 #include "exec/vectorized/sorting/sorting.h"
 #include "runtime/int128_arithmetics_x86_64.h"
 #include "runtime/vectorized/chunk_cursor.h"
+#include "simd/simd.h"
 
 namespace starrocks::vectorized {
 
@@ -25,7 +27,76 @@ struct EqualRange {
     Range left_range;
     Range right_range;
 
+    EqualRange() = default;
     EqualRange(Range left, Range right) : left_range(left), right_range(right) {}
+
+    bool empty() const { return left_range.first == left_range.second && right_range.first == right_range.second; }
+};
+
+// Implement the equal-range iterator functionality but a more compact representation with Tie
+struct EqualRangeIterator {
+private:
+    Tie _tie;
+    size_t _next_index = 0;
+
+public:
+    static inline uint8_t kEmptyFlag = 0;
+    static inline uint8_t kLeftRangeFlag = 1;
+    static inline uint8_t kRightRangeFlag = 2;
+
+    EqualRangeIterator() = delete;
+    EqualRangeIterator(size_t size) : _tie(size) {}
+    
+    void build(const std::vector<EqualRange>& ranges) {
+        for (auto& range : ranges) {
+            append(range);
+        }
+    }
+    
+    std::vector<EqualRange> convert() {
+        std::vector<EqualRange> res;
+        for (auto range = next(); !range.empty(); range = next()) {
+            res.push_back(range);
+        }
+        return res;
+    }
+
+    void append(EqualRange range) {
+        DCHECK_LT(range.left_range.second, _tie.size());
+        DCHECK_LT(range.right_range.second, _tie.size());
+        DCHECK_LT(range.left_range.first, range.left_range.second);
+        DCHECK_LT(range.right_range.first, range.right_range.second);
+
+        size_t output_index = range.left_range.first + range.right_range.first;
+        size_t left_count = range.left_range.second - range.left_range.first;
+        size_t right_count = range.right_range.second - range.right_range.first;
+        std::memset(&_tie[output_index], kLeftRangeFlag, left_count);
+        output_index += left_count;
+        std::memset(&_tie[output_index], kRightRangeFlag, right_count);
+    }
+
+    // Find the next equal-range, represent as 0,1,1,1,2,2,2,0,0,0
+    EqualRange next() {
+        size_t left_start = SIMD::find_byte(_tie, _next_index, kLeftRangeFlag);
+        if (left_start >= _tie.size()) {
+            return {};
+        }
+        // TODO: optimize it with binary-search
+        DCHECK_EQ(kLeftRangeFlag, _tie[left_start]);
+        size_t right_start = SIMD::find_byte(_tie, left_start, kRightRangeFlag);
+        DCHECK_LT(right_start, _tie.size());
+        DCHECK_EQ(kRightRangeFlag, _tie[right_start]);
+
+        // TODO: optimize it with single pass find
+        size_t right_end = std::min(SIMD::find_byte(_tie, right_start, kEmptyFlag),
+                                    SIMD::find_byte(_tie, right_start, kLeftRangeFlag));
+        DCHECK_LE(right_end, _tie.size());
+        DCHECK_EQ(kRightRangeFlag, _tie[right_end - 1]);
+
+        _next_index = right_end;
+
+        return EqualRange({left_start, right_start}, {right_start, right_end});
+    }
 };
 
 class MergeTwoColumn final : public ColumnVisitorAdapter<MergeTwoColumn> {
@@ -40,13 +111,18 @@ public:
 
     template <class ColumnType>
     void do_merge() {
-        std::vector<EqualRange> next_ranges;
-        next_ranges.reserve(_equal_ranges->size());
+        // std::vector<EqualRange> next_ranges;
+        // next_ranges.reserve(_equal_ranges->size());
         auto left_col = down_cast<const ColumnType*>(_left_col);
         auto right_col = down_cast<const ColumnType*>(_right_col);
 
         // Iterate each equal-range
-        for (auto equal_range : *_equal_ranges) {
+        EqualRangeIterator next_ranges(_perm->size());
+        EqualRangeIterator er_iterator(_perm->size());
+        er_iterator.build(*_equal_ranges);
+        for (auto equal_range = er_iterator.next(); !equal_range.empty(); equal_range = er_iterator.next()) {
+
+        // for (auto equal_range : *_equal_ranges) {
             size_t lhs = equal_range.left_range.first;
             size_t rhs = equal_range.right_range.first;
             size_t lhs_end = equal_range.left_range.second;
@@ -101,7 +177,8 @@ public:
                     fmt::print("merge equal [{}, {}) + [{}, {})\n", left_range.first, left_range.second,
                                right_range.first, right_range.second);
 #endif
-                    next_ranges.emplace_back(left_range, right_range);
+                    // next_ranges.emplace_back(left_range, right_range);
+                    next_ranges.append({left_range, right_range});
                 }
             }
 
@@ -109,7 +186,8 @@ public:
             DCHECK_EQ(rhs, rhs_end);
         }
 
-        _equal_ranges->swap(next_ranges);
+        (*_equal_ranges) = next_ranges.convert();
+        // _equal_ranges->swap(next_ranges);
     }
 
     template <class ColumnType>
