@@ -37,8 +37,11 @@ TEST(MergeTest, merge_sorter_chunks_two_way) {
 
     ChunkPtr chunk1 = std::make_shared<Chunk>(Columns{col1, col3}, map);
     ChunkPtr chunk2 = std::make_shared<Chunk>(Columns{col2, col4}, map);
+    size_t input_rows = chunk1->num_rows() + chunk2->num_rows();
+    ;
     Permutation perm;
     merge_sorted_chunks_two_way(chunk1, chunk2, &perm);
+    ASSERT_EQ(input_rows, perm.size());
 
     size_t expected_size = col1->size() + col2->size();
     std::unique_ptr<Chunk> output = chunk1->clone_empty();
@@ -97,8 +100,8 @@ TEST(MergeTest, merge_sorted_cursor_two_way) {
         map[i] = i;
     }
 
-    std::vector<std::unique_ptr<Chunk>> left_chunks;
-    std::vector<std::unique_ptr<Chunk>> right_chunks;
+    std::vector<ChunkUniquePtr> left_chunks;
+    std::vector<ChunkUniquePtr> right_chunks;
     int left_index = 0;
     int right_index = 0;
     for (int i = 0; i < num_chunks; i++) {
@@ -112,12 +115,16 @@ TEST(MergeTest, merge_sorted_cursor_two_way) {
         left_chunks.push_back(std::make_unique<Chunk>(left_columns, map));
         right_chunks.push_back(std::make_unique<Chunk>(right_columns, map));
     }
+
+    size_t input_rows = 0;
     for (auto& chunk : left_chunks) {
+        input_rows += chunk->num_rows();
         for (int i = 0; i < chunk->num_rows(); i++) {
             fmt::print("left_chunk row: {}\n", chunk->debug_row(i));
         }
     }
     for (auto& chunk : right_chunks) {
+        input_rows += chunk->num_rows();
         for (int i = 0; i < chunk->num_rows(); i++) {
             fmt::print("right_chunk row: {}\n", chunk->debug_row(i));
         }
@@ -150,7 +157,9 @@ TEST(MergeTest, merge_sorted_cursor_two_way) {
     };
     merge_sorted_cursor_two_way(left_cursor, right_cursor, consumer);
 
+    size_t output_rows = 0;
     for (auto& chunk : output_chunks) {
+        output_rows += chunk->num_rows();
         for (int i = 0; i < chunk->num_rows(); i++) {
             fmt::print("row: {}\n", chunk->debug_row(i));
             if (i > 0) {
@@ -159,6 +168,7 @@ TEST(MergeTest, merge_sorted_cursor_two_way) {
             }
         }
     }
+    ASSERT_EQ(input_rows, output_rows);
 }
 
 TEST(MergeTest, merge_sorted_stream) {
@@ -186,6 +196,7 @@ TEST(MergeTest, merge_sorted_stream) {
     ChunkHasSuppliers chunk_has_suppliers;
     std::vector<int> chunk_probe_index(num_runs, 0);
     std::vector<int> chunk_run_max(num_runs, 0);
+    size_t input_size = 0;
     for (int run = 0; run < num_runs; run++) {
         ChunkSupplier chunk_supplier = [&](Chunk** output) -> Status {
             CHECK(false) << "unreachable";
@@ -203,6 +214,7 @@ TEST(MergeTest, merge_sorted_stream) {
                     columns.push_back(column);
                 }
                 ChunkUniquePtr chunk = std::make_unique<Chunk>(columns, map);
+                input_size += chunk->num_rows();
                 *output = chunk.release();
 
                 return true;
@@ -214,6 +226,7 @@ TEST(MergeTest, merge_sorted_stream) {
         chunk_has_suppliers.emplace_back(chunk_has_supplier);
     }
 
+    // Cascade merge
     std::deque<SortedChunkStream> streams;
     for (int run = 0; run < num_runs; run++) {
         SortedChunkStream stream;
@@ -256,8 +269,10 @@ TEST(MergeTest, merge_sorted_stream) {
     fmt::print("merge {} stream of {} rows\n", num_runs, streams[0].num_rows());
 
     ASSERT_EQ(1, streams.size());
+    size_t output_size = 0;
     for (int c = 0; c < streams[0].chunks.size(); c++) {
         auto& chunk = streams[0].chunks[c];
+        output_size += chunk->num_rows();
         if (c > 0) {
             fmt::print("sorted row {}: {}\n", c * chunk->num_rows(), chunk->debug_row(0));
             auto& last_chunk = streams[0].chunks[c - 1];
@@ -270,6 +285,7 @@ TEST(MergeTest, merge_sorted_stream) {
             ASSERT_LE(x, 0);
         }
     }
+    ASSERT_EQ(input_size, output_size);
 }
 
 } // namespace starrocks::vectorized

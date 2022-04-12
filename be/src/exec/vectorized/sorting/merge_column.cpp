@@ -34,8 +34,10 @@ struct EqualRange {
 };
 
 // Implement the equal-range iterator functionality but a more compact representation with Tie
+// E.g. [0,0,0,1,1,2,2,0,1,2,1,2]
 struct EqualRangeIterator {
 private:
+    const Permutation* _perm;
     Tie _tie;
     size_t _next_index = 0;
 
@@ -45,8 +47,8 @@ public:
     static inline uint8_t kRightRangeFlag = 2;
 
     EqualRangeIterator() = delete;
-    EqualRangeIterator(size_t size) : _tie(size) {}
-    
+    EqualRangeIterator(size_t size, const Permutation* perm) : _perm(perm), _tie(size) {}
+
     void build(const std::vector<EqualRange>& ranges) {
         for (auto& range : ranges) {
             append(range);
@@ -62,8 +64,8 @@ public:
     }
 
     void append(EqualRange range) {
-        DCHECK_LT(range.left_range.second, _tie.size());
-        DCHECK_LT(range.right_range.second, _tie.size());
+        DCHECK_LE(range.left_range.second, _tie.size());
+        DCHECK_LE(range.right_range.second, _tie.size());
         DCHECK_LT(range.left_range.first, range.left_range.second);
         DCHECK_LT(range.right_range.first, range.right_range.second);
 
@@ -76,6 +78,7 @@ public:
     }
 
     // Find the next equal-range, represent as 0,1,1,1,2,2,2,0,0,0
+    // NOTE This implementation is super in-efficient!!!
     EqualRange next() {
         size_t left_start = SIMD::find_byte(_tie, _next_index, kLeftRangeFlag);
         if (left_start >= _tie.size()) {
@@ -84,6 +87,7 @@ public:
         // TODO: optimize it with binary-search
         DCHECK_EQ(kLeftRangeFlag, _tie[left_start]);
         size_t right_start = SIMD::find_byte(_tie, left_start, kRightRangeFlag);
+        size_t left_end = right_start - 1;
         DCHECK_LT(right_start, _tie.size());
         DCHECK_EQ(kRightRangeFlag, _tie[right_start]);
 
@@ -95,7 +99,12 @@ public:
 
         _next_index = right_end;
 
-        return EqualRange({left_start, right_start}, {right_start, right_end});
+        left_start = (*_perm)[left_start].index_in_chunk;
+        left_end = (*_perm)[left_end].index_in_chunk + 1;
+        right_start = (*_perm)[right_start].index_in_chunk;
+        right_end = (*_perm)[right_end - 1].index_in_chunk + 1;
+
+        return EqualRange({left_start, left_end}, {right_start, right_end});
     }
 };
 
@@ -117,8 +126,8 @@ public:
         auto right_col = down_cast<const ColumnType*>(_right_col);
 
         // Iterate each equal-range
-        EqualRangeIterator next_ranges(_perm->size());
-        EqualRangeIterator er_iterator(_perm->size());
+        EqualRangeIterator next_ranges(_perm->size(), _perm);
+        EqualRangeIterator er_iterator(_perm->size(), _perm);
         er_iterator.build(*_equal_ranges);
         for (auto equal_range = er_iterator.next(); !equal_range.empty(); equal_range = er_iterator.next()) {
 
@@ -280,6 +289,16 @@ Status merge_sorted_chunks_two_way(const SortedRun& left_run, const SortedRun& r
         equal_ranges.emplace_back(left_run.range, right_run.range);
 
         output->resize(left_run.range.second + right_run.range.second);
+        for (size_t i = left_run.range.first; i < left_run.range.second; i++) {
+            (*output)[i].chunk_index = 0;
+            (*output)[i].index_in_chunk = i - left_run.range.first;
+        }
+        size_t left_count = left_run.num_rows();
+        for (size_t i = right_run.range.first + left_count; i < right_run.range.second + left_count; i++) {
+            (*output)[i].chunk_index = 1;
+            (*output)[i].index_in_chunk = i - right_run.range.first - left_count;
+        }
+
         // Iterate each column
         for (int col = 0; col < left_run.num_columns(); col++) {
             const Column* left_col = left_run.chunk->get_column_by_index(col).get();
