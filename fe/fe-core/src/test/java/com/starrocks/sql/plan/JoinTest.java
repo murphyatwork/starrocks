@@ -9,7 +9,6 @@ import com.starrocks.common.FeConstants;
 import com.starrocks.planner.PlanFragment;
 import com.starrocks.qe.SessionVariable;
 import com.starrocks.server.GlobalStateMgr;
-import com.starrocks.sql.analyzer.SemanticException;
 import com.starrocks.sql.optimizer.OptimizerContext;
 import com.starrocks.sql.optimizer.rule.RuleSet;
 import com.starrocks.sql.optimizer.rule.transformation.JoinAssociativityRule;
@@ -658,10 +657,10 @@ public class JoinTest extends PlanTestBase {
     }
 
     @Test
-    public void testFailedLeftJoin() {
+    public void testFailedLeftJoin() throws Exception {
         String sql = "select * from t0 as x0 left outer join t1 as x1 on (1 = 2) is not null";
-        Assert.assertThrows("No equal on predicate in LEFT OUTER JOIN is not supported", SemanticException.class,
-                () -> getFragmentPlan(sql));
+        String plan = getFragmentPlan(sql);
+        assertContains(plan,  "hehe");
     }
 
     @Test
