@@ -808,6 +808,7 @@ struct TDecodeNode {
 
 struct TCrossJoinNode {
     1: optional list<RuntimeFilter.TRuntimeFilterDescription> build_runtime_filters;
+    2: optional TJoinOp join_op
 }
 
 struct TTableFunctionNode {
