@@ -738,6 +738,17 @@ public class JoinTest extends PlanTestBase {
     }
 
     @Test
+    public void testCrossJoinOnNonEqPredicate() throws Exception {
+        String sql = "select * from t0 left join t1 on t0.v1 < t1.v4";
+        String plan = getFragmentPlan(sql);
+        assertContains(plan, "CROSS JOIN\n" +
+                "  |  cross join:\n" +
+                "  |  predicates: 1: v1 < 4: v4\n" +
+                "  |  joinOp: CROSS JOIN  |  \n");
+
+    }
+
+    @Test
     public void testCrossJoinCastToInner() throws Exception {
         String sql = "select * from t0 cross join t1 on t0.v1 = t1.v4 and t0.v2 != t1.v5";
         String plan = getFragmentPlan(sql);

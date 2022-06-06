@@ -1653,7 +1653,7 @@ public class PlanFragmentBuilder {
                 CrossJoinNode joinNode = new CrossJoinNode(context.getNextNodeId(),
                         leftFragment.getPlanRoot(),
                         rightFragment.getPlanRoot(),
-                        null);
+                        null, node.getJoinType());
 
                 joinNode.setLimit(node.getLimit());
                 joinNode.computeStatistics(optExpr.getStatistics());

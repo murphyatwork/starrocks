@@ -24,11 +24,10 @@ package com.starrocks.planner;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.Lists;
 import com.starrocks.analysis.Analyzer;
-import com.starrocks.analysis.BinaryPredicate;
 import com.starrocks.analysis.Expr;
+import com.starrocks.analysis.JoinOperator;
 import com.starrocks.analysis.SlotRef;
 import com.starrocks.analysis.TableRef;
-import com.starrocks.analysis.TupleId;
 import com.starrocks.common.IdGenerator;
 import com.starrocks.qe.ConnectContext;
 import com.starrocks.qe.SessionVariable;
@@ -39,7 +38,6 @@ import com.starrocks.thrift.TPlanNodeType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,6 +53,7 @@ public class CrossJoinNode extends PlanNode implements RuntimeFilterBuildNode {
     // TODO: Come up with a more useful heuristic (e.g., based on scanned partitions).
     private static final long DEFAULT_PER_HOST_MEM = 2L * 1024L * 1024L * 1024L;
     private final TableRef innerRef_;
+    private final JoinOperator joinOp;
 
     private final List<RuntimeFilterDescription> buildRuntimeFilters = Lists.newArrayList();
 
@@ -66,9 +65,10 @@ public class CrossJoinNode extends PlanNode implements RuntimeFilterBuildNode {
         buildRuntimeFilters.removeIf(RuntimeFilterDescription::isHasRemoteTargets);
     }
 
-    public CrossJoinNode(PlanNodeId id, PlanNode outer, PlanNode inner, TableRef innerRef) {
+    public CrossJoinNode(PlanNodeId id, PlanNode outer, PlanNode inner, TableRef innerRef, JoinOperator joinOp) {
         super(id, "CROSS JOIN");
         innerRef_ = innerRef;
+        this.joinOp = joinOp;
         tupleIds.addAll(outer.getTupleIds());
         tupleIds.addAll(inner.getTupleIds());
         children.add(outer);
@@ -110,6 +110,7 @@ public class CrossJoinNode extends PlanNode implements RuntimeFilterBuildNode {
     protected void toThrift(TPlanNode msg) {
         msg.node_type = TPlanNodeType.CROSS_JOIN_NODE;
         msg.cross_join_node = new TCrossJoinNode();
+        msg.cross_join_node.setJoin_op(joinOp.toThrift());
         if (!buildRuntimeFilters.isEmpty()) {
             msg.cross_join_node.setBuild_runtime_filters(
                     RuntimeFilterDescription.toThriftRuntimeFilterDescriptions(buildRuntimeFilters));
@@ -124,6 +125,7 @@ public class CrossJoinNode extends PlanNode implements RuntimeFilterBuildNode {
         } else {
             output.append(detailPrefix).append("predicates is NULL.\n");
         }
+        output.append(detailPrefix).append("joinOp: ").append(joinOp.toString());
         return output.toString();
     }
 
