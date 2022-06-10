@@ -101,6 +101,7 @@ public class SessionVariable implements Serializable, Writable, Cloneable {
     public static final int MIN_EXEC_MEM_LIMIT = 2097152;
     public static final String BATCH_SIZE = "batch_size";
     public static final String CHUNK_SIZE = "chunk_size";
+    public static final String PIPELINE_CHUNK_SIZE = "pipeline_chunk_size";
     public static final String DISABLE_STREAMING_PREAGGREGATIONS = "disable_streaming_preaggregations";
     public static final String STREAMING_PREAGGREGATION_MODE = "streaming_preaggregation_mode";
     public static final String DISABLE_COLOCATE_JOIN = "disable_colocate_join";
@@ -355,7 +356,8 @@ public class SessionVariable implements Serializable, Writable, Cloneable {
     @VariableMgr.VarAttr(name = CHUNK_SIZE, flag = VariableMgr.INVISIBLE)
     private int chunkSize = 4096;
 
-    public static final int PIPELINE_BATCH_SIZE = 4096;
+    @VariableMgr.VarAttr(name = PIPELINE_CHUNK_SIZE, flag = VariableMgr.INVISIBLE)
+    public  int pipelineChunkSize = 4096;
 
     @VariableMgr.VarAttr(name = DISABLE_STREAMING_PREAGGREGATIONS)
     private boolean disableStreamPreaggregations = false;

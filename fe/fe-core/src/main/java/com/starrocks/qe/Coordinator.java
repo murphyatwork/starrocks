@@ -2218,7 +2218,7 @@ public class Coordinator {
 
                     if (isEnablePipelineEngine) {
                         params.setIs_pipeline(true);
-                        params.getQuery_options().setBatch_size(SessionVariable.PIPELINE_BATCH_SIZE);
+                        params.getQuery_options().setBatch_size(sessionVariable.pipelineChunkSize);
 
                         params.setPipeline_dop(fragment.getPipelineDop());
 
