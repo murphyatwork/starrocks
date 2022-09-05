@@ -284,9 +284,8 @@ public class Optimizer {
         }
 
 
-        context.getTaskScheduler().pushTask(new OptimizeGroupTask(
-                rootTaskContext, memo.getRootGroup()));
-        context.getTaskScheduler().executeTasks(rootTaskContext, memo.getRootGroup());
+        context.getTaskScheduler().pushTask(new OptimizeGroupTask(rootTaskContext, memo.getRootGroup()));
+        context.getTaskScheduler().executeTasks(rootTaskContext);
     }
 
     private OptExpression physicalRuleRewrite(TaskContext rootTaskContext, OptExpression result) {
