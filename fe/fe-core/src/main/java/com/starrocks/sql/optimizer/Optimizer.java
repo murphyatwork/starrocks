@@ -264,20 +264,29 @@ public class Optimizer {
             }
         }
 
+        boolean enableStream = ConnectContext.get().getSessionVariable().isStreamPlanner();
         //add join implementRule
-        String joinImplementationMode = ConnectContext.get().getSessionVariable().getJoinImplementationMode();
-        if ("merge".equalsIgnoreCase(joinImplementationMode)) {
-            context.getRuleSet().addMergeJoinImplementationRule();
-        } else if ("hash".equalsIgnoreCase(joinImplementationMode)) {
-            context.getRuleSet().addHashJoinImplementationRule();
-        } else if ("nestloop".equalsIgnoreCase(joinImplementationMode)) {
-            context.getRuleSet().addNestLoopJoinImplementationRule();
+
+        if (!enableStream) {
+            String joinImplementationMode = ConnectContext.get().getSessionVariable().getJoinImplementationMode();
+            if ("merge".equalsIgnoreCase(joinImplementationMode)) {
+                context.getRuleSet().addMergeJoinImplementationRule();
+            } else if ("hash".equalsIgnoreCase(joinImplementationMode)) {
+                context.getRuleSet().addHashJoinImplementationRule();
+            } else if ("nestloop".equalsIgnoreCase(joinImplementationMode)) {
+                context.getRuleSet().addNestLoopJoinImplementationRule();
+            } else {
+                context.getRuleSet().addAutoJoinImplementationRule();
+            }
         } else {
-            context.getRuleSet().addAutoJoinImplementationRule();
+            // Stream implementation
+            context.getRuleSet().addStreamImplementationRules();
         }
 
-        context.getTaskScheduler().pushTask(new OptimizeGroupTask(rootTaskContext, memo.getRootGroup()));
-        context.getTaskScheduler().executeTasks(rootTaskContext);
+
+        context.getTaskScheduler().pushTask(new OptimizeGroupTask(
+                rootTaskContext, memo.getRootGroup()));
+        context.getTaskScheduler().executeTasks(rootTaskContext, memo.getRootGroup());
     }
 
     private OptExpression physicalRuleRewrite(TaskContext rootTaskContext, OptExpression result) {

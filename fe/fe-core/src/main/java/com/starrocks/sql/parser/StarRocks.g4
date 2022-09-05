@@ -1520,6 +1520,7 @@ refreshSchemeDesc
     : REFRESH (SYNC
     | ASYNC
     | ASYNC (START '(' string ')')? EVERY '(' interval ')'
+    | REALTIME
     | MANUAL)
     ;
 
