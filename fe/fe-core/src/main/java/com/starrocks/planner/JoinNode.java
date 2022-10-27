@@ -162,7 +162,7 @@ public abstract class JoinNode extends PlanNode implements RuntimeFilterBuildNod
         SessionVariable sessionVariable = ConnectContext.get().getSessionVariable();
         JoinOperator joinOp = getJoinOp();
         PlanNode inner = getChild(1);
-        if (!joinOp.isInnerJoin() && !joinOp.isLeftSemiJoin() && !joinOp.isRightJoin() && !joinOp.isCrossJoin()) {
+        if (!joinOp.canBuilderRuntimeFilter()) {
             return;
         }
 

@@ -37,6 +37,9 @@ public class NestLoopJoinNode extends JoinNode implements RuntimeFilterBuildNode
 
     @Override
     public void buildRuntimeFilters(IdGenerator<RuntimeFilterId> generator) {
+        if (!getJoinOp().canBuilderRuntimeFilter()) {
+            return;
+        }
         SessionVariable sessionVariable = ConnectContext.get().getSessionVariable();
         PlanNode buildStageNode = this.getChild(1);
         List<Expr> conjuncts = new ArrayList<>(otherJoinConjuncts);

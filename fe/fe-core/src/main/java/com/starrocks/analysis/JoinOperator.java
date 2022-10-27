@@ -122,6 +122,10 @@ public enum JoinOperator {
     public boolean isRightJoin() {
         return this == RIGHT_OUTER_JOIN || this == RIGHT_ANTI_JOIN || this == RIGHT_SEMI_JOIN;
     }
+
+    public boolean canBuilderRuntimeFilter() {
+        return isInnerJoin() || isLeftSemiJoin() || isRightJoin() || isCrossJoin();
+    }
 }
 
 
