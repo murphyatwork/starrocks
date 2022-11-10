@@ -186,6 +186,7 @@ import com.starrocks.qe.SessionVariable;
 import com.starrocks.qe.ShowResultSet;
 import com.starrocks.qe.VariableMgr;
 import com.starrocks.rpc.FrontendServiceProxy;
+import com.starrocks.scheduler.MVManager;
 import com.starrocks.scheduler.TaskManager;
 import com.starrocks.sql.ast.AddPartitionClause;
 import com.starrocks.sql.ast.AdminCheckTabletsStmt;
@@ -606,6 +607,7 @@ public class GlobalStateMgr {
         this.insertOverwriteJobManager = new InsertOverwriteJobManager();
         this.shardManager = new ShardManager();
         this.compactionManager = new CompactionManager();
+        MVManager.getInstance().setLocalMetastore(this.localMetastore);
 
         GlobalStateMgr gsm = this;
         this.execution = new StateChangeExecution() {
