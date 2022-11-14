@@ -144,6 +144,10 @@ public class OptExpression {
         this.mvOperatorProperty = new MVOperatorProperty(keyPropertySet, modifyOp);
     }
 
+    public MVOperatorProperty getMvOperatorProperty() {
+        return this.mvOperatorProperty;
+    }
+
     public Statistics getStatistics() {
         return statistics;
     }

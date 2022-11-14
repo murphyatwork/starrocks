@@ -206,6 +206,7 @@ import com.starrocks.thrift.TStorageType;
 import com.starrocks.thrift.TTabletMetaType;
 import com.starrocks.thrift.TTabletType;
 import com.starrocks.thrift.TTaskType;
+import javax.validation.constraints.NotNull;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.hadoop.util.ThreadUtil;
 import org.apache.logging.log4j.LogManager;
@@ -225,7 +226,6 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import javax.validation.constraints.NotNull;
 
 import static com.starrocks.catalog.TableProperty.INVALID;
 import static com.starrocks.server.GlobalStateMgr.NEXT_ID_INIT_VALUE;
@@ -3245,15 +3245,22 @@ public class LocalMetastore implements ConnectorMetadata {
         } else if (refreshSchemeDesc.getType() == MaterializedView.RefreshType.SYNC) {
             mvRefreshScheme = new MaterializedView.MvRefreshScheme();
             mvRefreshScheme.setType(MaterializedView.RefreshType.SYNC);
-        } else {
+        } else if (refreshSchemeDesc.getType().equals(MaterializedView.RefreshType.MANUAL)) {
             mvRefreshScheme = new MaterializedView.MvRefreshScheme();
             mvRefreshScheme.setType(MaterializedView.RefreshType.MANUAL);
+        } else {
+            mvRefreshScheme = new MaterializedView.MvRefreshScheme();
+            mvRefreshScheme.setType(MaterializedView.RefreshType.INCREMENTAL);
         }
         // create mv
         long mvId = GlobalStateMgr.getCurrentState().getNextId();
-        MaterializedView materializedView =
-                new MaterializedView(mvId, db.getId(), mvName, baseSchema, stmt.getKeysType(), partitionInfo,
-                        distributionInfo, mvRefreshScheme);
+        MaterializedView materializedView;
+        if (refreshSchemeDesc.getType().equals(MaterializedView.RefreshType.INCREMENTAL)) {
+            materializedView = MVManager.getInstance().createSinkTable(stmt, mvId, db.getId());
+        } else {
+            materializedView = new MaterializedView(mvId, db.getId(), mvName, baseSchema, stmt.getKeysType(), partitionInfo,
+                    distributionInfo, mvRefreshScheme);
+        }
         // set comment
         materializedView.setComment(stmt.getComment());
         // set baseTableIds
@@ -3417,6 +3424,7 @@ public class LocalMetastore implements ConnectorMetadata {
 
         if (refreshType.equals(MaterializedView.RefreshType.INCREMENTAL)) {
             MVManager.getInstance().startMaintainMV(materializedView);
+            return;
         }
 
         if (refreshType != MaterializedView.RefreshType.SYNC) {

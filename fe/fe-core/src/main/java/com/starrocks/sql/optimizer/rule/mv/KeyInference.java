@@ -265,6 +265,21 @@ public class KeyInference extends OptExpressionVisitor<KeyInference.KeyPropertyS
             return keySet;
         }
 
+        /**
+         * Sort keys, prefer unique key and shorter keys
+         */
+        public void sortKeys() {
+            this.keySet.sort((x, y) -> {
+                if (x.unique && !y.unique) {
+                    return -1;
+                }
+                if (!x.unique && y.unique) {
+                    return 1;
+                }
+                return x.columns.size() - y.columns.size();
+            });
+        }
+
         public void addKeys(List<KeyProperty> keys) {
             this.keySet.addAll(keys);
         }
