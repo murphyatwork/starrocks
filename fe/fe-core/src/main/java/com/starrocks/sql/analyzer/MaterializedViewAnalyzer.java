@@ -249,7 +249,7 @@ public class MaterializedViewAnalyzer {
                 ExecPlan execPlan = new PlanFragmentBuilder().createPhysicalPlan(
                         optimizedPlan, ctx, logicalPlan.getOutputColumn(), columnRefFactory,
                         queryRelation.getColumnOutputNames(), TResultSinkType.MYSQL_PROTOCAL, hasOutputFragment);
-                createStmt.setMaintenancePlan(execPlan);
+                createStmt.setMaintenancePlan(execPlan, columnRefFactory);
             } finally {
                 ctx.getSessionVariable().setMVPlanner(false);
             }

@@ -265,6 +265,11 @@ public class KeyInference extends OptExpressionVisitor<KeyInference.KeyPropertyS
             return keySet;
         }
 
+        public KeyProperty getBestKey() {
+            sortKeys();
+            return keySet.get(0);
+        }
+
         /**
          * Sort keys, prefer unique key and shorter keys
          */

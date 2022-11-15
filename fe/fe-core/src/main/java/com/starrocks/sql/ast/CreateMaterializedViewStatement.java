@@ -8,6 +8,7 @@ import com.starrocks.analysis.TableName;
 import com.starrocks.catalog.Column;
 import com.starrocks.catalog.KeysType;
 import com.starrocks.catalog.MaterializedView;
+import com.starrocks.sql.optimizer.base.ColumnRefFactory;
 import com.starrocks.sql.plan.ExecPlan;
 
 import java.util.List;
@@ -43,6 +44,7 @@ public class CreateMaterializedViewStatement extends DdlStmt {
 
     // Maintenance information
     ExecPlan maintenancePlan;
+    ColumnRefFactory columnRefFactory;
 
     // Sink table information
     private List<Column> mvColumnItems = Lists.newArrayList();
@@ -188,8 +190,13 @@ public class CreateMaterializedViewStatement extends DdlStmt {
         return maintenancePlan;
     }
 
-    public void setMaintenancePlan(ExecPlan maintenancePlan) {
+    public ColumnRefFactory getColumnRefFactory() {
+        return columnRefFactory;
+    }
+
+    public void setMaintenancePlan(ExecPlan maintenancePlan, ColumnRefFactory columnRefFactory) {
         this.maintenancePlan = maintenancePlan;
+        this.columnRefFactory = columnRefFactory;
     }
 
     @Override
