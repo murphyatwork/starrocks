@@ -19,6 +19,7 @@ import com.starrocks.sql.ast.DistributionDesc;
 import com.starrocks.sql.ast.PartitionDesc;
 import com.starrocks.sql.common.UnsupportedException;
 import com.starrocks.sql.optimizer.OptExpression;
+import com.starrocks.sql.optimizer.operator.physical.stream.PhysicalStreamOperator;
 import com.starrocks.sql.optimizer.operator.scalar.ColumnRefOperator;
 import com.starrocks.sql.optimizer.rule.mv.KeyInference;
 import com.starrocks.sql.optimizer.rule.mv.MVOperatorProperty;
@@ -26,6 +27,7 @@ import com.starrocks.sql.plan.ExecPlan;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -188,5 +190,31 @@ public class MVManager {
      */
     public void rebuildMaintainMV(MvId mvId) {
         throw UnsupportedException.unsupportedException("rebuild mv job is not supported");
+    }
+
+    static class IMTCreator {
+        private static final Logger LOG = LogManager.getLogger(IMTCreator.class);
+
+        private static final IMTCreator INSTANCE = new IMTCreator();
+
+        public void createIMT(ExecPlan maintenancePlan) {
+            OptExpression optExpr = maintenancePlan.getPhysicalPlan();
+            List<OptExpression> streamOperators = new ArrayList<>();
+            collectStreamOperators(optExpr, streamOperators);
+
+            streamOperators.forEach(this::createIMTForOperator);
+        }
+
+        private void createIMTForOperator(OptExpression opt) {
+            MVOperatorProperty property = opt.getMvOperatorProperty();
+
+        }
+
+        private void collectStreamOperators(OptExpression root, List<OptExpression> output) {
+            if (root.getOp() instanceof PhysicalStreamOperator) {
+                output.add(root);
+            }
+            root.getInputs().forEach(child -> collectStreamOperators(child, output));
+        }
     }
 }
