@@ -41,6 +41,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 // TODO(Murphy) refactor all MV management code into here
@@ -202,6 +203,30 @@ public class MVManager {
      * Manage job of materialized-view maintenance
      */
     static class JobManager {
+        private static final Logger LOG = LogManager.getLogger(JobManager.class);
+        private static final JobManager INSTANCE = new JobManager();
+
+        private Map<MvId, MVMaintenanceJob> jobMap = new ConcurrentHashMap<>();
+
+        public static JobManager getInstance() {
+            return INSTANCE;
+        }
+
+        public void registerMaintenanceJob(MaterializedView view) {
+            MVMaintenanceJob job = new MVMaintenanceJob(view);
+            jobMap.put(view.getMvId(), job);
+            LOG.info("register an maintenance job for MV: " + view.getName());
+        }
+
+        public void triggerJob(MvId id) {
+            MVMaintenanceJob job = jobMap.get(id);
+            if (job == null) {
+                LOG.warn("maintenance job of {} not exists", id);
+                return;
+            }
+
+            LOG.info("trigger incremental maintenance of MV: " + id);
+        }
 
     }
 
