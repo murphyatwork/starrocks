@@ -73,6 +73,9 @@ public class MVManager {
         }
         LOG.info("creating IMT for MV {}", view.getName());
         IMTCreator.createIMT(stmt, view);
+
+        // TODO(murphy) persist the meta of MV (IMT, MaintenancePlan)
+        // TODO(murphy) register the job of MV
     }
 
     /*
@@ -194,6 +197,17 @@ public class MVManager {
         throw UnsupportedException.unsupportedException("rebuild mv job is not supported");
     }
 
+
+    /**
+     * Manage job of materialized-view maintenance
+     */
+    static class JobManager {
+
+    }
+
+    /**
+     * Create Intermediate-Materialized-Table for MV
+     */
     static class IMTCreator {
         private static final Logger LOG = LogManager.getLogger(IMTCreator.class);
 
