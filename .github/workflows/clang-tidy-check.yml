@@ -1,11 +1,11 @@
-name: Review
+name: code-check
+
 on:
   pull_request_target:
     types: [labeled]
 
 jobs:
-  build:
-    name: Clang-tidy Check
+  clang-tidy:
     runs-on: self-hosted
     if: ${{ github.event.label.name == 'be-build' }}
     env:
@@ -42,7 +42,7 @@ jobs:
         with:
           build_dir: be/build_Release
           config_file: .clang-tidy
-          
+
       - name: post build
         run: |
           sudo rm -rf ../starrocks/*

@@ -1,4 +1,4 @@
-name: Mark stale issues and pull requests
+name: cron-job
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  stale:
+  mark-issue-pr-stale:
     runs-on: ubuntu-latest
     permissions:
       issues: write

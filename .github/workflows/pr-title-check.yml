@@ -1,15 +1,14 @@
-name: Checker
+name: title-check
+
 on:
   pull_request_target:
     types:
       - opened
       - edited
-      - synchronize
-      - labeled
       - unlabeled
 
 jobs:
-  Title-Check:
+  pr-title-check:
     runs-on: ubuntu-latest
     steps:
       - uses: thehanimo/pr-title-checker@v1.3.4
