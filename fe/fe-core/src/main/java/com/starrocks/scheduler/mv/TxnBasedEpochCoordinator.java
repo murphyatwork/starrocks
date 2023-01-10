@@ -128,7 +128,7 @@ class TxnBasedEpochCoordinator implements EpochCoordinator {
             // TODO(murphy) atomic persist the epoch update and transaction commit
             GlobalStateMgr.getCurrentState().getEditLog().logMVEpochChange(epoch);
 
-            epoch.onCommitted(binlogState);
+            epoch.onCommitted();
         } catch (UserException e) {
             epoch.onFailed();
             // TODO(murphy) handle error
