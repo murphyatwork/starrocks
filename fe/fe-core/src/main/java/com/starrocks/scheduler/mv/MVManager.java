@@ -245,7 +245,7 @@ public class MVManager {
         long tableId = request.getMv_id();
 
         MVMaintenanceJob job = Preconditions.checkNotNull(getJob(new MvId(dbId, tableId)));
-        job.onReport(request);
+        job.onEpochReport(request);
     }
 
     /**
