@@ -126,9 +126,8 @@ class TxnBasedEpochCoordinator implements EpochCoordinator {
             BinlogConsumeStateVO binlogState = new BinlogConsumeStateVO();
 
             // TODO(murphy) atomic persist the epoch update and transaction commit
+            epoch.onCommitted(binlogState);
             GlobalStateMgr.getCurrentState().getEditLog().logMVEpochChange(epoch);
-
-            epoch.onCommitted();
         } catch (UserException e) {
             epoch.onFailed();
             // TODO(murphy) handle error

@@ -38,6 +38,7 @@ class MVEpochTest {
         epoch.onReady();
         epoch.onSchedule();
         epoch.onCommitting();
+        epoch.onCommitted(binlog);
         epoch.setStartTimeMilli(1024);
         epoch.setCommitTimeMilli(1024);
 
