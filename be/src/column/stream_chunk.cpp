@@ -18,6 +18,10 @@
 
 namespace starrocks {
 
+std::string BinlogOffset::debug_string() const {
+    return fmt::format("(tablet_id={},version={},lsn={})", tablet_id, tablet_version, lsn);
+}
+
 EpochInfo EpochInfo::from_start_epoch_task(const TMVStartEpochTask& start_epoch) {
     EpochInfo res;
     res.epoch_id = start_epoch.epoch.epoch_id;
