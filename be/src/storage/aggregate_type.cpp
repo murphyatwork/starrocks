@@ -59,6 +59,8 @@ std::string get_string_by_aggregation_type(StorageAggregateType type) {
         return "percentile_union";
     case STORAGE_AGGREGATE_UNKNOWN:
         return "unknown";
+    case STORAGE_AGGREGATE_ARRAY_AGG:
+        return "array_agg";
     }
     return "";
 }

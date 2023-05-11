@@ -29,7 +29,8 @@ enum StorageAggregateType {
     STORAGE_AGGREGATE_BITMAP_UNION = 7,
     // Replace if and only if added value is not null
     STORAGE_AGGREGATE_REPLACE_IF_NOT_NULL = 8,
-    STORAGE_AGGREGATE_PERCENTILE_UNION = 9
+    STORAGE_AGGREGATE_PERCENTILE_UNION = 9,
+    STORAGE_AGGREGATE_ARRAY_AGG = 10,
 };
 
 StorageAggregateType get_aggregation_type_by_string(const std::string& str);
