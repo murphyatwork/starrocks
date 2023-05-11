@@ -50,6 +50,7 @@ public enum AggregateType {
     HLL_UNION("HLL_UNION"),
     NONE("NONE"),
     BITMAP_UNION("BITMAP_UNION"),
+    ARRAY_AGG("ARRAY_AGG"),
     PERCENTILE_UNION("PERCENTILE_UNION");
 
     private static EnumMap<AggregateType, EnumSet<PrimitiveType>> compatibilityMap;
