@@ -407,6 +407,7 @@ aggDesc
     | BITMAP_UNION
     | PERCENTILE_UNION
     | REPLACE_IF_NOT_NULL
+    | ARRAY_UNION_AGG
     ;
 
 rollupDesc
