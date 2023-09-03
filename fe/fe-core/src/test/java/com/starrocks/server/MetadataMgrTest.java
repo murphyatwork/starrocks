@@ -18,11 +18,8 @@ package com.starrocks.server;
 import com.google.common.collect.Lists;
 import com.starrocks.common.Config;
 import com.starrocks.common.DdlException;
-<<<<<<< HEAD
-=======
 import com.starrocks.common.util.UUIDUtil;
 import com.starrocks.connector.ConnectorMetadata;
->>>>>>> dd71573cbf ([Enhancement] turn the MetadataMgr into a cache from map (#30293))
 import com.starrocks.connector.exception.StarRocksConnectorException;
 import com.starrocks.qe.ConnectContext;
 import com.starrocks.sql.analyzer.AnalyzeTestUtil;
@@ -43,14 +40,9 @@ import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.List;
-<<<<<<< HEAD
-=======
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-
-import static com.starrocks.connector.hive.HiveClassNames.MAPRED_PARQUET_INPUT_FORMAT_CLASS;
->>>>>>> dd71573cbf ([Enhancement] turn the MetadataMgr into a cache from map (#30293))
 
 public class MetadataMgrTest {
     @BeforeClass
@@ -247,8 +239,6 @@ public class MetadataMgrTest {
         createTableStmt.setIfNotExists();
         Assert.assertFalse(metadataMgr.createTable(createTableStmt));
     }
-<<<<<<< HEAD
-=======
 
     @Test
     public void testGetOptionalMetadata() {
@@ -280,5 +270,4 @@ public class MetadataMgrTest {
         Assert.assertFalse(queryIdSet.containsValue(metadata.get()));
         mgr.removeQueryMetadata();
     }
->>>>>>> dd71573cbf ([Enhancement] turn the MetadataMgr into a cache from map (#30293))
 }
