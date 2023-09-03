@@ -78,6 +78,8 @@ public class MetadataMgr {
             if (notification.getCause() != RemovalCause.EXPLICIT) {
                 LOG.info("Evict cache due to {} and deregister query-level " +
                         "connector metadata on query id: {}", notification.getCause(), queryId);
+            } else {
+                LOG.info("Successfully deregister query-level connector metadata on query id: {}", queryId);
             }
         }
     };
