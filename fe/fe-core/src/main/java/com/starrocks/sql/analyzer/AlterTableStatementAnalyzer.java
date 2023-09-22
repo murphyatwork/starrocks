@@ -11,7 +11,6 @@ import com.starrocks.analysis.IndexDef;
 import com.starrocks.analysis.TableName;
 import com.starrocks.catalog.DataProperty;
 import com.starrocks.catalog.Index;
-import com.starrocks.catalog.MaterializedView;
 import com.starrocks.catalog.Table;
 import com.starrocks.catalog.TableProperty;
 import com.starrocks.common.AnalysisException;
@@ -52,12 +51,12 @@ public class AlterTableStatementAnalyzer {
         TableName tbl = statement.getTbl();
         MetaUtils.normalizationTableName(context, tbl);
         Table table = MetaUtils.getTable(context, tbl);
-        if (table instanceof MaterializedView) {
-            throw new SemanticException(
-                    "The '%s' cannot be alter by 'ALTER TABLE', because '%s' is a materialized view," +
-                            "you can use 'ALTER MATERIALIZED VIEW' to alter it.",
-                    tbl.getTbl(), tbl.getTbl());
-        }
+        //        if (table instanceof MaterializedView) {
+        //            throw new SemanticException(
+        //                    "The '%s' cannot be alter by 'ALTER TABLE', because '%s' is a materialized view," +
+        //                            "you can use 'ALTER MATERIALIZED VIEW' to alter it.",
+        //                    tbl.getTbl(), tbl.getTbl());
+        //        }
         List<AlterClause> alterClauseList = statement.getOps();
         if (alterClauseList == null || alterClauseList.isEmpty()) {
             ErrorReport.reportSemanticException(ErrorCode.ERR_NO_ALTER_OPERATION);

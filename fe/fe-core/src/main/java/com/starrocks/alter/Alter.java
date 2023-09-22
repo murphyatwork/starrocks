@@ -505,7 +505,7 @@ public class Alter {
                 ErrorReport.reportDdlException(ErrorCode.ERR_BAD_TABLE_ERROR, tableName);
             }
 
-            if (!table.isOlapOrLakeTable()) {
+            if (!table.isOlapOrLakeTable() && !table.isMaterializedView()) {
                 throw new DdlException("Do not support alter non-OLAP or non-LAKE table[" + tableName + "]");
             }
             OlapTable olapTable = (OlapTable) table;
