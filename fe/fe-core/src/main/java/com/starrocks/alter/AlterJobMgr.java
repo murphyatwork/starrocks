@@ -462,7 +462,7 @@ public class AlterJobMgr {
                 ErrorReport.reportDdlException(ErrorCode.ERR_BAD_TABLE_ERROR, tableName);
             }
 
-            if (!table.isOlapOrCloudNativeTable()) {
+            if (!table.isOlapOrCloudNativeTable() && !table.isMaterializedView()) {
                 throw new DdlException("Do not support alter non-native table[" + tableName + "]");
             }
             olapTable = (OlapTable) table;

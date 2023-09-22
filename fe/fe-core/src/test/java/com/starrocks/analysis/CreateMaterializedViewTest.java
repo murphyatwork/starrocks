@@ -45,6 +45,7 @@ import com.starrocks.scheduler.persist.TaskRunStatus;
 import com.starrocks.server.GlobalStateMgr;
 import com.starrocks.sql.analyzer.AnalyzerUtils;
 import com.starrocks.sql.analyzer.SemanticException;
+import com.starrocks.sql.ast.AlterTableStmt;
 import com.starrocks.sql.ast.AsyncRefreshSchemeDesc;
 import com.starrocks.sql.ast.CreateMaterializedViewStatement;
 import com.starrocks.sql.ast.CreateMaterializedViewStmt;
@@ -3620,5 +3621,19 @@ public class CreateMaterializedViewTest {
             GlobalStateMgr.getCurrentState().getMetadata().createMaterializedView(createTableStmt);
         });
         Assert.assertTrue(e.getMessage().contains("Do not support create synchronous materialized view(rollup) on"));
+    }
+
+    @Test
+    public void createIndexOnMV() throws Exception {
+        String sql = "create materialized view mv_index " +
+                "partition by k1 " +
+                "distributed by hash(k2) buckets 10 " +
+                "as select t0.k1, t0.k2, t0.sum as sum0 " +
+                "from (select k1, k2, sum(v1) as sum from tbl1 group by k1, k2) t0 where t0.k2 > 10";
+        starRocksAssert.withMaterializedView(sql);
+        AlterTableStmt alterStmt =
+                (AlterTableStmt) UtFrameUtils.parseStmtWithNewParser("alter table mv_index add index idx_sum(sum0)",
+                        starRocksAssert.getCtx());
+        GlobalStateMgr.getCurrentState().alterTable(alterStmt);
     }
 }
