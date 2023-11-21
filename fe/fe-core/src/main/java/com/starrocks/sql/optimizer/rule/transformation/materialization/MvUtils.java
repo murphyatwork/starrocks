@@ -69,14 +69,13 @@ import com.starrocks.sql.optimizer.base.ColumnRefSet;
 import com.starrocks.sql.optimizer.base.PhysicalPropertySet;
 import com.starrocks.sql.optimizer.operator.AggType;
 import com.starrocks.sql.optimizer.operator.Operator;
+import com.starrocks.sql.optimizer.operator.OperatorType;
 import com.starrocks.sql.optimizer.operator.ScanOperatorPredicates;
 import com.starrocks.sql.optimizer.operator.logical.LogicalAggregationOperator;
-import com.starrocks.sql.optimizer.operator.logical.LogicalFilterOperator;
 import com.starrocks.sql.optimizer.operator.logical.LogicalHiveScanOperator;
 import com.starrocks.sql.optimizer.operator.logical.LogicalJoinOperator;
 import com.starrocks.sql.optimizer.operator.logical.LogicalOlapScanOperator;
 import com.starrocks.sql.optimizer.operator.logical.LogicalOperator;
-import com.starrocks.sql.optimizer.operator.logical.LogicalProjectOperator;
 import com.starrocks.sql.optimizer.operator.logical.LogicalScanOperator;
 import com.starrocks.sql.optimizer.operator.physical.PhysicalScanOperator;
 import com.starrocks.sql.optimizer.operator.scalar.BinaryPredicateOperator;
@@ -313,6 +312,9 @@ public class MvUtils {
             // having is not supported now
             return agg.getPredicate() == null;
         }
+        if (root.getOp().getOpType() == OperatorType.LOGICAL_TOPN) {
+            return isValidMVPlan(root.getInputs().get(0));
+        }
         return false;
     }
 
@@ -356,10 +358,8 @@ public class MvUtils {
         if (!(operator instanceof LogicalOperator)) {
             return false;
         }
-        if (!(operator instanceof LogicalScanOperator)
-                && !(operator instanceof LogicalProjectOperator)
-                && !(operator instanceof LogicalFilterOperator)
-                && !(operator instanceof LogicalJoinOperator)) {
+        if (!(operator instanceof LogicalScanOperator) &&
+                !OperatorType.SPJ_OPERATORS.contains(operator.getOpType())) {
             return false;
         }
         for (OptExpression child : root.getInputs()) {

@@ -15,6 +15,8 @@
 
 package com.starrocks.sql.optimizer.operator;
 
+import java.util.EnumSet;
+
 public enum OperatorType {
     /**
      * Logical operator
@@ -138,5 +140,12 @@ public enum OperatorType {
     //  join   table
     //  /  \
     // table table
-    PATTERN_MULTIJOIN,
+    PATTERN_MULTIJOIN;
+
+    public static final EnumSet<OperatorType> SPJ_OPERATORS =
+            EnumSet.of(LOGICAL_PROJECT, LOGICAL_FILTER, LOGICAL_JOIN);
+
+    public static final EnumSet<OperatorType> SPJG_OPERATORS =
+            EnumSet.of(LOGICAL_PROJECT, LOGICAL_FILTER, LOGICAL_JOIN, LOGICAL_AGGR);
+
 }

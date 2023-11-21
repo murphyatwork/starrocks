@@ -2016,6 +2016,38 @@ public class MvRewriteTest extends MvRewriteTestBase {
     }
 
     @Test
+    public void testOrderBy() throws Exception {
+        String mvName = "mv_topn_1";
+        createAndRefreshMv("test", mvName, "CREATE MATERIALIZED VIEW " + mvName +
+                " distributed by hash(empid) " +
+                "AS " +
+                "SELECT empid, sum(salary) as total " +
+                "FROM emps " +
+                "GROUP BY empid " +
+                "ORDER BY total limit 100");
+        String query = "SELECT empid, sum(salary) as total FROM emps GROUP BY empid ";
+        List<String> accecpted = List.of(
+                "ORDER BY total LIMIT 100",
+                "ORDER BY total LIMIT 99",
+                "ORDER BY total LIMIT 1",
+                "ORDER BY total, empid LIMIT 100"
+        );
+        List<String> rejected = List.of(
+                "ORDER BY empid LIMIT 100",
+                "ORDER BY total LIMIT 101",
+                "ORDER BY total DESC LIMIT 1",
+                "ORDER BY empid, total LIMIT 100"
+        );
+
+        for (String sql : accecpted) {
+            starRocksAssert.query(query + sql).explainContains(mvName);
+        }
+        for (String sql : rejected) {
+            starRocksAssert.query(query + sql).explainWithout(mvName);
+        }
+    }
+
+    @Test
     public void testQueryIncludingExcludingMVNames() throws Exception {
         starRocksAssert.getCtx().getSessionVariable().setOptimizerExecuteTimeout(3000000);
         createAndRefreshMv("test", "mv_agg_1", "CREATE MATERIALIZED VIEW mv_agg_1 " +

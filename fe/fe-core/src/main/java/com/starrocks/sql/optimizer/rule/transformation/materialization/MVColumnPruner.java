@@ -43,6 +43,9 @@ public class MVColumnPruner {
 
     public OptExpression pruneColumns(OptExpression queryExpression) {
         Projection projection = queryExpression.getOp().getProjection();
+        if (projection == null) {
+            return queryExpression;
+        }
         // OptExpression after mv rewrite must have projection.
         Preconditions.checkState(projection != null);
         requiredOutputColumns = new ColumnRefSet(projection.getOutputColumns());

@@ -19,6 +19,7 @@ import com.google.common.collect.Lists;
 import com.starrocks.catalog.MaterializedView;
 import com.starrocks.catalog.Table;
 import com.starrocks.sql.optimizer.base.ColumnRefFactory;
+import com.starrocks.sql.optimizer.operator.OperatorType;
 import com.starrocks.sql.optimizer.operator.logical.LogicalOlapScanOperator;
 import com.starrocks.sql.optimizer.operator.scalar.ColumnRefOperator;
 import com.starrocks.sql.optimizer.operator.scalar.ScalarOperator;
@@ -104,6 +105,13 @@ public class MaterializationContext {
     }
 
     public OptExpression getMvExpression() {
+        if (mvExpression.getOp().getOpType() == OperatorType.LOGICAL_TOPN) {
+            return mvExpression.inputAt(0);
+        }
+        return mvExpression;
+    }
+
+    public OptExpression getRawMvExpr() {
         return mvExpression;
     }
 

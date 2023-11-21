@@ -511,7 +511,8 @@ public class StarRocksAssert {
 
         public void explainContains(String... keywords) throws Exception {
             String plan = explainQuery();
-            Assert.assertTrue(plan, Stream.of(keywords).allMatch(plan::contains));
+            Assert.assertTrue(String.format("plan of query: %s\n%s", sql, plan),
+                    Stream.of(keywords).allMatch(plan::contains));
         }
 
         public void explainContains(String keywords, int count) throws Exception {
@@ -519,7 +520,8 @@ public class StarRocksAssert {
         }
 
         public void explainWithout(String s) throws Exception {
-            Assert.assertFalse(explainQuery().contains(s));
+            String plan = explainQuery();
+            Assert.assertFalse(String.format("plan of query: %s\n%s", sql, plan), plan.contains(s));
         }
 
         public String explainQuery() throws Exception {

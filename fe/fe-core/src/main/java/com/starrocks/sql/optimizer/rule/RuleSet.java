@@ -151,6 +151,7 @@ import com.starrocks.sql.optimizer.rule.transformation.materialization.rule.Aggr
 import com.starrocks.sql.optimizer.rule.transformation.materialization.rule.AggregateScanRule;
 import com.starrocks.sql.optimizer.rule.transformation.materialization.rule.OnlyJoinRule;
 import com.starrocks.sql.optimizer.rule.transformation.materialization.rule.OnlyScanRule;
+import com.starrocks.sql.optimizer.rule.transformation.materialization.rule.TopNRewriteRule;
 import com.starrocks.sql.optimizer.rule.transformation.pruner.CboTablePruneRule;
 
 import java.util.List;
@@ -379,7 +380,8 @@ public class RuleSet {
 
         REWRITE_RULES.put(RuleSetType.SINGLE_TABLE_MV_REWRITE, ImmutableList.of(
                 AggregateScanRule.getInstance(),
-                OnlyScanRule.getInstance()
+                OnlyScanRule.getInstance(),
+                TopNRewriteRule.getInstance()
         ));
 
         REWRITE_RULES.put(RuleSetType.MULTI_TABLE_MV_REWRITE, ImmutableList.of(

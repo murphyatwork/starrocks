@@ -139,7 +139,7 @@ public class MaterializedViewRewriter {
         return MvUtils.isLogicalSPJ(expression);
     }
 
-    private boolean isMVApplicable(OptExpression mvExpression,
+    protected boolean isMVApplicable(OptExpression mvExpression,
                                    List<Table> queryTables,
                                    List<Table> mvTables,
                                    MatchMode matchMode,
@@ -607,7 +607,7 @@ public class MaterializedViewRewriter {
         MatchMode matchMode = getMatchMode(queryTables, mvTables);
 
         // Check whether mv can be applicable for the query.
-        if (!isMVApplicable(mvExpression, queryTables, mvTables, matchMode, queryExpression)) {
+        if (!isMVApplicable(materializationContext.getRawMvExpr(), queryTables, mvTables, matchMode, queryExpression)) {
             return null;
         }
 

@@ -15,6 +15,7 @@
 package com.starrocks.sql.optimizer.base;
 
 import com.starrocks.sql.optimizer.operator.scalar.ColumnRefOperator;
+import com.starrocks.sql.optimizer.operator.scalar.ScalarOperator;
 
 import java.util.Objects;
 
@@ -63,6 +64,17 @@ public class Ordering {
         Ordering ordering = (Ordering) o;
         return isAsc == ordering.isAsc && isNullFirst == ordering.isNullFirst &&
                 Objects.equals(columnRef, ordering.columnRef);
+    }
+
+    public boolean isEquivalent(Ordering o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        return isAsc == o.isAsc && isNullFirst == o.isNullFirst &&
+                ScalarOperator.isEquivalent(getColumnRef(), o.getColumnRef());
     }
 
     @Override
