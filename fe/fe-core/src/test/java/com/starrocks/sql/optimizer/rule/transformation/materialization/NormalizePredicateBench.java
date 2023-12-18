@@ -130,7 +130,6 @@ public class NormalizePredicateBench {
                 res = new CompoundPredicateOperator(type, res, predicate);
             }
         }
-        System.err.println("generate predicate: " + res.toString());
         return res;
     }
 
@@ -150,13 +149,24 @@ public class NormalizePredicateBench {
 
             disjuntiveList.add(Utils.compoundAnd(conjuncts));
         }
-        return Utils.compoundOr(disjuntiveList);
+
+        ScalarOperator disjunctive = Utils.compoundOr(disjuntiveList);
+
+        // append several conjunct
+        for (int i = 0; i < 3; i++) {
+            ColumnRefOperator ref = randomColumn(factory);
+            ConstantOperator constant = randomConstant(ref.getType());
+            BinaryPredicateOperator.BinaryType b = randomBinary();
+            disjunctive = Utils.compoundAnd(disjunctive, new BinaryPredicateOperator(b, ref, constant));
+        }
+
+        return disjunctive;
     }
 
-    @Benchmark
-    public void bench_NormalizePredicate_Random() {
-        ScalarOperator res = MvUtils.canonizePredicateForRewrite(randomPredicate);
-    }
+    //    @Benchmark
+    //    public void bench_NormalizePredicate_Random() {
+    //        ScalarOperator res = MvUtils.canonizePredicateForRewrite(randomPredicate);
+    //    }
 
     /**
      * (a = 1 and b = 2 and c = 3)
