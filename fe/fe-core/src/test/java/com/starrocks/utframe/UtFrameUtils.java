@@ -35,6 +35,7 @@
 package com.starrocks.utframe;
 
 import com.google.common.base.Preconditions;
+import com.google.common.base.Stopwatch;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
@@ -129,6 +130,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -688,7 +690,17 @@ public class UtFrameUtils {
             lock(dbs);
 
             if (statementBase instanceof QueryStatement) {
-                return getQueryExecPlan((QueryStatement) statementBase, connectContext);
+                Pair<String, ExecPlan> res = null;
+                for (int i = 0; i < 1000; i++) {
+                    Stopwatch watch = Stopwatch.createStarted();
+                    try {
+                        res = getQueryExecPlan((QueryStatement) statementBase, connectContext);
+                    } finally {
+                        long elapsed = watch.elapsed(TimeUnit.MILLISECONDS);
+                        System.err.println("plan takes " + elapsed + "ms");
+                    }
+                }
+                return res;
             } else if (statementBase instanceof InsertStmt) {
                 return getInsertExecPlan((InsertStmt) statementBase, connectContext);
             } else {
