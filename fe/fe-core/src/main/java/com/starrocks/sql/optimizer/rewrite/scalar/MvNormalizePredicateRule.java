@@ -22,7 +22,6 @@ import com.starrocks.analysis.BinaryType;
 import com.starrocks.sql.optimizer.Utils;
 import com.starrocks.sql.optimizer.operator.scalar.BinaryPredicateOperator;
 import com.starrocks.sql.optimizer.operator.scalar.ColumnRefOperator;
-import com.starrocks.sql.optimizer.operator.scalar.CompoundPredicateOperator;
 import com.starrocks.sql.optimizer.operator.scalar.InPredicateOperator;
 import com.starrocks.sql.optimizer.operator.scalar.ScalarOperator;
 import com.starrocks.sql.optimizer.rewrite.ScalarOperatorRewriteContext;
@@ -46,6 +45,9 @@ public class MvNormalizePredicateRule extends NormalizePredicateRule {
                 } else if (o2 == null) {
                     return 1;
                 } else {
+                    return Integer.compare(o1.hashCode(), o2.hashCode());
+
+                    /*
                     if (o1.isColumnRef() && o2.isColumnRef()) {
                         ColumnRefOperator c1 = (ColumnRefOperator) o1;
                         ColumnRefOperator c2 = (ColumnRefOperator) o2;
@@ -54,6 +56,8 @@ public class MvNormalizePredicateRule extends NormalizePredicateRule {
                             return ret;
                         }
                         return Integer.compare(c1.getId(), c2.getId());
+                    } else if (o1 instanceof CallOperator || o2 instanceof CallOperator) {
+                        return Integer.compare(o1.hashCode(), o2.hashCode());
                     } else {
                         String s1 = o1.toString().toLowerCase();
                         String s2 = o2.toString().toLowerCase();
@@ -66,12 +70,14 @@ public class MvNormalizePredicateRule extends NormalizePredicateRule {
                         ret = n1.compareTo(n2);
                         return (ret == 0) ? s1.compareTo(s2) : ret;
                     }
+                    */
                 }
             };
 
     // should maintain sequence for case:
     // a like "%hello%" and (b * c = 100 or b * c = 200)
     // (b * c = 200 or b * c = 100) and a like "%hello%"
+    /*
     @Override
     public ScalarOperator visitCompoundPredicate(CompoundPredicateOperator predicate,
                                                  ScalarOperatorRewriteContext context) {
@@ -97,6 +103,7 @@ public class MvNormalizePredicateRule extends NormalizePredicateRule {
             return predicate;
         }
     }
+     */
 
     @Override
     public ScalarOperator visitBinaryPredicate(BinaryPredicateOperator predicate,

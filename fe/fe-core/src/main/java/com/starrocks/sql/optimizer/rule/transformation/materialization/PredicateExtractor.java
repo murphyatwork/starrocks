@@ -16,6 +16,7 @@ package com.starrocks.sql.optimizer.rule.transformation.materialization;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Range;
+import com.google.common.collect.Sets;
 import com.google.common.collect.TreeRangeSet;
 import com.starrocks.analysis.BinaryType;
 import com.starrocks.sql.optimizer.Utils;
@@ -29,8 +30,10 @@ import com.starrocks.sql.optimizer.operator.scalar.ScalarOperatorVisitor;
 import com.starrocks.sql.optimizer.rule.transformation.materialization.equivalent.DateTruncReplaceChecker;
 import com.starrocks.sql.optimizer.rule.transformation.materialization.equivalent.TimeSliceReplaceChecker;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class PredicateExtractor extends ScalarOperatorVisitor<RangePredicate, PredicateExtractor.PredicateExtractorContext> {
     private final List<ScalarOperator> columnEqualityPredicates = Lists.newArrayList();
@@ -160,7 +163,7 @@ public class PredicateExtractor extends ScalarOperatorVisitor<RangePredicate, Pr
             return canonized.accept(this, context);
         }
 
-        List<RangePredicate> rangePredicates = Lists.newArrayList();
+        Set<RangePredicate> rangePredicates = Sets.newHashSet();
         for (ScalarOperator child : predicate.getChildren()) {
             boolean isAndOrigin = context.isAnd();
             if (!predicate.isAnd()) {
@@ -241,17 +244,17 @@ public class PredicateExtractor extends ScalarOperatorVisitor<RangePredicate, Pr
             }
         }
         if (predicate.isAnd()) {
-            if (rangePredicates.size() == 1 && (rangePredicates.get(0) instanceof ColumnRangePredicate)) {
-                return rangePredicates.get(0);
-            }
-            return new AndRangePredicate(rangePredicates);
+            //            if (rangePredicates.size() == 1 && (rangePredicates.get(0) instanceof ColumnRangePredicate)) {
+            //                return rangePredicates.get(0);
+            //            }
+            return new AndRangePredicate(Lists.newArrayList(rangePredicates));
         } else {
-            return new OrRangePredicate(rangePredicates);
+            return new OrRangePredicate(Lists.newArrayList(rangePredicates));
         }
     }
 
     private Optional<RangePredicate> findColumnRangePredicate(
-            List<RangePredicate> rangePredicates, ColumnRangePredicate toFind) {
+            Collection<RangePredicate> rangePredicates, ColumnRangePredicate toFind) {
         Optional<RangePredicate> rangePredicateOptional = rangePredicates.stream().filter(rangePredicate -> {
             if (!(rangePredicate instanceof ColumnRangePredicate)) {
                 return false;
