@@ -160,4 +160,8 @@ public class MaterializationContext {
     public void updateMVUsedCount() {
         this.mvUsedCount += 1;
     }
+
+    public boolean isMultiTableMV() {
+        return baseTables.size() > 1;
+    }
 }

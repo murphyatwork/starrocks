@@ -39,6 +39,8 @@ import com.starrocks.sql.optimizer.rule.transformation.materialization.MVPartiti
 import com.starrocks.sql.optimizer.rule.transformation.materialization.MaterializedViewRewriter;
 import com.starrocks.sql.optimizer.rule.transformation.materialization.MvUtils;
 import com.starrocks.sql.optimizer.rule.transformation.materialization.PredicateSplit;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.ListUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -87,6 +89,12 @@ public abstract class BaseMaterializedViewRewriteRule extends TransformationRule
             }
         } else {
             mvCandidateContexts = context.getCandidateMvs();
+        }
+
+        // Prune hit multi-table MVs
+        mvCandidateContexts.removeIf(mv -> mv.isMultiTableMV() && mv.getMVUsedCount() > 0);
+        if (CollectionUtils.isEmpty(mvCandidateContexts)) {
+            return ListUtils.EMPTY_LIST;
         }
 
         List<OptExpression> results = Lists.newArrayList();
