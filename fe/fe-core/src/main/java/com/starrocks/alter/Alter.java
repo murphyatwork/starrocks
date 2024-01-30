@@ -75,7 +75,6 @@ import com.starrocks.scheduler.TaskManager;
 import com.starrocks.server.GlobalStateMgr;
 import com.starrocks.server.LocalMetastore;
 import com.starrocks.sql.analyzer.Analyzer;
-import com.starrocks.sql.analyzer.AnalyzerUtils;
 import com.starrocks.sql.analyzer.MaterializedViewAnalyzer;
 import com.starrocks.sql.analyzer.SemanticException;
 import com.starrocks.sql.analyzer.SetStmtAnalyzer;
@@ -359,8 +358,8 @@ public class Alter {
                         "\n\nCause an error: %s", materializedView.getName(), viewDefineSql, e.getMessage(), e);
             }
 
-            Map<TableName, Table> tableNameTableMap = AnalyzerUtils.collectAllConnectorTableAndView(mvQueryStatement);
-            List<BaseTableInfo> baseTableInfos = MaterializedViewAnalyzer.getBaseTableInfos(tableNameTableMap, !isReplay);
+            List<BaseTableInfo> baseTableInfos =
+                    MaterializedViewAnalyzer.processBaseTables(mvQueryStatement, !isReplay);
             materializedView.setBaseTableInfos(baseTableInfos);
             materializedView.getRefreshScheme().getAsyncRefreshContext().clearVisibleVersionMap();
             materializedView.onReload();
