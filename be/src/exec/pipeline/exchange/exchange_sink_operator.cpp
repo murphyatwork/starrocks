@@ -744,11 +744,11 @@ Status ExchangeSinkOperator::serialize_chunk(const Chunk* src, ChunkPB* dst, boo
 
         COUNTER_UPDATE(_compressed_bytes_counter, _compression_scratch.size() * num_receivers);
         double compress_ratio = (static_cast<double>(serialized_size)) / _compression_scratch.size();
+        VLOG_ROW << "chunk compression: uncompressed size: " << serialized_size << ", compressed size: " << _compression_scratch.size();
         if (LIKELY(compress_ratio > config::rpc_compress_ratio_threshold)) {
             dst->mutable_data()->swap(reinterpret_cast<std::string&>(_compression_scratch));
             dst->set_compress_type(_compress_type);
         }
-        VLOG_ROW << "uncompressed size: " << serialized_size << ", compressed size: " << _compression_scratch.size();
     }
     return Status::OK();
 }

@@ -31,6 +31,7 @@
 #include "column/nullable_column.h"
 #include "column/object_column.h"
 #include "column/struct_column.h"
+#include "common/config.h"
 #include "gutil/strings/substitute.h"
 #include "runtime/descriptors.h"
 #include "serde/protobuf_serde.h"
@@ -118,7 +119,7 @@ uint8_t* encode_string_lz4(const void* data, size_t size, uint8_t* buff, int enc
     }
     uint64_t encode_size =
             LZ4_compress_fast(reinterpret_cast<const char*>(data), reinterpret_cast<char*>(buff + sizeof(uint64_t)),
-                              size, LZ4_compressBound(size), std::max(1, std::abs(encode_level / 10000) % 100));
+                              size, LZ4_compressBound(size), config::lz4_acceleration);
     if (encode_size <= 0) {
         throw std::runtime_error("lz4 compress error.");
     }
