@@ -899,6 +899,7 @@ set(STARROCKS_DEPENDENCIES
     avro
     serdes
     fiu
+    ALP
     ${WL_END_GROUP}
 )
 

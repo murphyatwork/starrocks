@@ -446,6 +446,7 @@ Status ExchangeSinkOperator::prepare(RuntimeState* state) {
 
     _bytes_pass_through_counter = ADD_COUNTER(_unique_metrics, "BytesPassThrough", TUnit::BYTES);
     _sender_input_bytes_counter = ADD_COUNTER(_unique_metrics, "SenderInputBytes", TUnit::BYTES);
+    _unserialized_bytes_counter = ADD_COUNTER(_unique_metrics, "UnserializedBytes", TUnit::BYTES);
     _serialized_bytes_counter = ADD_COUNTER(_unique_metrics, "SerializedBytes", TUnit::BYTES);
     _compressed_bytes_counter = ADD_COUNTER(_unique_metrics, "CompressedBytes", TUnit::BYTES);
 
@@ -677,6 +678,8 @@ Status ExchangeSinkOperator::serialize_chunk(const Chunk* src, ChunkPB* dst, boo
     VLOG_ROW << "[ExchangeSinkOperator] serializing " << src->num_rows() << " rows";
     auto send_input_bytes = serde::ProtobufChunkSerde::max_serialized_size(*src, nullptr);
     COUNTER_UPDATE(_sender_input_bytes_counter, send_input_bytes * num_receivers);
+    auto unserialized_bytes = src->bytes_usage();
+    COUNTER_UPDATE(_unserialized_bytes_counter, unserialized_bytes * num_receivers);
     int64_t serialization_time_ns = 0;
     {
         ScopedTimer<MonotonicStopWatch> _timer(_serialize_chunk_timer);
