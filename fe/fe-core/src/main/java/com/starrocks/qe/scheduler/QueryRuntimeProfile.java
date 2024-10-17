@@ -349,7 +349,9 @@ public class QueryRuntimeProfile {
         if (params.isSetProfile() && params.isDone()) {
             int fragmentIndex = execState.getFragmentIndex();
             RuntimeProfile fragmentProfile = mergedFragmentProfiles.get(fragmentIndex);
-            fragmentProfile.merge(params.profile);
+            synchronized (fragmentProfile) {
+                fragmentProfile.merge(params.profile);
+            }
         }
     }
 
