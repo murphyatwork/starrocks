@@ -35,13 +35,15 @@ public final class SummarizationCounter {
         this.strategy = strategy;
     }
 
-    public void merge(TCounter counter) {
-        if (Counter.isSkipMerge(strategy)) {
-            sum = counter.value;
-            cnt = 1;
-        } else {
-            sum += counter.value;
-            cnt++;
+    public void merge(TCounter counter, boolean updateSum) {
+        if (updateSum) {
+            if (Counter.isSkipMerge(strategy)) {
+                sum = counter.value;
+                cnt = 1;
+            } else {
+                sum += counter.value;
+                cnt++;
+            }
         }
         min = Long.min(min, counter.getValue());
         max = Long.max(max, counter.getValue());

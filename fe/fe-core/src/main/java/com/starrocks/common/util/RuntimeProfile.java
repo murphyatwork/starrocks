@@ -349,8 +349,11 @@ public class RuntimeProfile {
                     String parentName = child2ParentMap.get(topName);
 
                     String target = topName;
+                    boolean updateSum = true;
                     // For this kind of special counter, we need to merge them into another target
+                    // But since the value has been summarized, we only need to update MIN/MAX, but not SUM
                     if (topName.startsWith(MERGED_INFO_PREFIX_MIN) || topName.startsWith(MERGED_INFO_PREFIX_MAX)) {
+                        updateSum = false;
                         target = org.apache.commons.lang3.StringUtils.removeStart(target, MERGED_INFO_PREFIX_MIN);
                         target = org.apache.commons.lang3.StringUtils.removeStart(target, MERGED_INFO_PREFIX_MAX);
                     }
@@ -361,7 +364,7 @@ public class RuntimeProfile {
                         continue;
                     }
 
-                    summarization.merge(tcounter);
+                    summarization.merge(tcounter, updateSum);
                     tCounterMap.remove(topName);
                 }
 
@@ -382,7 +385,7 @@ public class RuntimeProfile {
                             addSummarizationCounter(tcounter.name, tcounter.type, tcounter.strategy, ROOT_COUNTER);
                 } else {
                     Preconditions.checkArgument(pair.first.unit == tcounter.type);
-                    pair.first.merge(tcounter);
+                    pair.first.merge(tcounter, true);
                 }
             }
 
@@ -434,8 +437,10 @@ public class RuntimeProfile {
             counterMap.put(name, Pair.create(sumCounter, parentName));
             childCounterMap.computeIfAbsent(parentName, (x) -> Sets.newHashSet()).add(name);
             if (!Counter.isSkipMinMax(counter.strategy)) {
-                counterMap.put(MERGED_INFO_PREFIX_MIN + name, Pair.create(minCounter, parentName));
-                counterMap.put(MERGED_INFO_PREFIX_MAX + name, Pair.create(maxCounter, parentName));
+                addCounter(MERGED_INFO_PREFIX_MIN + name, minCounter.getType(), minCounter.getStrategy(), name)
+                        .setValue(minCounter.getValue());
+                addCounter(MERGED_INFO_PREFIX_MAX + name, maxCounter.getType(), maxCounter.getStrategy(), name)
+                        .setValue(maxCounter.getValue());
             }
         }
         LOG.debug("finalize merge {} counters of {}", fragmentCounterMap.size(), name);
