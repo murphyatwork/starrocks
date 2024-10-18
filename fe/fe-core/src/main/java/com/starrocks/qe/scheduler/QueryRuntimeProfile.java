@@ -166,8 +166,10 @@ public class QueryRuntimeProfile {
             fragmentProfiles.add(profile);
             queryProfile.addChild(profile);
 
-            RuntimeProfile mergeProfile = new RuntimeProfile("Fragment " + i);
-            mergedFragmentProfiles.add(mergeProfile);
+            if (Config.enable_profile_jit_merge) {
+                RuntimeProfile mergeProfile = new RuntimeProfile("Fragment " + i);
+                mergedFragmentProfiles.add(mergeProfile);
+            }
         }
     }
 
@@ -308,6 +310,21 @@ public class QueryRuntimeProfile {
         }
     }
 
+    /**
+     * Merge it into fragment-profile only if this instance finish
+     */
+    public boolean mergeFragmentProfile(FragmentInstanceExecState execState, TReportExecStatusParams params) {
+        if (CollectionUtils.isNotEmpty(mergedFragmentProfiles) && params.isSetProfile() && params.isDone()) {
+            int fragmentIndex = execState.getFragmentIndex();
+            RuntimeProfile fragmentProfile = mergedFragmentProfiles.get(fragmentIndex);
+            synchronized (fragmentProfile) {
+                fragmentProfile.merge(params.profile);
+            }
+            return true;
+        }
+        return false;
+    }
+
     public void updateProfile(FragmentInstanceExecState execState, TReportExecStatusParams params) {
         if (params.isSetProfile()) {
             profileAlreadyReported = true;
@@ -343,15 +360,6 @@ public class QueryRuntimeProfile {
             ProfilingExecPlan profilingPlan = plan.getProfilingPlan();
             saveRunningProfile(profilingPlan, profile);
             LOG.debug("update profile, profilingPlan: {}, profile: {}", profilingPlan, profile);
-        }
-
-        // Merge it into fragment-profile if this instance already finished
-        if (params.isSetProfile() && params.isDone()) {
-            int fragmentIndex = execState.getFragmentIndex();
-            RuntimeProfile fragmentProfile = mergedFragmentProfiles.get(fragmentIndex);
-            synchronized (fragmentProfile) {
-                fragmentProfile.merge(params.profile);
-            }
         }
     }
 
@@ -431,9 +439,11 @@ public class QueryRuntimeProfile {
             newFragmentProfile.copyAllInfoStringsFrom(fragmentProfile, null);
             newFragmentProfile.copyAllCountersFrom(fragmentProfile);
 
-            RuntimeProfile mergedFragmentProfile = mergedFragmentProfiles.get(i);
-            mergedFragmentProfile.finalizeMerge();
-            newFragmentProfile.copyAllCountersRecursiveFrom(mergedFragmentProfile);
+            if (CollectionUtils.isNotEmpty(mergedFragmentProfiles)) {
+                RuntimeProfile mergedFragmentProfile = mergedFragmentProfiles.get(i);
+                mergedFragmentProfile.finalizeMerge();
+                newFragmentProfile.copyAllCountersRecursiveFrom(mergedFragmentProfile);
+            }
 
             if (fragmentProfile.getChildList().isEmpty()) {
                 continue;
