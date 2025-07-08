@@ -665,6 +665,16 @@ public class DecodeCollector extends OptExpressionVisitor<DecodeInfo, DecodeInfo
             markedAsGlobalDictOpt(info, column, dict.get());
         }
 
+        // FIXME: create an column in the table to reduce troubles
+        //        for (var entry : MapUtils.emptyIfNull(scan.getProjection().getColumnRefMap()).entrySet()) {
+        //            Optional<ColumnDict> dict = IDictManager.getInstance().getGlobalDict(table.getId(),
+        //                    ColumnId.create(entry.getKey().getName()));
+        //            if (dict.isPresent()) {
+        //                markedAsGlobalDictOpt(info, entry.getKey(), dict.get());
+        //            }
+        //        }
+
+
         if (info.outputStringColumns.isEmpty()) {
             return DecodeInfo.EMPTY;
         }
