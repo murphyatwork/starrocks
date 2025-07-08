@@ -33,6 +33,7 @@
 #include "types/logical_type.h"
 #include "util/json_flattener.h"
 #include "util/runtime_profile.h"
+#include "util/stack_util.h"
 
 namespace starrocks {
 

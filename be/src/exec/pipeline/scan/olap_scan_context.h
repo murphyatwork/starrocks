@@ -138,6 +138,9 @@ public:
     }
 
 private:
+    // Extend the access path conjuncts like: get_json_int(data, 'f1') = 1
+    void _extend_access_path_conjuncts(TupleDescriptor* tuple_desc);
+
     OlapScanNode* _scan_node;
     int64_t _scan_table_id;
 

@@ -329,6 +329,12 @@ Status OlapChunkSource::_init_reader_params(const std::vector<std::unique_ptr<Ol
 }
 
 Status OlapChunkSource::_init_scanner_columns(std::vector<uint32_t>& scanner_columns) {
+    auto access_paths = _scan_ctx->column_access_paths();
+    for (auto& path : *access_paths) {
+        LOG(INFO) << fmt::format("access path: path={} absolute_path={} debug={} full_path={}", path->path(),
+                                 path->absolute_path(), path->to_string(), path->full_path());
+    }
+
     for (auto slot : *_slots) {
         DCHECK(slot->is_materialized());
         int32_t index;
@@ -339,14 +345,27 @@ Status OlapChunkSource::_init_scanner_columns(std::vector<uint32_t>& scanner_col
         } else {
             index = _tablet_schema->field_index(slot->col_name());
         }
+
+        bool is_access_path = false;
         if (index < 0) {
-            std::stringstream ss;
-            ss << "invalid field name: " << slot->col_name();
-            LOG(WARNING) << ss.str();
-            return Status::InternalError(ss.str());
+            // check if it's a access path
+            for (auto& path : *access_paths) {
+                if (slot->col_name() == path->full_path()) {
+                    is_access_path = true;
+                    index = _tablet_schema->num_columns() + 1;
+                    // _unused_output_column_ids.emplace(index);
+                    break;
+                }
+            }
+            if (!is_access_path) {
+                std::stringstream ss;
+                ss << "invalid field name: " << slot->col_name();
+                LOG(WARNING) << ss.str();
+                return Status::InternalError(ss.str());
+            }
         }
         scanner_columns.push_back(index);
-        if (!_unused_output_column_ids.count(index)) {
+        if (!_unused_output_column_ids.count(index) && !is_access_path) {
             _query_slots.push_back(slot);
         }
     }
@@ -495,6 +514,37 @@ Status OlapChunkSource::_init_olap_reader(RuntimeState* runtime_state) {
         } else {
             _tablet_schema = _tablet->tablet_schema();
         }
+    }
+
+    // Extend the tablet_schema with access path columns
+    {
+        TabletSchemaSPtr tmp_schema = TabletSchema::copy(*_tablet_schema);
+        auto access_paths = _scan_ctx->column_access_paths();
+        int field_number = tmp_schema->num_columns();
+        for (auto& path : *access_paths) {
+            int root_column_index = _tablet_schema->field_index(path->path());
+            RETURN_IF(root_column_index < 0, Status::RuntimeError("cannot find " + path->path()));
+            const TabletColumn& root_column = _tablet_schema->column(root_column_index);
+
+            TabletColumn column;
+            column.set_name(path->full_path());
+            column.set_unique_id(++field_number);
+            // FIXME: retrieve the type from json path
+            if (path->value_type().type == TYPE_BIGINT || path->value_type().type == TYPE_INT) {
+                column.set_type(TYPE_BIGINT);
+                column.set_length(8);
+            } else if (path->value_type().type == TYPE_VARCHAR) {
+                column.set_type(TYPE_VARCHAR);
+                column.set_is_nullable(true);
+            }
+            column.set_extended(true);
+            column.set_access_path(path.get());
+            column.set_source_column(&root_column);
+
+            tmp_schema->append_column(column);
+            LOG(INFO) << "extend the access path column: " << path->full_path();
+        }
+        _tablet_schema = tmp_schema;
     }
 
     RETURN_IF_ERROR(_init_global_dicts(&_params));

@@ -2411,4 +2411,14 @@ public class PlanFragmentWithCostTest extends PlanWithCostTestBase {
             connectContext.getSessionVariable().setBroadcastRowCountLimit(originLimit);
         }
     }
+
+    @Test
+    public void testExtendPredicate() throws Exception {
+        starRocksAssert.withTable("create table extend_predicate( c1 int, c2 json ) properties('replication_num'='1')"
+                + " ");
+        String sql = "select * from extend_predicate where get_json_int(c2, 'f1') = 123";
+        ExecPlan execPlan = getExecPlan(sql);
+        String plan = getFragmentPlan(sql);
+        assertContains(plan, "PREDICATES: get_json_int(2: c2, 'f1') = 123, c2.f1 = 123");
+    }
 }

@@ -15,12 +15,13 @@
 package com.starrocks.catalog;
 
 import com.google.api.client.util.Lists;
+import com.google.common.base.Preconditions;
 import com.starrocks.analysis.StringLiteral;
 import com.starrocks.thrift.TAccessPathType;
 import com.starrocks.thrift.TColumnAccessPath;
-
 import java.util.List;
 import java.util.stream.Collectors;
+import org.apache.commons.collections.CollectionUtils;
 
 /*
  * ColumnAccessPath is used to describe the access path of a complex(Map/Struct/Json) column.
@@ -78,6 +79,28 @@ public class ColumnAccessPath {
 
     public String getPath() {
         return path;
+    }
+
+    public String getFullPath() {
+        ColumnAccessPath iter = this;
+        StringBuilder sb = new StringBuilder();
+        while (true) {
+            if (sb.isEmpty()) {
+                sb.append(iter.path);
+            } else {
+                sb.append(".");
+                sb.append(iter.path);
+            }
+
+            if (CollectionUtils.isEmpty(iter.children)) {
+                break;
+            } else if (CollectionUtils.size(iter.children) == 1) {
+                iter = iter.children.get(0);
+            } else {
+                Preconditions.checkState(false, "unreachable");
+            }
+        }
+        return sb.toString();
     }
 
     public boolean onlyRoot() {

@@ -371,7 +371,15 @@ void Chunk::check_or_die() {
         CHECK(_slot_id_to_index.empty());
     } else {
         for (const ColumnPtr& c : _columns) {
-            CHECK_EQ(num_rows(), c->size());
+            if (num_rows() != c->size()) {
+                for (int i = 0; i < _schema->fields().size(); i++) {
+                    auto& field = _schema->field(i);
+                    auto& column = _columns[i];
+                    LOG(INFO) << fmt::format("column id={} name={} debug={}", field->id(), field->name(),
+                                             column->debug_string());
+                }
+                CHECK_EQ(num_rows(), c->size()) << " num_columns=" << _columns.size();
+            }
             c->check_or_die();
         }
     }

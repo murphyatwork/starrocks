@@ -614,6 +614,7 @@ Status ScalarColumnIterator::_do_decode_dict_codes(const int32_t* codes, size_t 
             slices.emplace_back("");
         }
     }
+    // TODO: optimize the performance bottleneck, this copy pattern can be optimized as a string scatter
     [[maybe_unused]] bool ok = words->append_strings(slices);
     DCHECK(ok);
     _opts.stats->bytes_read += static_cast<int64_t>(words->byte_size() + BitmapSize(slices.size()));

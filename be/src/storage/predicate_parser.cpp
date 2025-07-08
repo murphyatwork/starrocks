@@ -125,6 +125,8 @@ bool OlapPredicateParser::can_pushdown(const ConstPredicateNodePtr& pred_tree) c
 
 template <typename ConditionType>
 ColumnPredicate* OlapPredicateParser::t_parse_thrift_cond(const ConditionType& condition) const {
+    LOG(INFO) << "t_parse_thrift_cond: " << condition.column_name << ", schema=" << _schema->debug_string();
+
     const size_t index = _schema->field_index(condition.column_name);
     RETURN_IF(index >= _schema->num_columns(), nullptr);
     const TabletColumn& col = _schema->column(index);

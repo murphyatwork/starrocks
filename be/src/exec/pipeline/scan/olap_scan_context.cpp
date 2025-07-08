@@ -14,9 +14,12 @@
 
 #include "exec/pipeline/scan/olap_scan_context.h"
 
+#include "exec/exec_node.h"
 #include "exec/olap_scan_node.h"
 #include "exec/pipeline/fragment_context.h"
 #include "exprs/runtime_filter_bank.h"
+#include "runtime/descriptors.h"
+#include "runtime/types.h"
 #include "storage/tablet.h"
 
 namespace starrocks::pipeline {
@@ -102,15 +105,53 @@ Status OlapScanContext::capture_tablet_rowsets(const std::vector<TInternalScanRa
     return Status::OK();
 }
 
+void OlapScanContext::_extend_access_path_conjuncts(TupleDescriptor* tuple_desc) {
+    std::vector<ExprContext*> extended_conjuncts;
+    for (ExprContext* expr_ctx : _conjunct_ctxs) {
+        Expr* expr = expr_ctx->root();
+
+        // FIXME(murphy)
+        // Check the expression shape like: get_json_int(data, 'f1') = 123
+        Expr* left = expr->get_child(0);
+        if (left->node_type() == TExprNodeType::FUNCTION_CALL) {
+            const TFunction& fn = left->fn();
+            if (fn.name.function_name == "get_json_int") {
+                Expr* slot_ref = left->get_child(0);
+                DCHECK(slot_ref->node_type() == TExprNodeType::SLOT_REF);
+                ColumnRef* real_slot_ref = (ColumnRef*)slot_ref;
+
+                // FIXME: generate a Slot
+                // FIXME: add a new slot in the descriptor table
+                SlotDescriptor* slot_desc =
+                        new SlotDescriptor(real_slot_ref->slot_id(), "data.f1", TypeDescriptor(TYPE_INT));
+                tuple_desc->add_slot(slot_desc);
+                ColumnRef* new_ref = new ColumnRef(slot_desc);
+                ExprContext* new_ref_ctx = new ExprContext(new_ref);
+                extended_conjuncts.push_back(new_ref_ctx);
+            }
+        }
+    }
+
+    _conjunct_ctxs.insert(_conjunct_ctxs.end(), extended_conjuncts.begin(), extended_conjuncts.end());
+}
+
 Status OlapScanContext::parse_conjuncts(RuntimeState* state, const std::vector<ExprContext*>& runtime_in_filters,
                                         RuntimeFilterProbeCollector* runtime_bloom_filters, int32_t driver_sequence) {
     TEST_ERROR_POINT("OlapScanContext::parse_conjuncts");
     const TOlapScanNode& thrift_olap_scan_node = _scan_node->thrift_olap_scan_node();
-    const TupleDescriptor* tuple_desc = state->desc_tbl().get_tuple_descriptor(thrift_olap_scan_node.tuple_id);
+    TupleDescriptor* tuple_desc = state->desc_tbl().get_tuple_descriptor(thrift_olap_scan_node.tuple_id);
 
     // Get _conjunct_ctxs.
     _conjunct_ctxs = _scan_node->conjunct_ctxs();
     _conjunct_ctxs.insert(_conjunct_ctxs.end(), runtime_in_filters.begin(), runtime_in_filters.end());
+
+    for (ExprContext* expr_ctx : _conjunct_ctxs) {
+        LOG(INFO) << "parse_conjuncts:" << expr_ctx->root()->debug_string();
+    }
+
+    for (auto& slot_desc : tuple_desc->decoded_slots()) {
+        LOG(INFO) << "parse_conjuncts slot=" << slot_desc->debug_string();
+    }
 
     // eval_const_conjuncts.
     Status status;
@@ -118,6 +159,9 @@ Status OlapScanContext::parse_conjuncts(RuntimeState* state, const std::vector<E
     if (!status.ok()) {
         return status;
     }
+
+    // Build extended predicates
+    // _extend_access_path_conjuncts(tuple_desc);
 
     // Init _conjuncts_manager.
     const TQueryOptions& query_options = state->query_options();

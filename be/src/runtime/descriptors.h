@@ -470,6 +470,8 @@ public:
 
     void to_protobuf(PTupleDescriptor* ptuple) const;
 
+    void add_slot(SlotDescriptor* slot);
+
 private:
     friend class DescriptorTbl;
     friend class OlapTableSchemaParam;
@@ -484,7 +486,7 @@ private:
 
     TupleDescriptor(const TTupleDescriptor& tdesc);
     TupleDescriptor(const PTupleDescriptor& tdesc);
-    void add_slot(SlotDescriptor* slot);
+    // void add_slot(SlotDescriptor* slot);
 };
 
 class DescriptorTbl {
