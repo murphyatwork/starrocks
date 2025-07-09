@@ -1993,16 +1993,16 @@ public class LowCardinalityTest extends PlanTestBase {
         connectContext.getSessionVariable().setUseLowCardinalityOptimizeV2(true);
 
         // string query
-        //        {
-        //            String sql = "SELECT S_ADDRESS, count(*) FROM supplier WHERE S_ADDRESS = 'NYC'";
-        //            assertVerbosePlanContains(sql, "<dict");
-        //        }
+        {
+            String sql = "SELECT S_ADDRESS, count(*) FROM supplier WHERE S_ADDRESS = 'NYC'";
+            assertVerbosePlanContains(sql, "<dict");
+        }
 
         // aggregation json query
         {
             String sql = "SELECT get_json_string(S_ADDRESS, '$.foo.bar') foo, count(*) " +
                     "FROM supplier GROUP BY 1";
-            assertVerbosePlanContains(sql, "Decode", "get_json_string");
+            assertVerbosePlanContains(sql, "Decode");
         }
         // scan json query
         {

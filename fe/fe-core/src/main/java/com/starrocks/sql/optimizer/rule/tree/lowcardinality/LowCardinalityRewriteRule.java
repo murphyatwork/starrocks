@@ -138,6 +138,7 @@ public class LowCardinalityRewriteRule implements TreeRewriteRule {
                 for (Column col : rewrittenColumn.values()) {
                     scanOperator.getTable().addColumn(col);
                 }
+                rewrittenColumn.putAll(scanOperator.getColRefToColumnMetaMap());
 
                 PhysicalScanOperator newOp =
                         PhysicalOlapScanOperator.builder().withOperator(scanOperator)

@@ -394,7 +394,11 @@ public class SessionVariable implements Serializable, Writable, Cloneable {
     public static final String CBO_PRUNE_SUBFIELD = "cbo_prune_subfield";
     public static final String CBO_PRUNE_JSON_SUBFIELD = "cbo_prune_json_subfield";
     public static final String CBO_PRUNE_JSON_SUBFIELD_DEPTH = "cbo_prune_json_subfield_depth";
+
+    // FIXME
     public static final String CBO_REWRITE_JSON_PATH_DICT = "cbo_rewrite_json_path_dict";
+    public static final String CBO_REWRITE_JSON_PATH_COLUMN = "cbo_rewrite_json_path_column";
+
     public static final String CBO_PUSH_DOWN_AGG_WITH_MULTI_COLUMN_STATS = "cbo_push_down_aggregate_with_multi_column_stats";
     public static final String CBO_USE_HISTOGRAM_EVALUDATE_LIST_PARTITION = "cbo_use_histogram_evaluate_list_partition";
     public static final String ENABLE_OPTIMIZER_REWRITE_GROUPINGSETS_TO_UNION_ALL =
@@ -1221,6 +1225,9 @@ public class SessionVariable implements Serializable, Writable, Cloneable {
     @VarAttr(name = CBO_REWRITE_JSON_PATH_DICT)
     private boolean cboRewriteJsonPathDict = true;
 
+    @VarAttr(name = CBO_REWRITE_JSON_PATH_COLUMN)
+    private boolean cboRewriteJsonPathColumn = true;
+
     @VarAttr(name = CBO_USE_HISTOGRAM_EVALUDATE_LIST_PARTITION, flag = VariableMgr.INVISIBLE)
     private boolean cboUseHistogramEvaluateListPartition = false;
 
@@ -1899,6 +1906,14 @@ public class SessionVariable implements Serializable, Writable, Cloneable {
 
     public void setCboRewriteJsonPathDict(boolean cboRewriteJsonPathDict) {
         this.cboRewriteJsonPathDict = cboRewriteJsonPathDict;
+    }
+
+    public boolean isCboRewriteJsonPathColumn() {
+        return cboRewriteJsonPathColumn;
+    }
+
+    public void setCboRewriteJsonPathColumn(boolean cboRewriteJsonPathColumn) {
+        this.cboRewriteJsonPathColumn = cboRewriteJsonPathColumn;
     }
 
     public boolean isCboUseHistogramEvaluateListPartition() {

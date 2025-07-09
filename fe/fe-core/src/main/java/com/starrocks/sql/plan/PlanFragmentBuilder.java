@@ -14,12 +14,6 @@
 
 package com.starrocks.sql.plan;
 
-import static com.starrocks.analysis.BinaryType.EQ_FOR_NULL;
-import static com.starrocks.catalog.Function.CompareMode.IS_NONSTRICT_SUPERTYPE_OF;
-import static com.starrocks.sql.common.ErrorType.INTERNAL_ERROR;
-import static com.starrocks.sql.common.UnsupportedException.unsupportedException;
-import static com.starrocks.sql.optimizer.operator.scalar.ScalarOperator.isColumnEqualConstant;
-
 import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -224,6 +218,13 @@ import com.starrocks.thrift.TFileScanType;
 import com.starrocks.thrift.TPartitionType;
 import com.starrocks.thrift.TResultSinkType;
 import com.starrocks.warehouse.cngroup.ComputeResource;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.NotImplementedException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -239,12 +240,12 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.MapUtils;
-import org.apache.commons.lang3.NotImplementedException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
+
+import static com.starrocks.analysis.BinaryType.EQ_FOR_NULL;
+import static com.starrocks.catalog.Function.CompareMode.IS_NONSTRICT_SUPERTYPE_OF;
+import static com.starrocks.sql.common.ErrorType.INTERNAL_ERROR;
+import static com.starrocks.sql.common.UnsupportedException.unsupportedException;
+import static com.starrocks.sql.optimizer.operator.scalar.ScalarOperator.isColumnEqualConstant;
 
 /**
  * PlanFragmentBuilder used to transform physical operator to exec plan fragment
@@ -1068,49 +1069,51 @@ public class PlanFragmentBuilder {
             ScalarOperatorToExpr.FormatterContext formatterContext =
                     new ScalarOperatorToExpr.FormatterContext(context.getColRefToExpr());
 
-            Map<String, ColumnRefOperator> accessPathMap = Maps.newHashMap();
+            SessionVariable variables = context.getConnectContext().getSessionVariable();
             for (ScalarOperator predicate : predicates) {
                 // hack the access path predicate
                 boolean skip = false;
-                if (predicate instanceof BinaryPredicateOperator binaryPredicateOperator) {
-                    ScalarOperator left = binaryPredicateOperator.getChild(0);
-                    if (left instanceof CallOperator callOperator
-                            && (callOperator.getFunction().functionName().equals("get_json_int")
-                                    || callOperator.getFunction().functionName().equals("get_json_string"))) {
-                        skip = true;
-                        ColumnRefOperator columnRefOperator = (ColumnRefOperator) callOperator.getChild(0);
-                        String path = columnRefOperator.getName() + "." + callOperator.getChild(1).toString();
-                        boolean isIntType = callOperator.getFunction().functionName().equals("get_json_int");
+                if (variables.isCboRewriteJsonPathColumn()) {
+                    if (predicate instanceof BinaryPredicateOperator binaryPredicateOperator) {
+                        ScalarOperator left = binaryPredicateOperator.getChild(0);
+                        if (left instanceof CallOperator callOperator
+                                && (callOperator.getFunction().functionName().equals("get_json_int")
+                                || callOperator.getFunction().functionName().equals("get_json_string"))) {
+                            skip = true;
+                            ColumnRefOperator columnRefOperator = (ColumnRefOperator) callOperator.getChild(0);
+                            String path = columnRefOperator.getName() + "." + callOperator.getChild(1).toString();
+                            boolean isIntType = callOperator.getFunction().functionName().equals("get_json_int");
 
-                        for (ColumnAccessPath accessPath : scanNode.getColumnAccessPaths()) {
-                            if (accessPath.getFullPath().equals(path)) {
-                                accessPath.setValueType(isIntType ? Type.INT : Type.STRING);
-                                break;
+                            for (ColumnAccessPath accessPath : scanNode.getColumnAccessPaths()) {
+                                if (accessPath.getFullPath().equals(path)) {
+                                    accessPath.setValueType(isIntType ? Type.INT : Type.STRING);
+                                    break;
+                                }
                             }
+
+                            Column column = new Column(path, isIntType ? Type.INT : Type.STRING, true);
+                            column.setUniqueId(13579);
+                            column.setColumnId(ColumnId.create(path));
+
+                            SlotDescriptor slotDesc = context.getDescTbl().addSlotDescriptor(
+                                    tupleDescriptor, new SlotId(column.getUniqueId()));
+                            slotDesc.setColumn(column);
+                            slotDesc.setIsNullable(column.isAllowNull());
+                            slotDesc.setIsMaterialized(true);
+                            LOG.info("add a slot for access path {}", slotDesc);
+
+                            ColumnRefOperator columnRef = new ColumnRefOperator(
+                                    column.getUniqueId(), column.getType(), column.getName(), column.isAllowNull());
+                            context.getColRefToExpr().put(columnRef, new SlotRef(column.getName(), slotDesc));
+
+                            // build a new predicate
+                            BinaryPredicateOperator newPredicate =
+                                    new BinaryPredicateOperator(binaryPredicateOperator.getBinaryType(), columnRef,
+                                            binaryPredicateOperator.getChild(1));
+
+                            scanNode.getConjuncts().add(
+                                    ScalarOperatorToExpr.buildExecExpression(newPredicate, formatterContext));
                         }
-
-                        Column column = new Column(path, isIntType ? Type.INT : Type.STRING, true);
-                        column.setUniqueId(13579);
-                        column.setColumnId(ColumnId.create(path));
-
-                        SlotDescriptor slotDesc = context.getDescTbl().addSlotDescriptor(
-                                tupleDescriptor, new SlotId(column.getUniqueId()));
-                        slotDesc.setColumn(column);
-                        slotDesc.setIsNullable(column.isAllowNull());
-                        slotDesc.setIsMaterialized(true);
-                        LOG.info("add a slot for access path {}", slotDesc);
-
-                        ColumnRefOperator columnRef = new ColumnRefOperator(
-                                column.getUniqueId(), column.getType(), column.getName(), column.isAllowNull());
-                        context.getColRefToExpr().put(columnRef, new SlotRef(column.getName(), slotDesc));
-
-                        // build a new predicate
-                        BinaryPredicateOperator newPredicate =
-                                new BinaryPredicateOperator(binaryPredicateOperator.getBinaryType(), columnRef,
-                                        binaryPredicateOperator.getChild(1));
-
-                        scanNode.getConjuncts().add(
-                                ScalarOperatorToExpr.buildExecExpression(newPredicate, formatterContext));
                     }
                 }
 
