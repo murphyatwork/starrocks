@@ -14,8 +14,12 @@
 
 package com.starrocks.sql.optimizer.rule.tree.lowcardinality;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import com.starrocks.catalog.Column;
+import com.starrocks.catalog.ColumnAccessPath;
+import com.starrocks.catalog.Type;
 import com.starrocks.qe.SessionVariable;
 import com.starrocks.sql.optimizer.OptExpression;
 import com.starrocks.sql.optimizer.OptExpressionVisitor;
@@ -30,13 +34,16 @@ import com.starrocks.sql.optimizer.operator.scalar.ConstantOperator;
 import com.starrocks.sql.optimizer.operator.scalar.ScalarOperator;
 import com.starrocks.sql.optimizer.rule.tree.TreeRewriteRule;
 import com.starrocks.sql.optimizer.task.TaskContext;
+import com.starrocks.thrift.TAccessPathType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
+
 
 public class LowCardinalityRewriteRule implements TreeRewriteRule {
 
@@ -100,6 +107,7 @@ public class LowCardinalityRewriteRule implements TreeRewriteRule {
         private final ColumnRefFactory factory;
         private final Map<ColumnRefOperator, CallOperator> rewrittenMap;
         private final Map<ColumnRefOperator, Column> rewrittenColumn = Maps.newHashMap();
+        private final Set<ColumnAccessPath> rewrittenAccessPath = Sets.newHashSet();
         private final Map<String, ColumnRefOperator> jsonPathRewrittenMap = Maps.newHashMap();
 
         public GetJsonStringRewriter(ColumnRefFactory factory, Map<ColumnRefOperator, CallOperator> rewrittenMap) {
@@ -125,7 +133,8 @@ public class LowCardinalityRewriteRule implements TreeRewriteRule {
                 op.setProjection(newProj);
             }
             if (op.getPredicate() != null) {
-                op.setPredicate(rewriteScalar(op.getPredicate()));
+                ScalarOperator rewrittenPredicate = rewriteScalar(op.getPredicate());
+                op.setPredicate(rewrittenPredicate);
             }
             List<OptExpression> newInputs = opt.getInputs().stream()
                     .map(child -> child.getOp().accept(this, child, null))
@@ -139,6 +148,9 @@ public class LowCardinalityRewriteRule implements TreeRewriteRule {
                     scanOperator.getTable().addColumn(col);
                 }
                 rewrittenColumn.putAll(scanOperator.getColRefToColumnMetaMap());
+
+                // add the original json access path to the scan operator
+                scanOperator.setColumnAccessPaths(Lists.newArrayList(rewrittenAccessPath));
 
                 PhysicalScanOperator newOp =
                         PhysicalOlapScanOperator.builder().withOperator(scanOperator)
@@ -156,20 +168,32 @@ public class LowCardinalityRewriteRule implements TreeRewriteRule {
             if (scalar instanceof CallOperator) {
                 CallOperator call = (CallOperator) scalar;
                 if ("get_json_string".equalsIgnoreCase(call.getFnName()) && call.getChildren().size() == 2) {
+                    ColumnRefOperator jsonColumn = call.getChild(0).cast();
                     ScalarOperator jsonPathArg = call.getChild(1);
                     if (jsonPathArg instanceof ConstantOperator) {
-                        String jsonPath = ((ConstantOperator) jsonPathArg).getVarchar();
+                        String jsonPath = jsonColumn.getName() + "." + ((ConstantOperator) jsonPathArg).getVarchar();
                         // Use the type and nullability of the call for the new column
                         if (jsonPathRewrittenMap.containsKey(jsonPath)) {
                             ColumnRefOperator ref = jsonPathRewrittenMap.get(jsonPath);
                             rewrittenMap.put(ref, call);
                             return ref;
                         }
+
+                        // create a column ref
                         ColumnRefOperator colRef = factory.create(jsonPath, call.getType(), call.isNullable());
                         rewrittenMap.put(colRef, call);
                         jsonPathRewrittenMap.put(jsonPath, colRef);
+
+                        // create a column
                         Column column = new Column(jsonPath, call.getType(), call.isNullable());
                         rewrittenColumn.put(colRef, column);
+
+                        // add to the column access path
+                        ColumnAccessPath accessPath = new ColumnAccessPath(TAccessPathType.ROOT, jsonColumn.getName(),
+                                Type.STRING);
+                        String pathName = ((ConstantOperator) jsonPathArg).getVarchar();
+                        accessPath.addChildPath(new ColumnAccessPath(TAccessPathType.FIELD, pathName, Type.STRING));
+                        rewrittenAccessPath.add(accessPath);
                         return colRef;
                     }
                 }

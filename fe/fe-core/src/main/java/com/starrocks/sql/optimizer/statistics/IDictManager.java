@@ -17,6 +17,8 @@ package com.starrocks.sql.optimizer.statistics;
 
 import com.starrocks.catalog.ColumnId;
 import com.starrocks.common.FeConstants;
+import com.starrocks.qe.ConnectContext;
+import com.starrocks.qe.SessionVariable;
 
 import java.util.Optional;
 
@@ -37,7 +39,8 @@ public interface IDictManager {
     Optional<ColumnDict> getGlobalDict(long tableId, ColumnId columnName);
 
     static IDictManager getInstance() {
-        if (FeConstants.USE_MOCK_DICT_MANAGER) {
+        SessionVariable variables = ConnectContext.get() == null ? null : ConnectContext.get().getSessionVariable();
+        if (FeConstants.USE_MOCK_DICT_MANAGER || (variables != null && variables.isMockGlobalDict())) {
             return MockDictManager.getInstance();
         } else {
             return CacheDictManager.getInstance();

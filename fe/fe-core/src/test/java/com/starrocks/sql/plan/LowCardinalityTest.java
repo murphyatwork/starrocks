@@ -2002,13 +2002,13 @@ public class LowCardinalityTest extends PlanTestBase {
         {
             String sql = "SELECT get_json_string(S_ADDRESS, '$.foo.bar') foo, count(*) " +
                     "FROM supplier GROUP BY 1";
-            assertVerbosePlanContains(sql, "Decode");
+            assertVerbosePlanContains(sql, "Decode", "ColumnAccessPath: [/S_ADDRESS/$.foo.bar(varchar(1048576))]");
         }
         // scan json query
         {
             String sql = "SELECT get_json_string(S_ADDRESS, '$.foo.bar') foo " +
                     "FROM supplier WHERE get_json_string(S_ADDRESS, '$.foo.bar') = 'NYC' ";
-            assertVerbosePlanContains(sql, "DictDecode", "get_json_string");
+            assertVerbosePlanContains(sql, "DictDecode", "ColumnAccessPath: [/S_ADDRESS/$.foo.bar(varchar(1048576))]");
         }
     }
 

@@ -1228,6 +1228,17 @@ public class SessionVariable implements Serializable, Writable, Cloneable {
     @VarAttr(name = CBO_REWRITE_JSON_PATH_COLUMN)
     private boolean cboRewriteJsonPathColumn = true;
 
+    @VarAttr(name = "mock_dict")
+    private boolean mockGlobalDict = false;
+
+    public boolean isMockGlobalDict() {
+        return mockGlobalDict;
+    }
+
+    public void setMockGlobalDict(boolean mockGlobalDict) {
+        this.mockGlobalDict = mockGlobalDict;
+    }
+
     @VarAttr(name = CBO_USE_HISTOGRAM_EVALUDATE_LIST_PARTITION, flag = VariableMgr.INVISIBLE)
     private boolean cboUseHistogramEvaluateListPartition = false;
 

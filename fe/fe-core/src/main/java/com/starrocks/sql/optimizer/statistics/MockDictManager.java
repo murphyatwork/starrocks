@@ -25,7 +25,11 @@ import java.util.Optional;
 public class MockDictManager implements IDictManager {
 
     private static final ImmutableMap<ByteBuffer, Integer> MOCK_DICT =
-            ImmutableMap.of(ByteBuffer.wrap("mock".getBytes(StandardCharsets.UTF_8)), 1);
+            ImmutableMap.<ByteBuffer, Integer>builder()
+                    .put(ByteBuffer.wrap("mock1".getBytes(StandardCharsets.UTF_8)), 1)
+                    .put(ByteBuffer.wrap("mock2".getBytes(StandardCharsets.UTF_8)), 2)
+                    .put(ByteBuffer.wrap("mock3".getBytes(StandardCharsets.UTF_8)), 3)
+                    .build();
     private static final ColumnDict COLUMN_DICT = new ColumnDict(MOCK_DICT, 1);
 
     private MockDictManager() {

@@ -19,9 +19,10 @@ import com.google.common.base.Preconditions;
 import com.starrocks.analysis.StringLiteral;
 import com.starrocks.thrift.TAccessPathType;
 import com.starrocks.thrift.TColumnAccessPath;
+import org.apache.commons.collections.CollectionUtils;
+
 import java.util.List;
 import java.util.stream.Collectors;
-import org.apache.commons.collections.CollectionUtils;
 
 /*
  * ColumnAccessPath is used to describe the access path of a complex(Map/Struct/Json) column.
