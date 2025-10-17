@@ -24,11 +24,13 @@ import mockit.Expectations;
 import mockit.Mocked;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static com.starrocks.sql.analyzer.AnalyzeTestUtil.analyzeFail;
 import static com.starrocks.sql.analyzer.AnalyzeTestUtil.analyzeSuccess;
 import static com.starrocks.sql.analyzer.AnalyzeTestUtil.getStarRocksAssert;
 
+@Tag("fast")
 public class AnalyzeDropTableTest {
     @BeforeAll
     public static void beforeClass() throws Exception {

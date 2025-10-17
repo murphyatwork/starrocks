@@ -22,6 +22,7 @@ import mockit.Mock;
 import mockit.MockUp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 import org.mockito.MockedStatic;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mockStatic;
 
+@Tag("fast")
 public class CurrentGlobalQueryStatisticsProcDirTest {
 
     public static final QueryStatisticsInfo QUERY_ONE_LOCAL = new QueryStatisticsInfo()

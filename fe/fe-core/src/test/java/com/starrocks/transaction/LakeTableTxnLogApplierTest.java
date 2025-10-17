@@ -18,7 +18,9 @@ import com.starrocks.lake.LakeTable;
 import com.starrocks.lake.compaction.CompactionTxnCommitAttachment;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class LakeTableTxnLogApplierTest extends LakeTableTestHelper {
     @Test
     public void testCommitAndApply() {

@@ -21,8 +21,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.Tag;
 
 @TestMethodOrder(MethodName.class)
+@Tag("fast")
 public class MvRewriteNestedMVTest extends MVTestBase {
 
     @BeforeAll

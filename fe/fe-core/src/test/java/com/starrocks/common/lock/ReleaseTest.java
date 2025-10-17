@@ -21,12 +21,14 @@ import com.starrocks.server.GlobalStateMgr;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.concurrent.Future;
 
 import static com.starrocks.common.lock.LockTestUtils.assertLockSuccess;
 import static com.starrocks.common.lock.LockTestUtils.assertLockWait;
 
+@Tag("fast")
 public class ReleaseTest {
     @BeforeEach
     public void setUp() {

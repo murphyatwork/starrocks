@@ -16,7 +16,9 @@
 package com.starrocks.sql.plan;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class BITest extends PlanTestBase {
     @Test
     public void testMetabaseQueryColumn() throws Exception {

@@ -50,6 +50,7 @@ import mockit.Mocked;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Map;
 import java.util.Queue;
@@ -57,6 +58,7 @@ import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
+@Tag("fast")
 public class RoutineLoadTaskSchedulerTest {
 
     @Mocked

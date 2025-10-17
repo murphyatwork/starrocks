@@ -50,6 +50,7 @@ import mockit.Mocked;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +59,7 @@ import java.util.Optional;
 
 import static com.starrocks.server.CatalogMgr.ResourceMappingCatalog.toResourceName;
 
+@Tag("fast")
 public class ObjectBasedUpdateArbitratorTest {
     private static ConnectContext connectContext;
     private static StarRocksAssert starRocksAssert;

@@ -36,9 +36,11 @@ import mockit.Injectable;
 import mockit.Mocked;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@Tag("fast")
 public class LoadLoadingTaskTest {
     @Injectable
     private ConnectContext connectContext;

@@ -16,10 +16,12 @@ package com.starrocks.planner;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 /**
  * Run all tests in MaterializedViewTest in multi stage mode.
  */
+@Tag("fast")
 public class MaterializedViewWithMultiStageTest extends MaterializedViewTest {
     @BeforeAll
     public static void beforeClass() throws Exception {

@@ -33,6 +33,7 @@ import mockit.Expectations;
 import mockit.Mocked;
 import mockit.Verifications;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Tag;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+@Tag("fast")
 public class InsertPlannerTest {
 
     @Test

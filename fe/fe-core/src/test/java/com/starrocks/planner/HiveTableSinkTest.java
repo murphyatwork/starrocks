@@ -40,12 +40,14 @@ import mockit.Mocked;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.HashMap;
 
 import static com.starrocks.server.CatalogMgr.ResourceMappingCatalog.toResourceName;
 import static com.starrocks.sql.analyzer.AnalyzeTestUtil.getStarRocksAssert;
 
+@Tag("fast")
 public class HiveTableSinkTest {
     @BeforeAll
     public static void beforeClass() throws Exception {

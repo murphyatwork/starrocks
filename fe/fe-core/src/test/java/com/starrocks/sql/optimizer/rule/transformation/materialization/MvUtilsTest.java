@@ -44,6 +44,7 @@ import com.starrocks.utframe.UtFrameUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -51,6 +52,7 @@ import java.util.Set;
 import static com.starrocks.sql.optimizer.operator.OpRuleBit.OP_PARTITION_PRUNED;
 import static com.starrocks.sql.optimizer.rule.transformation.materialization.MvPartitionCompensator.convertToDateRange;
 
+@Tag("fast")
 public class MvUtilsTest {
     private static ConnectContext connectContext;
     private static StarRocksAssert starRocksAssert;

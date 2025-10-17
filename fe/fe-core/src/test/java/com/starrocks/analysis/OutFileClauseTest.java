@@ -21,10 +21,12 @@ import com.starrocks.sql.analyzer.Scope;
 import com.starrocks.sql.ast.OutFileClause;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
+@Tag("fast")
 public class OutFileClauseTest {
 
     @Test

@@ -19,9 +19,11 @@ import com.starrocks.sql.ast.AlterViewStmt;
 import com.starrocks.utframe.UtFrameUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Tag("fast")
 public class ViewPlanTest extends PlanTestBase {
     private static final AtomicInteger INDEX = new AtomicInteger(0);
 

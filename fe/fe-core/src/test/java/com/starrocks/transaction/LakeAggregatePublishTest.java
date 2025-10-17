@@ -40,6 +40,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -50,6 +51,7 @@ import static org.mockito.Mockito.anyLong;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@Tag("fast")
 public class LakeAggregatePublishTest {
     private static final Logger LOG = LogManager.getLogger(LakeAggregatePublishTest.class);
 

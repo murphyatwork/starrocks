@@ -36,6 +36,7 @@ import mockit.MockUp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
+@Tag("fast")
 public class ConnectorColumnStatsCacheLoaderTest {
     public static ConnectContext connectContext;
     private AsyncLoadingCache<ConnectorTableColumnKey, Optional<ConnectorTableColumnStats>>

@@ -17,11 +17,13 @@ package com.starrocks.authorization;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Tag("fast")
 public class ActionSetTest {
     private static final PrivilegeType SELECT = PrivilegeType.SELECT;
     private static final PrivilegeType INSERT = PrivilegeType.INSERT;

@@ -16,7 +16,9 @@ package com.starrocks.qe.scheduler.plan;
 
 import com.starrocks.qe.scheduler.SchedulerTestBase;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class ScanTest extends SchedulerTestBase {
     @Test
     public void testSchemaScanNode() {

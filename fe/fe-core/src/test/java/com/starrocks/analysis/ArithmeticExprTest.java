@@ -13,9 +13,11 @@ import com.starrocks.sql.ast.expression.TableName;
 import com.starrocks.utframe.UtFrameUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.IOException;
 
+@Tag("fast")
 public class ArithmeticExprTest {
     @Test
     public void testDecimal32Add() throws IOException {

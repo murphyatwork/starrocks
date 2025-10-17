@@ -16,9 +16,11 @@ package com.starrocks.feature;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 
+@Tag("fast")
 public class ProductFeatureTest {
 
     @Test

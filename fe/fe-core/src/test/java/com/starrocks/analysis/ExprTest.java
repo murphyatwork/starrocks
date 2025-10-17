@@ -43,7 +43,9 @@ import com.starrocks.sql.ast.expression.NullLiteral;
 import com.starrocks.sql.ast.expression.StringLiteral;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class ExprTest {
     @Test
     public void testUncheckedCastTo() throws AnalysisException {

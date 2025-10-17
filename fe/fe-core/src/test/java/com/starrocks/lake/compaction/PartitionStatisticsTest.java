@@ -16,9 +16,11 @@ package com.starrocks.lake.compaction;
 
 import com.starrocks.persist.gson.GsonUtils;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Tag("fast")
 public class PartitionStatisticsTest {
 
     // This JSON string represents an older version of the JSON without the "priority" field

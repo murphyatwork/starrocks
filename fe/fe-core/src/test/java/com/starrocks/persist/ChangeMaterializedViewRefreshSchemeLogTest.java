@@ -41,6 +41,7 @@ import mockit.Mocked;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -52,6 +53,7 @@ import java.nio.file.Files;
 import java.util.LinkedList;
 import java.util.List;
 
+@Tag("fast")
 public class ChangeMaterializedViewRefreshSchemeLogTest {
 
     private String fileName = "./ChangeMaterializedViewRefreshSchemeLogTest";

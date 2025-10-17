@@ -31,11 +31,13 @@ import mockit.Mocked;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Set;
 
 import static com.starrocks.catalog.Replica.ReplicaState.NORMAL;
 
+@Tag("fast")
 public class LeaderImplTest {
 
     private long dbId;

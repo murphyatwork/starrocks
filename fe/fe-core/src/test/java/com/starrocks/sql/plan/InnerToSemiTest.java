@@ -22,7 +22,9 @@ import mockit.Expectations;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class InnerToSemiTest extends PlanWithCostTestBase {
     @BeforeEach
     public void before() throws Exception {

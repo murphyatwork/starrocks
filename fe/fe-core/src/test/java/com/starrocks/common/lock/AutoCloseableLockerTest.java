@@ -22,8 +22,10 @@ import com.starrocks.common.util.concurrent.lock.Locker;
 import com.starrocks.server.GlobalStateMgr;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 import org.wildfly.common.Assert;
 
+@Tag("fast")
 public class AutoCloseableLockerTest {
     @BeforeEach
     public void setUp() {

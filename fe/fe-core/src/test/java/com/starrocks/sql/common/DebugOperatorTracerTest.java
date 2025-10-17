@@ -22,6 +22,7 @@ import com.starrocks.sql.optimizer.operator.scalar.CallOperator;
 import com.starrocks.sql.optimizer.operator.scalar.ColumnRefOperator;
 import com.starrocks.sql.optimizer.operator.scalar.ScalarOperator;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,7 @@ import java.util.Map;
 import static com.starrocks.sql.optimizer.operator.AggType.GLOBAL;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Tag("fast")
 public class DebugOperatorTracerTest {
 
     @Test

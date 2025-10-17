@@ -34,11 +34,13 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.lang.reflect.Field;
 import java.util.IdentityHashMap;
 import java.util.List;
 
+@Tag("fast")
 public class AstBuilderTest {
 
     private static ConnectContext connectContext;

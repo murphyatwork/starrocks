@@ -19,11 +19,13 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Tag("fast")
 public class LogActionTest extends StarRocksHttpTestCase {
 
     private static final String QUERY_PLAN_URI = "/log";

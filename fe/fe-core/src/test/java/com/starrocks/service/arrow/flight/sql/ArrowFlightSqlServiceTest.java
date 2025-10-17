@@ -20,10 +20,12 @@ import mockit.MockUp;
 import mockit.Mocked;
 import org.apache.arrow.flight.FlightServer;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+@Tag("fast")
 public class ArrowFlightSqlServiceTest {
     @Test
     public void testDisable() {

@@ -16,10 +16,12 @@ package com.starrocks.alter.dynamictablet;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Collections;
 import java.util.List;
 
+@Tag("fast")
 public class DynamicTabletsTest {
     @Test
     public void testSplittingTablets() {

@@ -46,10 +46,12 @@ import com.starrocks.thrift.TStorageMedium;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Tag("fast")
 public class BackendTest {
     private Backend backend;
     private long backendId = 9999;

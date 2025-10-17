@@ -16,10 +16,12 @@ package com.starrocks.common.util;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.time.DateTimeException;
 import java.time.Period;
 
+@Tag("fast")
 public class PeriodStyleTest {
 
     @Test

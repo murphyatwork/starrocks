@@ -20,7 +20,9 @@ import com.starrocks.sql.plan.ConnectorPlanTestBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class MVTransformerContextTest extends MVTestBase  {
 
     @BeforeAll

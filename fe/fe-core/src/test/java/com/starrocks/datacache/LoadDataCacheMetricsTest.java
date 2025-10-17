@@ -21,9 +21,11 @@ import com.starrocks.thrift.TDataCacheStatus;
 import com.starrocks.thrift.TLoadDataCacheMetrics;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.concurrent.TimeUnit;
 
+@Tag("fast")
 public class LoadDataCacheMetricsTest {
 
     private final long megabyte = 1024 * 1024L;

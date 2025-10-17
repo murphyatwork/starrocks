@@ -41,12 +41,14 @@ import com.starrocks.common.ExceptionChecker;
 import mockit.Expectations;
 import mockit.Injectable;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Tag("fast")
 public class VersionPhaseTest extends EsTestCase {
 
     @Test

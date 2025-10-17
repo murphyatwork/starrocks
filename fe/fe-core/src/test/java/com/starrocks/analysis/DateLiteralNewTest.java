@@ -19,7 +19,9 @@ import com.starrocks.common.AnalysisException;
 import com.starrocks.sql.ast.expression.DateLiteral;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class DateLiteralNewTest {
 
     @Test

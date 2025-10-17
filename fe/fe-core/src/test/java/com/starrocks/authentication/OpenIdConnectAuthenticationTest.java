@@ -25,7 +25,9 @@ import com.starrocks.sql.ast.UserRef;
 import com.starrocks.sql.parser.NodePosition;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class OpenIdConnectAuthenticationTest {
 
     private final String[] emptyAudience = {};

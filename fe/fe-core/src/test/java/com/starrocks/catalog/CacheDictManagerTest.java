@@ -17,9 +17,11 @@ package com.starrocks.catalog;
 import com.starrocks.sql.optimizer.statistics.CacheDictManager;
 import mockit.Expectations;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Optional;
 
+@Tag("fast")
 public class CacheDictManagerTest {
     @Test
     public void test() {

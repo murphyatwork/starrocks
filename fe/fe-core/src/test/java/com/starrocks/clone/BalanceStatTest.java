@@ -19,12 +19,14 @@ import com.google.common.collect.Sets;
 import com.starrocks.clone.BalanceStat.BalanceType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
+@Tag("fast")
 public class BalanceStatTest {
 
     @Test

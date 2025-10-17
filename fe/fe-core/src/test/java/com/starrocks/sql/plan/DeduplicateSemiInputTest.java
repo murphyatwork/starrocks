@@ -17,7 +17,9 @@ package com.starrocks.sql.plan;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class DeduplicateSemiInputTest extends TPCDS1TTestBase {
     @BeforeAll
     public static void beforeClass() throws Exception {

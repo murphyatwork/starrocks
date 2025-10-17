@@ -17,9 +17,11 @@ package com.starrocks.sql.common;
 import com.google.common.collect.Lists;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 
+@Tag("fast")
 public class PermutationGeneratorTest {
     @Test
     public void testPermutation() {

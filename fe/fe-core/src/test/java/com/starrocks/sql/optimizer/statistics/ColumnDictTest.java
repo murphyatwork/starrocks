@@ -20,10 +20,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
+@Tag("fast")
 public class ColumnDictTest {
     private int previousLowCardinalityThreshold = 0;
 

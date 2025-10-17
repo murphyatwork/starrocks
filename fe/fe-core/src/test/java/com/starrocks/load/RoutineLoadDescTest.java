@@ -19,7 +19,9 @@ import com.starrocks.persist.OriginStatementInfo;
 import com.starrocks.sql.ast.CreateRoutineLoadStmt;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class RoutineLoadDescTest {
     @Test
     public void testToSql() throws Exception {

@@ -19,8 +19,10 @@ import com.starrocks.common.AnalysisException;
 import com.starrocks.sql.ast.ModifyBackendClause;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 
+@Tag("fast")
 public class ModifyBackendClauseTest {
     
     @Test

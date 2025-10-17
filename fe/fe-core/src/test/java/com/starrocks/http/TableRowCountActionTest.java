@@ -19,9 +19,11 @@ import okhttp3.Response;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.IOException;
 
+@Tag("fast")
 public class TableRowCountActionTest extends StarRocksHttpTestCase {
     private static final String PATH_URI = "/_count";
 

@@ -16,6 +16,7 @@
 package com.starrocks.common;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -27,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Tag("fast")
 public class PriorityThreadPoolExecutorTest {
 
     @Test

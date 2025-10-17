@@ -21,10 +21,12 @@ import com.starrocks.sql.analyzer.SemanticException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Arrays;
 import java.util.List;
 
+@Tag("fast")
 public class JsonTypeTest extends PlanTestBase {
 
     @BeforeAll

@@ -20,9 +20,11 @@ import com.starrocks.common.FeConstants;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 
+@Tag("fast")
 public class GroupExecutionPlanTest extends PlanTestBase {
     @BeforeAll
     public static void beforeClass() throws Exception {

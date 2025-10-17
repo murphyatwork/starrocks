@@ -48,11 +48,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.Preconditions;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@Tag("fast")
 public class ShowMaterializedViewTest {
 
     private static final String TEST_DB_NAME = "db_show_materialized_view";

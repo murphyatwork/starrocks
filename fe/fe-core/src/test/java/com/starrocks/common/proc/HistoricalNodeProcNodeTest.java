@@ -22,11 +22,13 @@ import com.starrocks.system.HistoricalNodeMgr;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+@Tag("fast")
 public class HistoricalNodeProcNodeTest {
     @BeforeEach
     public void setUp() throws IOException {

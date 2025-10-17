@@ -34,7 +34,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.Preconditions;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class ShowDbStmtTest {
     private ConnectContext ctx;
     private GlobalStateMgr globalStateMgr;

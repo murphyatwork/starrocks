@@ -22,6 +22,7 @@ import mockit.Mocked;
 import org.apache.hadoop.conf.Configuration;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 import software.amazon.awssdk.services.glue.model.StorageDescriptor;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import java.util.Map;
 
 import static org.mockito.Mockito.mock;
 
+@Tag("fast")
 public class MetastoreClientUtilsTest {
 
     @Test

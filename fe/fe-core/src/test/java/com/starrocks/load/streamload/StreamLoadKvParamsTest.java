@@ -18,6 +18,7 @@ import com.starrocks.thrift.TFileFormatType;
 import com.starrocks.thrift.TFileType;
 import com.starrocks.thrift.TPartialUpdateMode;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -63,6 +64,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /** Tests for {@link StreamLoadKvParams}. */
+@Tag("fast")
 public class StreamLoadKvParamsTest extends StreamLoadParamsTestBase {
 
     @Override

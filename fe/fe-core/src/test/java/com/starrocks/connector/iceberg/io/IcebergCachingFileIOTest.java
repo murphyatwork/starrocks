@@ -20,6 +20,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.iceberg.io.InputFile;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -33,6 +34,7 @@ import static com.starrocks.credential.azure.AzureCloudConfigurationProvider.BLO
 import static com.starrocks.credential.gcp.GCPCloudConfigurationProvider.ACCESS_TOKEN_PROVIDER_IMPL;
 import static com.starrocks.credential.gcp.GCPCloudConfigurationProvider.GCS_ACCESS_TOKEN;
 
+@Tag("fast")
 public class IcebergCachingFileIOTest {
 
     public void writeIcebergMetaTestFile() {

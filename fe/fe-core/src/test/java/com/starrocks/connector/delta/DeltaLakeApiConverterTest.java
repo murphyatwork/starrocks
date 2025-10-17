@@ -28,12 +28,14 @@ import io.delta.kernel.types.StringType;
 import io.delta.kernel.types.StructField;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 
 import static com.starrocks.connector.ColumnTypeConverter.fromDeltaLakeType;
 import static io.delta.kernel.internal.util.ColumnMapping.COLUMN_MAPPING_MODE_NONE;
 
+@Tag("fast")
 public class DeltaLakeApiConverterTest {
     @Test
     public void testArray() {

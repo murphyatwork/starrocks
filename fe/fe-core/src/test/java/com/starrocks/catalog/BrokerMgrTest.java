@@ -29,6 +29,7 @@ import mockit.Expectations;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -38,6 +39,7 @@ import static org.mockito.ArgumentMatchers.anyShort;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.spy;
 
+@Tag("fast")
 public class BrokerMgrTest {
     @BeforeEach
     public void setUp() throws Exception {

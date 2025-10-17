@@ -42,11 +42,13 @@ import com.starrocks.thrift.TStorageType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+@Tag("fast")
 public class MaterializedIndexMetaTest {
 
     private static String fileName = "./MaterializedIndexMetaSerializeTest";

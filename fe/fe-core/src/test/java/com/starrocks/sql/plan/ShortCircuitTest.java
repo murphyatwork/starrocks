@@ -33,10 +33,12 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Arrays;
 import java.util.List;
 
+@Tag("fast")
 public class ShortCircuitTest extends PlanTestBase {
 
     private static boolean OLD_VALUE;

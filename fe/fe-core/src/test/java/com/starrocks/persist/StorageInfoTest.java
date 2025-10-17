@@ -19,7 +19,9 @@ package com.starrocks.persist;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class StorageInfoTest {
     @Test
     public void test() {

@@ -14,7 +14,9 @@
 package com.starrocks.sql.plan;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class PredicatePushDownTest extends PlanTestBase {
 
     @Test

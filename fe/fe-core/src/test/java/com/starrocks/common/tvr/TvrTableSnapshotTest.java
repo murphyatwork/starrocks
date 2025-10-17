@@ -16,9 +16,11 @@ package com.starrocks.common.tvr;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Optional;
 
+@Tag("fast")
 public class TvrTableSnapshotTest {
     @Test
     public void testEmptySnapshot() {

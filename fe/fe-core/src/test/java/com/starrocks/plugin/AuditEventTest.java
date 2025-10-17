@@ -16,7 +16,9 @@ package com.starrocks.plugin;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class AuditEventTest {
     @Test
     public void testAuditEvent() {

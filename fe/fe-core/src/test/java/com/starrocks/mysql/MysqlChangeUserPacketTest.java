@@ -20,9 +20,11 @@ package com.starrocks.mysql;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.nio.ByteBuffer;
 
+@Tag("fast")
 public class MysqlChangeUserPacketTest {
     private ByteBuffer byteBuffer;
 

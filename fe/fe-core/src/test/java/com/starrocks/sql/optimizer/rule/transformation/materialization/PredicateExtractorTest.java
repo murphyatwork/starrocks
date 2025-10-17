@@ -28,12 +28,14 @@ import com.starrocks.sql.optimizer.operator.scalar.ConstantOperator;
 import com.starrocks.sql.optimizer.operator.scalar.ScalarOperator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+@Tag("fast")
 public class PredicateExtractorTest {
     private static Map<ScalarType, List<ScalarOperator>> DATA = ImmutableMap.<ScalarType, List<ScalarOperator>>builder()
             .put(Type.TINYINT, Lists.newArrayList(ConstantOperator.createTinyInt((byte) 10),

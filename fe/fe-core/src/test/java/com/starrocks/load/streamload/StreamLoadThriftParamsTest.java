@@ -19,8 +19,10 @@ import com.starrocks.thrift.TFileType;
 import com.starrocks.thrift.TPartialUpdateMode;
 import com.starrocks.thrift.TStreamLoadPutRequest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 /** Tests for {@link StreamLoadThriftParams}. */
+@Tag("fast")
 public class StreamLoadThriftParamsTest extends StreamLoadParamsTestBase {
 
     @Override

@@ -37,12 +37,14 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
 
+@Tag("fast")
 public class MysqlAuthPacketTest {
     static ConnectContext ctx;
     private ByteBuffer byteBuffer;

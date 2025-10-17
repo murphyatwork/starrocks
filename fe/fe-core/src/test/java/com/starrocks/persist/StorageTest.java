@@ -36,11 +36,13 @@ package com.starrocks.persist;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+@Tag("fast")
 public class StorageTest {
     private String meta = "storageTestDir/";
 

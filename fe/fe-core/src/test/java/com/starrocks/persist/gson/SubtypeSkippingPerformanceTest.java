@@ -19,6 +19,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -35,6 +36,7 @@ import java.util.concurrent.TimeUnit;
  * ./gradlew :fe-core:test --tests "com.starrocks.persist.gson.SubtypeSkippingPerformanceTest"
  */
 @Disabled("Performance tests - run manually when needed")
+@Tag("fast")
 public class SubtypeSkippingPerformanceTest {
 
     static class NotificationPayload {

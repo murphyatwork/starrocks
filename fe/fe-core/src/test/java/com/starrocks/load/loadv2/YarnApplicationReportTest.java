@@ -21,7 +21,9 @@ import org.apache.hadoop.yarn.api.records.FinalApplicationStatus;
 import org.apache.hadoop.yarn.api.records.YarnApplicationState;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class YarnApplicationReportTest {
     private final String runningReport = "Application Report :\n" +
             "Application-Id : application_15888888888_0088\n" +

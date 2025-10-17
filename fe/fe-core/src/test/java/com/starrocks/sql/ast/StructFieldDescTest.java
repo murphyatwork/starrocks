@@ -25,7 +25,9 @@ import com.starrocks.common.AnalysisException;
 import com.starrocks.sql.ast.expression.TypeDef;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class StructFieldDescTest {
     @Test
     public void testAnalyze() {

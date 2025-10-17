@@ -41,7 +41,9 @@ import com.starrocks.qe.ShowResultSetMetaData;
 import com.starrocks.sql.ast.ShowEnginesStmt;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class ShowEnginesStmtTest {
     @Test
     public void testNormal() throws StarRocksException {

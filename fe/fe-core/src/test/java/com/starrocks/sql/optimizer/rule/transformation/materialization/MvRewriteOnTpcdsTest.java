@@ -18,7 +18,9 @@ import com.starrocks.planner.MaterializedViewTestBase;
 import com.starrocks.sql.plan.TPCDSPlanTestBase;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class MvRewriteOnTpcdsTest extends MaterializedViewTestBase {
     @BeforeAll
     public static void beforeClass() throws Exception {

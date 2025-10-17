@@ -21,8 +21,10 @@ import com.starrocks.scheduler.TaskRunContext;
 import com.starrocks.sql.common.PCellSortedSet;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 import org.mockito.Mockito;
 
+@Tag("fast")
 public class MVPCTRefreshNonPartitionerTest {
 
     @Test

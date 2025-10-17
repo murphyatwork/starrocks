@@ -29,6 +29,7 @@ import org.apache.iceberg.FileScanTask;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,7 @@ import static com.starrocks.catalog.Type.VARCHAR;
 /**
  * Test cases for IcebergConnectorScanRangeSource focusing on initBucketInfo and extractBucketId methods
  */
+@Tag("fast")
 public class IcebergConnectorScanRangeSourceTest extends TableTestBase {
     private TupleDescriptor tupleDescriptor;
 

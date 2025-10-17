@@ -17,7 +17,9 @@ package com.starrocks.connector.parser.trino;
 import com.starrocks.sql.plan.TPCDSPlanTestBase;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class TrinoTPCDSTest extends TPCDSPlanTestBase {
 
     @BeforeAll

@@ -59,6 +59,7 @@ import okhttp3.Response;
 import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.Tag;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -73,6 +74,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 @TestMethodOrder(MethodName.class)
+@Tag("fast")
 public class TableSchemaActionTest extends StarRocksHttpTestCase {
 
     private static final String TABLE_SCHEMA_URL_PATTERN =

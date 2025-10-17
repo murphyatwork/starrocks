@@ -19,9 +19,11 @@ package com.starrocks.common.util;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.IOException;
 
+@Tag("fast")
 public class CompressionUtilsTest {
     @Test
     public void testStringCompression() throws IOException {

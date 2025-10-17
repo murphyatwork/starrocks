@@ -23,12 +23,14 @@ import com.starrocks.thrift.TPartialUpdateMode;
 import com.starrocks.thrift.TStreamLoadPutRequest;
 import com.starrocks.thrift.TUniqueId;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /** Tests for {@link StreamLoadInfo}. */
+@Tag("fast")
 public class StreamLoadInfoTest {
 
     @Test

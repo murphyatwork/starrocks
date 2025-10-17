@@ -17,6 +17,7 @@ package com.starrocks.connector.iceberg.rest;
 import org.apache.iceberg.rest.auth.OAuth2Properties;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +26,7 @@ import static com.starrocks.connector.iceberg.rest.IcebergRESTCatalog.Security.J
 import static com.starrocks.connector.iceberg.rest.IcebergRESTCatalog.Security.NONE;
 import static com.starrocks.connector.iceberg.rest.IcebergRESTCatalog.Security.OAUTH2;
 
+@Tag("fast")
 public class OAuth2SecurityConfigTest {
 
     @Test

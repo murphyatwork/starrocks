@@ -16,9 +16,11 @@ package com.starrocks.http;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import javax.activation.MimetypesFileTypeMap;
 
+@Tag("fast")
 public class MimeTypeTest {
 
     @Test

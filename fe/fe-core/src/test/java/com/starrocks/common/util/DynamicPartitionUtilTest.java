@@ -21,6 +21,7 @@ import com.google.common.collect.Maps;
 import com.starrocks.catalog.DynamicPartitionProperty;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -29,6 +30,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.TimeZone;
 
+@Tag("fast")
 public class DynamicPartitionUtilTest {
 
     private static final String FORMAT = "yyyy-MM-dd";

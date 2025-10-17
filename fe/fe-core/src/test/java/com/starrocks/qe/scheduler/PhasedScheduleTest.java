@@ -28,11 +28,13 @@ import mockit.MockUp;
 import org.assertj.core.util.Sets;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+@Tag("fast")
 public class PhasedScheduleTest extends SchedulerTestBase {
     @Test
     public void testSchedule() throws Exception {

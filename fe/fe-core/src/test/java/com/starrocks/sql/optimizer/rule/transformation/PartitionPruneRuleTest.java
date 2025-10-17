@@ -50,6 +50,7 @@ import mockit.Expectations;
 import mockit.Mocked;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.sql.Connection;
 import java.sql.Statement;
@@ -61,6 +62,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+@Tag("fast")
 public class PartitionPruneRuleTest {
     @Test
     public void transform1(@Mocked OlapTable olapTable, @Mocked RangePartitionInfo partitionInfo) {

@@ -20,12 +20,14 @@ import com.starrocks.common.AnalysisException;
 import com.starrocks.common.util.DateUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+@Tag("fast")
 public class PRangeCellTest {
 
     private PartitionKey createPartitionKey(String key) throws AnalysisException {

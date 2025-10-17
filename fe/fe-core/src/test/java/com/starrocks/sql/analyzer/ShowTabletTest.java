@@ -17,10 +17,12 @@ package com.starrocks.sql.analyzer;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static com.starrocks.sql.analyzer.AnalyzeTestUtil.analyzeFail;
 import static com.starrocks.sql.analyzer.AnalyzeTestUtil.analyzeSuccess;
 
+@Tag("fast")
 public class ShowTabletTest {
 
     @BeforeAll

@@ -23,10 +23,12 @@ import com.starrocks.server.GlobalStateMgr;
 import mockit.Expectations;
 import mockit.Mocked;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Tag("fast")
 public class ColocateMetaServiceTest {
 
     @Test

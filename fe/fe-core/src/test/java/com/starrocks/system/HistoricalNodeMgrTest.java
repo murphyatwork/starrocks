@@ -27,6 +27,7 @@ import mockit.MockUp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -38,6 +39,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 
+@Tag("fast")
 public class HistoricalNodeMgrTest {
     private final long defaultWarehouseId = WarehouseManager.DEFAULT_WAREHOUSE_ID;
     private final long defaultWorkerGroupId = StarOSAgent.DEFAULT_WORKER_GROUP_ID;

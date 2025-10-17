@@ -18,7 +18,9 @@ import com.google.common.collect.ImmutableMap;
 import com.starrocks.common.ExceptionChecker;
 import com.starrocks.connector.exception.StarRocksConnectorException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class HiveStorageFormatTest {
     @Test
     public void checkHiveStorageFormat() {

@@ -19,10 +19,12 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 /**
  * Unit tests for OuterJoinEliminationRule.
  */
+@Tag("fast")
 public class OuterJoinEliminationRuleTest extends PlanTestBase {
 
     @BeforeAll

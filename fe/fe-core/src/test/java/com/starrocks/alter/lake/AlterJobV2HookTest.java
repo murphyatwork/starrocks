@@ -20,12 +20,14 @@ import com.starrocks.warehouse.WarehouseIdleChecker;
 import com.starrocks.warehouse.cngroup.WarehouseComputeResource;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.DataOutput;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+@Tag("fast")
 public class AlterJobV2HookTest {
 
     @Test

@@ -23,6 +23,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,7 @@ import java.util.Map;
 import static com.starrocks.connector.hive.MockedRemoteFileSystem.HDFS_HIVE_TABLE;
 import static com.starrocks.connector.hive.MockedRemoteFileSystem.HDFS_RECURSIVE_TABLE;
 
+@Tag("fast")
 public class HiveRemoteFileIOTest {
     @Test
     public void testGetRemoteFiles() {

@@ -19,6 +19,7 @@ import com.google.common.collect.Table;
 import com.starrocks.common.util.UUIDUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+@Tag("fast")
 public class TemporaryTableMgrTest {
 
     @Test

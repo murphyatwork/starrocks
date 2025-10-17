@@ -35,6 +35,7 @@ import com.starrocks.thrift.TScanRangeLocation;
 import com.starrocks.thrift.TScanRangeLocations;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -48,6 +49,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Tag("fast")
 public class ColocatedBackendSelectorTest {
     @Test
     public void testSingleScanNodeWithEmptyReplication() {

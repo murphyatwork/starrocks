@@ -26,11 +26,13 @@ import org.apache.paimon.types.DataTypes;
 import org.apache.paimon.types.RowType;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Tag("fast")
 public class PaimonTableTest {
 
     @Test

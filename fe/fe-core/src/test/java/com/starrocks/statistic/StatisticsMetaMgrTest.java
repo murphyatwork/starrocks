@@ -33,6 +33,7 @@ import com.starrocks.sql.common.EngineType;
 import com.starrocks.sql.plan.PlanTestBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Map;
 
@@ -40,6 +41,7 @@ import static com.starrocks.statistic.StatsConstants.FULL_STATISTICS_TABLE_NAME;
 import static com.starrocks.statistic.StatsConstants.STATISTICS_DB_NAME;
 
 
+@Tag("fast")
 public class StatisticsMetaMgrTest extends PlanTestBase  {
     @Test
     public void alterMetaTable() throws Exception {

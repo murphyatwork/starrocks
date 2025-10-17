@@ -17,6 +17,7 @@ package com.starrocks.qe;
 import com.starrocks.thrift.TQueryStatisticsInfo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 import org.mockito.Mockito;
 
 import java.io.IOException;
@@ -27,6 +28,7 @@ import java.net.http.HttpResponse;
 
 import static com.starrocks.common.proc.CurrentGlobalQueryStatisticsProcDirTest.QUERY_ONE_LOCAL;
 
+@Tag("fast")
 public class QueryStatisticsInfoTest {
     QueryStatisticsInfo firstQuery = QUERY_ONE_LOCAL;
 

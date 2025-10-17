@@ -18,6 +18,7 @@ import com.starrocks.common.FeConstants;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -30,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.when;
 
+@Tag("fast")
 public class CatalogUtilsTest {
 
     @Mock

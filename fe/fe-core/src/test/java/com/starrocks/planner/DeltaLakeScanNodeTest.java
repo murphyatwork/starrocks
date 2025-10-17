@@ -24,9 +24,11 @@ import mockit.Expectations;
 import mockit.Mocked;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.HashMap;
 
+@Tag("fast")
 public class DeltaLakeScanNodeTest {
     @Test
     public void testInit(@Mocked GlobalStateMgr globalStateMgr,

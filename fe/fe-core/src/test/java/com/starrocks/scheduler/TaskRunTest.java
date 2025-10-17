@@ -18,6 +18,7 @@ import com.starrocks.common.Config;
 import com.starrocks.qe.SessionVariable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +26,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
+@Tag("fast")
 public class TaskRunTest {
 
     private TaskRun taskRun;

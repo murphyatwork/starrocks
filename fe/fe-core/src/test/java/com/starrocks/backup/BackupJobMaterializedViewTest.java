@@ -57,6 +57,7 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.Tag;
 
 import java.io.File;
 import java.io.IOException;
@@ -69,6 +70,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Tag("fast")
 public class BackupJobMaterializedViewTest {
 
     private BackupJob job;

@@ -22,11 +22,13 @@ import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.api.Tag;
 
 import java.text.MessageFormat;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
+@Tag("fast")
 public class MVViewRewriteWithManyJoinTest extends MaterializedViewTestBase {
 
     @BeforeAll

@@ -23,7 +23,9 @@ import com.starrocks.utframe.UtFrameUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class DistributedEnvTPCDSPlanTest extends TPCDSPlanTestBase {
     @BeforeAll
     public static void beforeClass() throws Exception {

@@ -28,11 +28,13 @@ import mockit.MockUp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 
 import static org.mockito.Mockito.mock;
 
+@Tag("fast")
 public class GlobalFunctionMgrTest {
     private GlobalFunctionMgr globalFunctionMgr;
 

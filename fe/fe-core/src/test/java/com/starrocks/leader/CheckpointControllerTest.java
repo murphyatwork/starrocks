@@ -23,6 +23,7 @@ import com.starrocks.utframe.MockJournal;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
@@ -31,6 +32,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Tag("fast")
 public class CheckpointControllerTest {
     private MockedStatic<GlobalStateMgr> globalStateMgrStatic;
     private CheckpointController controller;

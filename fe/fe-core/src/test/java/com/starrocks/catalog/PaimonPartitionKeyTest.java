@@ -16,9 +16,11 @@ package com.starrocks.catalog;
 
 import com.google.common.collect.ImmutableList;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Tag("fast")
 public class PaimonPartitionKeyTest {
     @Test
     public void testInit() {

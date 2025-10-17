@@ -27,7 +27,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class AlterTest {
     private static ConnectContext connectContext;
     private static final String DB_NAME = "db_lake_schema_change_test";

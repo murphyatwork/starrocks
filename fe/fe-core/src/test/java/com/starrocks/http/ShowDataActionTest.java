@@ -22,12 +22,14 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Tag("fast")
 public class ShowDataActionTest extends StarRocksHttpTestCase {
 
     private static final String SHOW_DATA_URI = "/show_data";

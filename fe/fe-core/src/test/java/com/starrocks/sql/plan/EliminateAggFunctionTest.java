@@ -17,7 +17,9 @@ package com.starrocks.sql.plan;
 import com.starrocks.common.FeConstants;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class EliminateAggFunctionTest extends PlanTestBase {
     @BeforeAll
     public static void beforeClass() throws Exception {

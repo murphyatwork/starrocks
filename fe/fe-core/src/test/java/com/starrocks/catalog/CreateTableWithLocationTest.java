@@ -46,6 +46,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -57,6 +58,7 @@ import java.util.Set;
  * Test create table with location property and check whether
  * the replica is placed on the right backends with matching location label.
  */
+@Tag("fast")
 public class CreateTableWithLocationTest {
     @BeforeAll
     public static void setUp() throws Exception {

@@ -28,9 +28,11 @@ import com.starrocks.qe.scheduler.slot.SlotTracker;
 import com.starrocks.server.WarehouseManager;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 
+@Tag("fast")
 public class WarehouseMetricEntityTest {
     @Test
     public void testBasic() {

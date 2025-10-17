@@ -19,7 +19,9 @@ import com.starrocks.common.FeConstants;
 import com.starrocks.server.GlobalStateMgr;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class AsofJoinStatisticsTest extends PlanWithCostTestBase {
 
     @BeforeAll

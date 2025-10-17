@@ -34,6 +34,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -41,6 +42,7 @@ import java.util.concurrent.Executors;
 
 import static com.starrocks.connector.hive.MockedRemoteFileSystem.HDFS_HIVE_TABLE;
 
+@Tag("fast")
 public class HiveConnectorTest {
     private HiveMetaClient client;
     private HiveMetastore metastore;

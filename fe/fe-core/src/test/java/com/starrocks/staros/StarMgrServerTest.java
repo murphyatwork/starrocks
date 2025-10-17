@@ -27,10 +27,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.junit.jupiter.api.Tag;
 
 import java.io.File;
 import java.io.IOException;
 
+@Tag("fast")
 public class StarMgrServerTest {
     @Mocked
     private BDBEnvironment environment;

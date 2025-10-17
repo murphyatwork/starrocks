@@ -70,6 +70,7 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Collection;
 import java.util.List;
@@ -81,6 +82,7 @@ import java.util.concurrent.TimeoutException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@Tag("fast")
 public class DeleteTest {
     private final long dbId = 1L;
     private final long tableId = 2L;

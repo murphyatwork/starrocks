@@ -16,7 +16,9 @@ package com.starrocks.sql.optimizer.rewrite;
 
 import com.starrocks.sql.plan.PlanTestBase;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class ScalarOperatorsReuseRuleTest extends PlanTestBase {
     @Test
     public void testRandReuse() throws Exception {

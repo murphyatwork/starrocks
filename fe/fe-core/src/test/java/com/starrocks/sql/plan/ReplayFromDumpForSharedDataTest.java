@@ -28,7 +28,9 @@ import mockit.MockUp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class ReplayFromDumpForSharedDataTest extends ReplayFromDumpTestBase {
     @BeforeAll
     public static void beforeClass() throws Exception {

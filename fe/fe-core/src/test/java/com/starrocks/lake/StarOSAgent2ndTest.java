@@ -39,6 +39,7 @@ import mockit.Mocked;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,6 +50,7 @@ import java.util.Set;
 /**
  * compared to StarOSAgentTest, only mock the StarClient, others keep real
  */
+@Tag("fast")
 public class StarOSAgent2ndTest {
     private StarOSAgent starosAgent;
 

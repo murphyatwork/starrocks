@@ -22,6 +22,7 @@ import mockit.Mock;
 import mockit.MockUp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.HashMap;
 
@@ -34,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Tag("fast")
 public class BatchWriteMgrTest extends BatchWriteTestBase {
 
     private BatchWriteMgr batchWriteMgr;

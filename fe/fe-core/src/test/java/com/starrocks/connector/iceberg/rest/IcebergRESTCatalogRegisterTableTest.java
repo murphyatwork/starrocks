@@ -27,8 +27,10 @@ import org.apache.iceberg.rest.RESTSessionCatalog;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 
+@Tag("fast")
 public class IcebergRESTCatalogRegisterTableTest {
     @Mocked
     private RESTSessionCatalog restCatalog;

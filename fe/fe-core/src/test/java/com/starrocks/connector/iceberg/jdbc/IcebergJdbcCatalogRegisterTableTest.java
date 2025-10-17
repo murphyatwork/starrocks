@@ -25,10 +25,12 @@ import org.apache.iceberg.jdbc.JdbcCatalog;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Tag("fast")
 public class IcebergJdbcCatalogRegisterTableTest {
     @Mocked
     private JdbcCatalog jdbcCatalog;

@@ -19,7 +19,9 @@ import com.starrocks.common.profile.Tracers;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class TracerTest extends PlanTestBase {
     @Test
     public void testTracerDefault() throws Exception {

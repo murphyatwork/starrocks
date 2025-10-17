@@ -17,6 +17,7 @@ package com.starrocks.scheduler;
 import com.starrocks.qe.ConnectContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -30,6 +31,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+@Tag("fast")
 public class KillTaskRunTest {
     private TaskRunScheduler taskRunScheduler;
     private TaskRunManager taskRunManager;

@@ -30,6 +30,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -43,6 +44,7 @@ import java.util.Map;
 import static com.starrocks.persist.gson.GsonUtils.GSON;
 import static com.starrocks.statistic.StatsConstants.INIT_SAMPLE_STATS_JOB;
 
+@Tag("fast")
 public class BasicStatsMetaTest extends PlanTestBase {
 
     @BeforeEach

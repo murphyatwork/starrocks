@@ -26,7 +26,9 @@ import io.trino.hive.$internal.org.apache.commons.lang3.tuple.Triple;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class ConnectorAnalyzeTaskQueueTest {
     private static ConnectContext ctx;
 

@@ -36,12 +36,14 @@ import mockit.MockUp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
 import java.util.List;
 import java.util.UUID;
 
+@Tag("fast")
 public class ShowProcesslistStmtTest {
     private static ConnectContext connectContext;
 

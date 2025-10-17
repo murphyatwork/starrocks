@@ -18,12 +18,14 @@ import com.starrocks.connector.hive.Partition;
 import com.starrocks.connector.hive.RemoteFileInputFormat;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@Tag("fast")
 public class HMSPartitionBasedRemoteInfoSourceTest {
     @Test
     public void testGetHiveRemoteFiles() {

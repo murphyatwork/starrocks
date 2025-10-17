@@ -27,7 +27,9 @@ import org.apache.hadoop.hive.metastore.api.ThriftHiveMetastore;
 import org.apache.thrift.TException;
 import org.apache.thrift.transport.TSocket;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class HiveMetastoreClientTest {
     @Test
     public void testGetTableError(@Mocked ThriftHiveMetastore.Iface client) throws TException {

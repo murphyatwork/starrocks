@@ -40,10 +40,12 @@ import mockit.Mocked;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+@Tag("fast")
 public class PulsarUtilTest {
     @Mocked
     private SystemInfoService systemInfoService;

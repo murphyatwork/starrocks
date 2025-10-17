@@ -42,6 +42,7 @@ import com.starrocks.sql.ast.PartitionValue;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -53,6 +54,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.TimeZone;
 
+@Tag("fast")
 public class PartitionKeyTest {
 
     private static List<Column> allColumns;

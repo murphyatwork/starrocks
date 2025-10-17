@@ -17,9 +17,11 @@ package com.starrocks.leader;
 import com.starrocks.leader.TabletCollector.CollectStat;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.PriorityQueue;
 
+@Tag("fast")
 public class TabletCollectorTest {
 
     @Test

@@ -38,6 +38,7 @@ import mockit.Mock;
 import mockit.MockUp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -48,6 +49,7 @@ import static org.mockito.ArgumentMatchers.anyShort;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.spy;
 
+@Tag("fast")
 public class AuthenticationProviderTest {
     private ConnectContext ctx = new ConnectContext();
 

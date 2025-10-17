@@ -20,6 +20,7 @@ import com.starrocks.common.util.concurrent.lock.LockType;
 import com.starrocks.common.util.concurrent.lock.Locker;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * <p>
  * All read threads continue execution until all write threads have completed, and then the test exits.
  */
+@Tag("fast")
 public class LockManagerAllLockModesRandomTest {
     private Random randomTableGenerator = new Random();
     private static final long TABLE_ID_START = 10000;

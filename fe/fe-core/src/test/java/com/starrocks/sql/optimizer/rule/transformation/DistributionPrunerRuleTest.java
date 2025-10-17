@@ -45,6 +45,7 @@ import com.starrocks.sql.optimizer.operator.scalar.ScalarOperator;
 import mockit.Expectations;
 import mockit.Mocked;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -55,6 +56,7 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Tag("fast")
 public class DistributionPrunerRuleTest {
 
     @Test

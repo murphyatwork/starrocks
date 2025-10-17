@@ -35,9 +35,11 @@ import com.starrocks.utframe.UtFrameUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.sql.SQLException;
 
+@Tag("fast")
 public class InsertOverwriteJobRunnerTest {
 
     private static ConnectContext connectContext;

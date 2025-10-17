@@ -18,7 +18,9 @@ import com.starrocks.sql.plan.PlanTestNoneDBBase;
 import com.starrocks.utframe.UtFrameUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class HoistHeavyCostExprsUponTopnTest extends PlanTestNoneDBBase {
     @BeforeAll
     public static void beforeClass() throws Exception {

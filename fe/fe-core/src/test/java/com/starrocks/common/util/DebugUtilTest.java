@@ -20,7 +20,9 @@ package com.starrocks.common.util;
 import com.starrocks.common.Pair;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class DebugUtilTest {
     @Test
     public void testGetUint() {

@@ -17,6 +17,7 @@ import com.google.common.collect.Sets;
 import com.starrocks.planner.PlanNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+@Tag("fast")
 public class ProfilingExecPlanTest {
     public static List<Class<?>> findClassesExtending(Class<?> superClass, String packageName)
             throws ClassNotFoundException {

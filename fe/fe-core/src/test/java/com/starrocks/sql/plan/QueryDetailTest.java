@@ -20,7 +20,9 @@ import com.starrocks.qe.QueryDetail;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class QueryDetailTest extends PlanTestBase {
     @BeforeAll
     public static void beforeClass() throws Exception {

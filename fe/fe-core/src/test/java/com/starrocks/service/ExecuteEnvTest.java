@@ -19,10 +19,12 @@ package com.starrocks.service;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Tag("fast")
 public class ExecuteEnvTest {
     private static final int THREAD_MAX_NUM = 10;
     int[] oids = new int[THREAD_MAX_NUM];

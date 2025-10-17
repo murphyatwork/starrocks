@@ -30,6 +30,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 
@@ -38,6 +39,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @TestMethodOrder(MethodName.class)
+@Tag("fast")
 public class MVPCTMetaRepairerTest extends MVTestBase {
     @BeforeAll
     public static void beforeClass() throws Exception {

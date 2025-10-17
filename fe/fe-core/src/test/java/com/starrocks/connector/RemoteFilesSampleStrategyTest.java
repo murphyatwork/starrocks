@@ -20,11 +20,13 @@ import com.starrocks.thrift.TScanRange;
 import com.starrocks.thrift.TScanRangeLocations;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
+@Tag("fast")
 public class RemoteFilesSampleStrategyTest {
     private static class MockedConnectorScanRangeSource extends ConnectorScanRangeSource {
         private boolean hasMoreOutput = true;

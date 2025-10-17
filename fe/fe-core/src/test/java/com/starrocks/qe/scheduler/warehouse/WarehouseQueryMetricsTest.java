@@ -20,9 +20,11 @@ package com.starrocks.qe.scheduler.warehouse;
 import com.starrocks.qe.scheduler.slot.LogicalSlot;
 import com.starrocks.thrift.TGetWarehouseQueriesResponseItem;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@Tag("fast")
 public class WarehouseQueryMetricsTest {
     @Test
     public void testCreateEmptyWarehouseQueryMetrics() {

@@ -44,6 +44,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ import java.util.List;
 
 import static com.starrocks.catalog.Type.INT;
 
+@Tag("fast")
 public class KuduScanNodeTest {
     @Mocked
     KuduClient client;

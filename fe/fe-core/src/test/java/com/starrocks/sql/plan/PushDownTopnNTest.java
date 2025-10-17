@@ -17,7 +17,9 @@ package com.starrocks.sql.plan;
 import com.starrocks.qe.ConnectContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class PushDownTopnNTest extends PlanTestBase {
     @BeforeEach
     public void before() {

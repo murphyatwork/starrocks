@@ -27,7 +27,9 @@ import com.starrocks.utframe.UtFrameUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class SqlWithIdUtilsTest {
     private static ConnectContext connectContext;
     private static StarRocksAssert starRocksAssert;

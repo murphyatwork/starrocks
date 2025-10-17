@@ -46,9 +46,11 @@ import mockit.MockUp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.HashSet;
 
+@Tag("fast")
 public class RBACExecutorTest {
     private ConnectContext ctx;
     private static final String DB_NAME = "db";

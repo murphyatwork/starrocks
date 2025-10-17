@@ -31,9 +31,11 @@ import mockit.Mocked;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 
+@Tag("fast")
 public class SparkRepositoryTest {
 
     private static final String DPP_LOCAL_MD5SUM = "b3cd0ae3a4121e2426532484442e90ec";

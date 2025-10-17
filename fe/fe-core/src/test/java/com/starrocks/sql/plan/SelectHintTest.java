@@ -18,7 +18,9 @@ import com.starrocks.sql.analyzer.SemanticException;
 import com.starrocks.sql.ast.UserVariable;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class SelectHintTest extends PlanTestBase {
 
     @Test

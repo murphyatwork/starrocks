@@ -21,9 +21,11 @@ import com.starrocks.common.AnalysisException;
 import com.starrocks.sql.ast.ColumnPosition;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@Tag("fast")
 public class ColumnPositionTest {
     @Test
     public void testNormal() throws AnalysisException {

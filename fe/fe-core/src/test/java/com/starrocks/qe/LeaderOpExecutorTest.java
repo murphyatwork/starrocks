@@ -38,9 +38,11 @@ import org.apache.thrift.TException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
+@Tag("fast")
 public class LeaderOpExecutorTest {
     private static ConnectContext connectContext;
     private static StarRocksAssert starRocksAssert;

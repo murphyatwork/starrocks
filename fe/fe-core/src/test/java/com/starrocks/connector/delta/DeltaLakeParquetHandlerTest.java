@@ -40,6 +40,7 @@ import org.assertj.core.util.Sets;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.IOException;
 import java.util.List;
@@ -54,6 +55,7 @@ import static com.starrocks.connector.delta.DeltaLakeTestBase.getAddFilePath;
 import static io.delta.kernel.internal.replay.LogReplay.ADD_FILE_ORDINAL;
 import static io.delta.kernel.internal.replay.LogReplay.ADD_FILE_PATH_ORDINAL;
 
+@Tag("fast")
 public class DeltaLakeParquetHandlerTest {
     Configuration hdfsConfiguration = new Configuration();
     String deltaLakePath = Objects.requireNonNull(ClassLoader.getSystemClassLoader()

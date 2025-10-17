@@ -29,6 +29,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -40,6 +41,7 @@ import java.util.Map;
 
 import static com.starrocks.catalog.JDBCResource.DRIVER_CLASS;
 
+@Tag("fast")
 public class JDBCMetaCacheTest {
 
     private static ConnectContext connectContext;

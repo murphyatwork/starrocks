@@ -61,6 +61,7 @@ import mockit.Mocked;
 import org.apache.thrift.TException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
@@ -71,6 +72,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+@Tag("fast")
 public class BrokerUtilTest {
 
     @Test

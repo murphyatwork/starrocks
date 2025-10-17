@@ -33,10 +33,12 @@ import mockit.Mocked;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Collection;
 import java.util.List;
 
+@Tag("fast")
 public class ReplaceLakePartitionTest {
     long dbId = 9010;
     long tableId = 9011;

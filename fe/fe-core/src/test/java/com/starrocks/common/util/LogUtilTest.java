@@ -19,9 +19,11 @@ import com.starrocks.qe.ConnectContext;
 import com.starrocks.qe.QueryDetailQueue;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 
+@Tag("fast")
 public class LogUtilTest {
     @Test
     public void testGetCurrentStackTrace() {

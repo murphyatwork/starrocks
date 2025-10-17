@@ -15,9 +15,11 @@
 package com.starrocks.common.util;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Tag("fast")
 public class NetUtilsTest {
     @Test
     public void testGetCidrPrefixLength() {

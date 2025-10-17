@@ -62,6 +62,7 @@ import mockit.Mocked;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -70,6 +71,7 @@ import java.util.Optional;
 
 import static com.starrocks.load.streamload.StreamLoadHttpHeader.HTTP_PARTIAL_UPDATE_MODE;
 
+@Tag("fast")
 public class StreamLoadPlannerTest {
     @Injectable
     Database db;

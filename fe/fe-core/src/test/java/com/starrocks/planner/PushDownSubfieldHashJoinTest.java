@@ -24,9 +24,11 @@ import com.starrocks.utframe.UtFrameUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static com.starrocks.sql.optimizer.statistics.CachedStatisticStorageTest.DEFAULT_CREATE_TABLE_TEMPLATE;
 
+@Tag("fast")
 public class PushDownSubfieldHashJoinTest {
     private static ConnectContext ctx = null;
     private static StarRocksAssert starRocksAssert = null;

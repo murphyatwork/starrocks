@@ -20,11 +20,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Tag("fast")
 public class TableSchemaActionTest extends StarRocksHttpTestCase {
 
     private static final String QUERY_PLAN_URI = "/_schema";

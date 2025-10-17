@@ -33,7 +33,9 @@ import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class ShowStreamLoadTest {
     private static final Logger LOG = LogManager.getLogger(ShowStreamLoadTest.class);
     private static ConnectContext connectContext;

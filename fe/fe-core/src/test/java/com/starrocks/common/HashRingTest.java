@@ -23,6 +23,7 @@ import com.starrocks.common.util.HashRing;
 import com.starrocks.common.util.PlainHashRing;
 import com.starrocks.common.util.RendezvousHashRing;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Tag("fast")
 public class HashRingTest {
     final int kNodeSize = 5;
     final int kKeySize = 2000;

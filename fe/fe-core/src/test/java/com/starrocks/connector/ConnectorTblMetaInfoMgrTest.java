@@ -20,7 +20,9 @@ import com.starrocks.catalog.MvId;
 import com.starrocks.server.GlobalStateMgr;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class ConnectorTblMetaInfoMgrTest {
 
     @Test

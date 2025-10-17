@@ -35,11 +35,13 @@ import com.starrocks.sql.ast.expression.LiteralExpr;
 import com.starrocks.utframe.UtFrameUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
+@Tag("fast")
 public class FragmentNormalizerTest {
 
     private void testHelper(Column partitionColumn, LiteralExpr lower, LiteralExpr lowerSucc, LiteralExpr upper,

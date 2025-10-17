@@ -21,7 +21,9 @@ import com.starrocks.common.StarRocksException;
 import com.starrocks.fs.hdfs.WildcardURI;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class WildcardURITest {
 
     @Test

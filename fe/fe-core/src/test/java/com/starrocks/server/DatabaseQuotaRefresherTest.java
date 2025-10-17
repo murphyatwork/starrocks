@@ -26,10 +26,12 @@ import com.starrocks.utframe.UtFrameUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+@Tag("fast")
 public class DatabaseQuotaRefresherTest {
 
     private static ConnectContext connectContext;

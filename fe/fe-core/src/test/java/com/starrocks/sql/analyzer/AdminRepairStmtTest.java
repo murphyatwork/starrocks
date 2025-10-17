@@ -21,6 +21,7 @@ import com.starrocks.sql.ast.AdminRepairTableStmt;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Arrays;
 
@@ -32,6 +33,7 @@ import static com.starrocks.sql.analyzer.AnalyzeTestUtil.analyzeSuccess;
  * AdminCancelRepairTable: ADMIN CANCEL REPAIR TABLE table_name[ PARTITION (p1,...)];
  * AminCheckTablets: ADMIN CHECK TABLET (tablet_id1, tablet_id2, ...) PROPERTIES("type" = "...");
  */
+@Tag("fast")
 public class AdminRepairStmtTest {
     @BeforeAll
     public static void beforeClass() throws Exception {

@@ -36,10 +36,12 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Map;
 
 @TestMethodOrder(MethodOrderer.MethodName.class)
+@Tag("fast")
 public class MaterializedViewTPCDSTest extends MaterializedViewTestBase {
     @BeforeAll
     public static void beforeClass() throws Exception {

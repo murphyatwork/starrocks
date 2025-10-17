@@ -17,10 +17,12 @@ package com.starrocks.common.util;
 import com.starrocks.common.AnalysisException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Tag("fast")
 public class PropertyAnalyzerTest {
 
     @Test

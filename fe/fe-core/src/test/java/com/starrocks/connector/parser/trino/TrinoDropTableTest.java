@@ -19,7 +19,9 @@ import com.starrocks.sql.parser.SqlParser;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class TrinoDropTableTest extends TrinoTestBase {
     @BeforeAll
     public static void beforeClass() throws Exception {

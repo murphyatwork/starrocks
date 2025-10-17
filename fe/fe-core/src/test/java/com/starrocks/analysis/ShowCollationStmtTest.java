@@ -7,7 +7,9 @@ import com.starrocks.sql.parser.SqlParser;
 import mockit.Mocked;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class ShowCollationStmtTest {
     @Mocked
     private ConnectContext ctx;

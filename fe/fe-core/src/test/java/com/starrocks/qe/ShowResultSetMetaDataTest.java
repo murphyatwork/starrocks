@@ -22,9 +22,11 @@ import com.starrocks.catalog.PrimitiveType;
 import com.starrocks.catalog.ScalarType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@Tag("fast")
 public class ShowResultSetMetaDataTest {
     @Test
     public void testNormal() {

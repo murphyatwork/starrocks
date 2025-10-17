@@ -27,10 +27,12 @@ import mockit.Mocked;
 import org.apache.hadoop.hive.metastore.api.Table;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Tag("fast")
 public class TrinoViewTest {
     @Mocked
     private Table table;

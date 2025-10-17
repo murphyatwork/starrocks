@@ -19,9 +19,11 @@ import com.google.common.collect.ImmutableSet;
 import com.starrocks.sql.common.PListCell;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Set;
 
+@Tag("fast")
 public class PListCellTest {
     @Test
     public void testSerializeDeserialize() {

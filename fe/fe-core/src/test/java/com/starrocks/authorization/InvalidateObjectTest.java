@@ -28,10 +28,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Arrays;
 import java.util.List;
 
+@Tag("fast")
 public class InvalidateObjectTest {
     private static ConnectContext ctx;
     private static final String DB_NAME = "db";

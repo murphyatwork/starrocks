@@ -20,9 +20,11 @@ import com.starrocks.common.AnalysisException;
 import com.starrocks.lake.DataCacheInfo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.IOException;
 
+@Tag("fast")
 public class PartitionInfoTest {
     private final long partitionId = 10086;
     private final short replicationNum = 3;

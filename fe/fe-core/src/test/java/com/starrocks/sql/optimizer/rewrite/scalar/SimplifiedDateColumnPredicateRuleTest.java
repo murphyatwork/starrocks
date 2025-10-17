@@ -30,10 +30,12 @@ import com.starrocks.sql.optimizer.operator.scalar.ScalarOperator;
 import com.starrocks.sql.optimizer.rewrite.ScalarOperatorRewriter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+@Tag("fast")
 public class SimplifiedDateColumnPredicateRuleTest {
     private static final ConstantOperator DATE_BEGIN = ConstantOperator.createVarchar("20240506");
     private static final ConstantOperator DATE_BEGIN2 = ConstantOperator.createVarchar("2024-05-06");

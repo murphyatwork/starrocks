@@ -17,9 +17,11 @@ package com.starrocks.http;
 import com.starrocks.http.rest.RestBaseResult;
 import com.starrocks.http.rest.v2.RestBaseResultV2;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Tag("fast")
 public class RestBaseResultTest {
 
     @Test

@@ -21,9 +21,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Tag("fast")
 public class LeaderTaskExecutorTest {
     private static final Logger LOG = LoggerFactory.getLogger(LeaderTaskExecutorTest.class);
     private static final int THREAD_NUM = 1;

@@ -27,9 +27,11 @@ import com.starrocks.sql.plan.ExecPlan;
 import com.starrocks.sql.plan.PlanTestBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
+@Tag("fast")
 public class ExecuteExceptionHandlerTest extends PlanTestBase {
 
     @Test

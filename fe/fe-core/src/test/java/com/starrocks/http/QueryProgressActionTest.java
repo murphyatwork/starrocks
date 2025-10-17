@@ -26,9 +26,11 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.IOException;
 
+@Tag("fast")
 public class QueryProgressActionTest extends StarRocksHttpTestCase {
 
     static RuntimeProfile profile;

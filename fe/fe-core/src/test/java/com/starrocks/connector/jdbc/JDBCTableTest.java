@@ -25,9 +25,11 @@ import com.starrocks.sql.ast.expression.TableName;
 import com.starrocks.sql.parser.NodePosition;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Objects;
 
+@Tag("fast")
 public class JDBCTableTest {
 
     @Test

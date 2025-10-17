@@ -19,11 +19,13 @@ package com.starrocks.qe.scheduler.warehouse;
 
 import com.starrocks.thrift.TGetWarehouseMetricsResponeItem;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Tag("fast")
 public class WarehouseMetricsTest {
     @Test
     public void testCreateEmptyWarehouseMetrics() {

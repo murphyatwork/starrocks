@@ -34,12 +34,14 @@ import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.File;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
+@Tag("fast")
 public class RestoreClusterSnapshotMgrTest {
     protected static ConnectContext connectContext;
     protected static StarRocksAssert starRocksAssert;

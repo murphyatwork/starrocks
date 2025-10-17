@@ -47,6 +47,7 @@ import mockit.Mocked;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
@@ -54,6 +55,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Tag("fast")
 public class StatisticsExecutorTest extends PlanTestBase {
     @BeforeAll
     public static void beforeClass() throws Exception {

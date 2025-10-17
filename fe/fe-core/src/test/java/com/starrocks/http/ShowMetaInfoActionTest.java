@@ -25,6 +25,7 @@ import okhttp3.Response;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -34,6 +35,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Tag("fast")
 public class ShowMetaInfoActionTest extends StarRocksHttpTestCase {
 
     private static final long DB_ID = 1000 + testDbId;

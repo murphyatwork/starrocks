@@ -17,7 +17,9 @@ package com.starrocks.connector.hive;
 import com.starrocks.thrift.THdfsFileFormat;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class RemoteFileInputFormatTest {
     @Test
     public void testParquetFormat() {

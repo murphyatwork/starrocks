@@ -32,6 +32,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.Tag;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ import java.util.Set;
  * requirement of the table, and see whether the balance works as expected.
  */
 @TestMethodOrder(MethodName.class)
+@Tag("fast")
 public class LocationLabeledTableBalanceTest {
     private static final long WAIT_FOR_CLONE_TIMEOUT = 30000;
 

@@ -23,10 +23,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.ThreadPoolExecutor;
 
+@Tag("fast")
 public class PublishVersionDaemonTest {
     public int oldValue;
 

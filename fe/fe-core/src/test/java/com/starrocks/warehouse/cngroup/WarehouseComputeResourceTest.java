@@ -21,9 +21,11 @@ import com.starrocks.server.WarehouseManager;
 import com.starrocks.warehouse.WarehouseTestBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@Tag("fast")
 public class WarehouseComputeResourceTest extends WarehouseTestBase {
     @Test
     public void testCNWarehouseResourceEquals() {

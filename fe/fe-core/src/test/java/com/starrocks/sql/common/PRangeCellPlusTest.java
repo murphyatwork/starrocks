@@ -19,9 +19,11 @@ import com.starrocks.catalog.PartitionKey;
 import com.starrocks.common.AnalysisException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.time.LocalDateTime;
 
+@Tag("fast")
 public class PRangeCellPlusTest {
     @Test
     public void testComparison() throws AnalysisException {

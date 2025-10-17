@@ -18,7 +18,9 @@
 package com.starrocks.backup;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class PathMakerTest {
 
     @Test

@@ -20,7 +20,9 @@ import com.starrocks.sql.ast.expression.FunctionName;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class FunctionSetTest {
 
     private FunctionSet functionSet;

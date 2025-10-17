@@ -54,11 +54,13 @@ import mockit.Injectable;
 import mockit.Mocked;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
+@Tag("fast")
 public class RoutineLoadSchedulerTest {
 
     @Mocked

@@ -7,8 +7,10 @@ import com.starrocks.utframe.UtFrameUtils;
 import mockit.Mocked;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 // SHOW WARNINGS [LIMIT [offset,] row_count]
+@Tag("fast")
 public class ShowWarningStmtTest {
     @Mocked
     private ConnectContext ctx;

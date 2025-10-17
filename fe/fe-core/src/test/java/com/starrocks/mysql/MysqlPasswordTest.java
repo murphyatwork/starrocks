@@ -20,11 +20,13 @@ package com.starrocks.mysql;
 import com.starrocks.common.ErrorReportException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@Tag("fast")
 public class MysqlPasswordTest {
     @Test
     public void testMakePassword() {

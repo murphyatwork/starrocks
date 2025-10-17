@@ -15,6 +15,7 @@
 package com.starrocks.mysql;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.security.SecureRandom;
 import java.util.Arrays;
@@ -29,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Tag("fast")
 public class MysqlJsseTlsCiphersTest {
 
     private static boolean containsTls12(String s) {

@@ -37,11 +37,13 @@ package com.starrocks.common.util;
 import com.starrocks.sql.optimizer.Utils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+@Tag("fast")
 public class DateUtilsTest {
 
     @Test

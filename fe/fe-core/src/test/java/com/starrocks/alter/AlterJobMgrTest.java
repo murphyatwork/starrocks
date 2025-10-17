@@ -17,9 +17,11 @@ package com.starrocks.alter;
 import com.starrocks.warehouse.cngroup.WarehouseComputeResource;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Map;
 
+@Tag("fast")
 public class AlterJobMgrTest {
 
     @Test

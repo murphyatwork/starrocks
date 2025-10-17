@@ -21,7 +21,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class PrometheusRegistryHelperTest {
     private static final Logger LOG = LogManager.getLogger(PrometheusRegistryHelperTest.class);
 

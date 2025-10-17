@@ -19,9 +19,11 @@ import com.starrocks.sql.analyzer.SemanticException;
 import com.starrocks.sql.plan.PlanTestBase;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@Tag("fast")
 public class OperatorMaxFlatChildTest extends PlanTestBase {
     @BeforeAll
     public static void beforeClass() throws Exception {

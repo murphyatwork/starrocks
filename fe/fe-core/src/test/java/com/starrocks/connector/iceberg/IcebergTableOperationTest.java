@@ -38,6 +38,7 @@ import org.apache.iceberg.Snapshot;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 import java.util.Map;
@@ -45,6 +46,7 @@ import java.util.Map;
 import static com.starrocks.connector.iceberg.IcebergTableOperation.REMOVE_ORPHAN_FILES;
 import static com.starrocks.connector.iceberg.IcebergTableOperation.ROLLBACK_TO_SNAPSHOT;
 
+@Tag("fast")
 public class IcebergTableOperationTest extends TableTestBase {
     private static final String CATALOG_NAME = "iceberg_catalog";
     private static final HdfsEnvironment HDFS_ENVIRONMENT = new HdfsEnvironment();

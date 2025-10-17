@@ -19,11 +19,13 @@ import com.starrocks.planner.TableFunctionNode;
 import com.starrocks.sql.analyzer.SemanticException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Tag("fast")
 public class TableFunctionTest extends PlanTestBase {
     @Test
     public void testSql0() throws Exception {

@@ -35,6 +35,7 @@ import org.apache.iceberg.expressions.Expressions;
 import org.apache.iceberg.types.Types;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -44,6 +45,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+@Tag("fast")
 public class IcebergExprVisitorTest {
     private static final Schema SCHEMA =
             new Schema(

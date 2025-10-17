@@ -40,12 +40,14 @@ import com.starrocks.catalog.HiveTable;
 import com.starrocks.catalog.Type;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.starrocks.server.CatalogMgr.ResourceMappingCatalog.toResourceName;
 
+@Tag("fast")
 public class TableUpdateArbitratorTest {
     @Test
     public void testHiveOnHdfs() {

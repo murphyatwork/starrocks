@@ -21,10 +21,12 @@ import com.starrocks.metric.Metric;
 import com.starrocks.metric.MetricRepo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 import java.util.concurrent.ThreadPoolExecutor;
 
+@Tag("fast")
 public class ThreadPoolManagerTest {
 
     @Test

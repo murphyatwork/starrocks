@@ -23,7 +23,9 @@ import com.starrocks.sql.ast.StatementBase;
 import com.starrocks.utframe.UtFrameUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class SetTest extends PlanTestBase {
     @Test
     public void testValuesNodePredicate() throws Exception {

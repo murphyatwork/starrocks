@@ -20,6 +20,7 @@ import com.starrocks.sql.plan.PlanTestBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.api.Tag;
 
 class PrimitiveTypeColumnStatsTest extends PlanTestBase {
 

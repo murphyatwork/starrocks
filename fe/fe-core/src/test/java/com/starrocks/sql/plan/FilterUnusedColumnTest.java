@@ -18,7 +18,9 @@ import com.starrocks.common.FeConstants;
 import com.starrocks.utframe.StarRocksAssert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class FilterUnusedColumnTest extends PlanTestBase {
     @BeforeAll
     public static void beforeClass() throws Exception {

@@ -21,6 +21,7 @@ import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +30,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * Unit tests for TabletInvertedIndex class
  */
+@Tag("fast")
 public class TabletInvertedIndexTest {
     private static final Logger LOG = LogManager.getLogger(TabletInvertedIndexTest.class);
 

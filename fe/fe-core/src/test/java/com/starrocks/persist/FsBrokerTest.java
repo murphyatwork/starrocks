@@ -25,6 +25,7 @@ import com.starrocks.system.HeartbeatResponse;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -32,6 +33,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
+@Tag("fast")
 public class FsBrokerTest {
 
     private static String fileName1 = "./FsBrokerTest1";

@@ -22,9 +22,11 @@ import com.google.common.collect.TreeMultiset;
 import com.starrocks.utframe.StarRocksTestBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.concurrent.CountDownLatch;
 
+@Tag("fast")
 public class JournalObservableTest extends StarRocksTestBase {
     @Test
     public void testUpperBound() {

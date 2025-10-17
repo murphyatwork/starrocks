@@ -30,10 +30,12 @@ import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.io.TempDir;
+import org.junit.jupiter.api.Tag;
 
 import java.io.File;
 
 @TestMethodOrder(MethodName.class)
+@Tag("fast")
 public class SysObjectDependenciesTest {
 
 

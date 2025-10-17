@@ -24,10 +24,12 @@ import com.starrocks.planner.ScanNode;
 import com.starrocks.planner.SchemaScanNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Collection;
 import java.util.List;
 
+@Tag("fast")
 public class ScanTest extends PlanTestBase {
     @Test
     public void testScan() throws Exception {

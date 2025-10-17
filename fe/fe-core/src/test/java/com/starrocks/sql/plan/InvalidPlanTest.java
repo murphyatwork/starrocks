@@ -18,7 +18,9 @@ import com.starrocks.common.FeConstants;
 import com.starrocks.sql.optimizer.rule.transformation.materialization.MVTestBase;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class InvalidPlanTest extends MVTestBase  {
     @BeforeAll
     public static void beforeAll() throws Exception {

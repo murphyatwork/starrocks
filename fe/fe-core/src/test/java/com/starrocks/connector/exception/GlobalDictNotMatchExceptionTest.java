@@ -19,9 +19,11 @@ import com.starrocks.common.Status;
 import com.starrocks.thrift.TStatusCode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Optional;
 
+@Tag("fast")
 public class GlobalDictNotMatchExceptionTest {
     @Test
     public void testExtract() {

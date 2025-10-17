@@ -19,7 +19,9 @@ package com.starrocks.lake.snapshot;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class ClusterSnapshotConfigTest {
 
     @Test

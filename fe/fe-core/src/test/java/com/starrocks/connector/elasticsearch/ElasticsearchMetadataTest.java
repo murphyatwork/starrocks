@@ -18,9 +18,11 @@ import com.starrocks.qe.ConnectContext;
 import mockit.Mocked;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.HashMap;
 
+@Tag("fast")
 public class ElasticsearchMetadataTest {
 
     @Test

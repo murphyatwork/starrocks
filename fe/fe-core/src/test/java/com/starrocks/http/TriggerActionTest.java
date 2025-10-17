@@ -28,6 +28,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.Tag;
 
 import java.io.IOException;
 
@@ -35,6 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestMethodOrder(MethodName.class)
+@Tag("fast")
 public class TriggerActionTest extends StarRocksHttpTestCase {
     private static final String TRIGGER_EXECUTE_API = "/api/trigger?type=dynamic_partition&db=test_trigger&tbl=site_access";
 

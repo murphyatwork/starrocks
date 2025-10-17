@@ -40,9 +40,11 @@ import com.starrocks.sql.analyzer.SemanticException;
 import com.starrocks.sql.plan.PlanTestBase;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+@Tag("fast")
 public class VectorIndexTest extends PlanTestBase {
 
     @BeforeAll

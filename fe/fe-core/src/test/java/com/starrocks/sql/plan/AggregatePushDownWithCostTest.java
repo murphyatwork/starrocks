@@ -25,7 +25,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class AggregatePushDownWithCostTest extends PlanWithCostTestBase {
     @BeforeEach
     public void before() throws Exception {

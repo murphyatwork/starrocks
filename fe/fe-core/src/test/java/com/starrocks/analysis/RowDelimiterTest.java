@@ -39,9 +39,11 @@ import com.starrocks.sql.analyzer.SemanticException;
 import com.starrocks.sql.ast.RowDelimiter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@Tag("fast")
 public class RowDelimiterTest {
     @Test
     public void testNormal() throws AnalysisException {

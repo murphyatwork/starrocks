@@ -22,10 +22,12 @@ import com.starrocks.utframe.UtFrameUtils;
 import com.sun.net.httpserver.HttpServer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 
+@Tag("fast")
 public class CostPredictorTest extends PlanTestBase {
 
     @Test

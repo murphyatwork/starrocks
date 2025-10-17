@@ -16,7 +16,9 @@ package com.starrocks.sql.plan;
 
 import com.starrocks.sql.Explain;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class ExplainTest extends PlanTestBase {
     @Test
     public void testExplain() throws Exception {

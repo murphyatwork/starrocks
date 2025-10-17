@@ -17,6 +17,7 @@ package com.starrocks.lake.compaction;
 import com.starrocks.proto.CompactStat;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 class CompactionProfileTest {
     @Test

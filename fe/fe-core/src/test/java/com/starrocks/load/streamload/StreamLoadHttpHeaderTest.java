@@ -15,11 +15,13 @@
 package com.starrocks.load.streamload;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 import org.wildfly.common.Assert;
 
 import java.lang.reflect.Field;
 import java.util.List;
 
+@Tag("fast")
 public class StreamLoadHttpHeaderTest {
 
     @Test

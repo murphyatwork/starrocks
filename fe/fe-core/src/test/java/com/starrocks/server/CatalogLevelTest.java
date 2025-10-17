@@ -43,7 +43,9 @@ import org.apache.iceberg.hive.HiveTableOperations;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class CatalogLevelTest {
     HiveMetaClient metaClient = new HiveMetastoreTest.MockedHiveMetaClient();
 

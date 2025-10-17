@@ -18,8 +18,10 @@ package com.starrocks.analysis;
 import com.starrocks.sql.ast.ModifyFrontendAddressClause;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 
+@Tag("fast")
 public class ModifyFrontendAddressClauseTest {
 
     @Test

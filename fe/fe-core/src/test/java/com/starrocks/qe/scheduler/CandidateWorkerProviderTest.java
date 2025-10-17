@@ -29,6 +29,7 @@ import mockit.MockUp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -36,6 +37,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Supplier;
 
+@Tag("fast")
 public class CandidateWorkerProviderTest {
     private SystemInfoService systemInfoService = new SystemInfoService();
     private final ImmutableMap<Long, Backend> id2Backend = genWorkers(0, 10, Backend::new, false);

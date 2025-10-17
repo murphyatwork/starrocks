@@ -17,7 +17,9 @@ import com.starrocks.qe.ConnectContext;
 import mockit.Mocked;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class DropFunctionStmtTest {
     @Mocked
     private ConnectContext ctx;

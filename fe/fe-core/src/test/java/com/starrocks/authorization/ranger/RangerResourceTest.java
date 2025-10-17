@@ -18,7 +18,9 @@ import com.starrocks.catalog.InternalCatalog;
 import org.apache.ranger.plugin.policyengine.RangerAccessResourceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class RangerResourceTest {
     @Test
     public void testBasic() {

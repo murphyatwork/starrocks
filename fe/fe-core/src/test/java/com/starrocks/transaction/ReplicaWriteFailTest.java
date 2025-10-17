@@ -19,11 +19,13 @@ import com.starrocks.pseudocluster.PseudoCluster;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@Tag("fast")
 public class ReplicaWriteFailTest {
     @BeforeAll
     public static void setUp() throws Exception {

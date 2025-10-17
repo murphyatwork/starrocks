@@ -24,9 +24,11 @@ import com.starrocks.sql.optimizer.operator.scalar.ConstantOperator;
 import com.starrocks.sql.optimizer.operator.scalar.ScalarOperator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Map;
 
+@Tag("fast")
 public class ReplaceColumnRefRewriterTest {
     @Test
     public void testRecursiveWithoutChildren() {

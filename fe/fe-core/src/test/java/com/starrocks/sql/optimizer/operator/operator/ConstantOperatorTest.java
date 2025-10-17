@@ -18,10 +18,12 @@ import com.starrocks.catalog.Type;
 import com.starrocks.sql.optimizer.operator.scalar.ConstantOperator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 
+@Tag("fast")
 public class ConstantOperatorTest {
     @Test
     public void testCastToDateValid() throws Exception {

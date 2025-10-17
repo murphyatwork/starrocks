@@ -42,12 +42,14 @@ import com.starrocks.plugin.PluginInfo.PluginType;
 import com.starrocks.server.GlobalStateMgr;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Tag("fast")
 public class PluginInfoTest {
     private GlobalStateMgr globalStateMgr;
 

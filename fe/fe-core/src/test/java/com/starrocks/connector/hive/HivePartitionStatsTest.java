@@ -16,7 +16,9 @@ package com.starrocks.connector.hive;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class HivePartitionStatsTest {
     @Test
     public void testFromCommonStats() {

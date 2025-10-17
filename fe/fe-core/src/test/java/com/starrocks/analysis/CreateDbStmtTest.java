@@ -20,7 +20,9 @@ import com.starrocks.sql.ast.CreateDbStmt;
 import com.starrocks.utframe.UtFrameUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class CreateDbStmtTest {
     private static ConnectContext connectContext;
 

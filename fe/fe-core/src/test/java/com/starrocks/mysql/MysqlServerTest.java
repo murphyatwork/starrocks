@@ -37,9 +37,11 @@ package com.starrocks.mysql;
 import com.starrocks.utframe.UtFrameUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.IOException;
 
+@Tag("fast")
 public class MysqlServerTest {
     @Test
     public void testBindFail() throws IOException {

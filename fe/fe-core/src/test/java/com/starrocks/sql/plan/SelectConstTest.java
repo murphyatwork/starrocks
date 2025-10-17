@@ -20,9 +20,11 @@ import com.starrocks.qe.scheduler.FeExecuteCoordinator;
 import com.starrocks.thrift.TResultBatch;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.nio.charset.StandardCharsets;
 
+@Tag("fast")
 public class SelectConstTest extends PlanTestBase {
     @Test
     public void testSelectConst() throws Exception {

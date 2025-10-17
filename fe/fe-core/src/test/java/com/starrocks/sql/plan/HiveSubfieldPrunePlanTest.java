@@ -16,7 +16,9 @@ package com.starrocks.sql.plan;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class HiveSubfieldPrunePlanTest extends PlanTestBase {
 
     @BeforeAll

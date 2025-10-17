@@ -39,6 +39,7 @@ import com.starrocks.qe.SessionVariable;
 import com.starrocks.server.GlobalStateMgr;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -48,6 +49,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+@Tag("fast")
 public class GlobalVarPersistInfoTest {
     private static String fileName = "./GlobalVarPersistInfoTest";
 

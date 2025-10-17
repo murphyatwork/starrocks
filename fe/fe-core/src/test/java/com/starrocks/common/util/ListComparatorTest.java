@@ -37,6 +37,7 @@ package com.starrocks.common.util;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -44,6 +45,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@Tag("fast")
 public class ListComparatorTest {
 
     List<List<Comparable>> listCollection;

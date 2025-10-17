@@ -47,6 +47,7 @@ import org.apache.iceberg.hadoop.HadoopFileIO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,6 +56,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
+@Tag("fast")
 public class InsertPlanTest extends PlanTestBase {
     @BeforeAll
     public static void beforeClass() throws Exception {

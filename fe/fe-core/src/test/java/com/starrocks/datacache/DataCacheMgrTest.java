@@ -18,10 +18,12 @@ import com.starrocks.sql.analyzer.SemanticException;
 import com.starrocks.sql.ast.QualifiedName;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 import java.util.Optional;
 
+@Tag("fast")
 public class DataCacheMgrTest {
     private final DataCacheMgr dataCacheMgr = DataCacheMgr.getInstance();
 

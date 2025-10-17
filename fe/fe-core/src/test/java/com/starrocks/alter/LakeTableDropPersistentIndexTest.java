@@ -36,9 +36,11 @@ import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 
+@Tag("fast")
 public class LakeTableDropPersistentIndexTest {
     private static final Logger LOG = LogManager.getLogger(LakeTableDropPersistentIndexTest.class);
 

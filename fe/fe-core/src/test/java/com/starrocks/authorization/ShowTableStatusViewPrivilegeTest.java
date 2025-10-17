@@ -34,6 +34,7 @@ import mockit.MockUp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 import java.util.Map;
@@ -50,6 +51,7 @@ import static org.mockito.Mockito.spy;
  * The main issue was that SHOW TABLE STATUS was using checkAnyActionOnTable() 
  * instead of checkAnyActionOnTableLikeObject() which properly handles views.
  */
+@Tag("fast")
 public class ShowTableStatusViewPrivilegeTest {
     
     @BeforeEach

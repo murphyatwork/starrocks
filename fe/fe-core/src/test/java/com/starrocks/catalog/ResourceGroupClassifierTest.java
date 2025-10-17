@@ -15,10 +15,12 @@
 package com.starrocks.catalog;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.within;
 
+@Tag("fast")
 public class ResourceGroupClassifierTest {
     @Test
     public void testSourceIP() {

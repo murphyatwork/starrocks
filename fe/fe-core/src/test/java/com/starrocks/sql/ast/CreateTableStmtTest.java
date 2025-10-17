@@ -18,7 +18,9 @@ import com.starrocks.sql.ast.expression.SlotRef;
 import mockit.Mocked;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class CreateTableStmtTest {
     @Mocked
     private ConnectContext ctx;

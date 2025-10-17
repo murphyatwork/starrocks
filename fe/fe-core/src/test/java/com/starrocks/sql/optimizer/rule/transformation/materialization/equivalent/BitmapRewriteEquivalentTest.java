@@ -24,6 +24,7 @@ import com.starrocks.sql.optimizer.operator.scalar.ScalarOperator;
 import mockit.Injectable;
 import mockit.Mocked;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.ArrayList;
 
@@ -32,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+@Tag("fast")
 public class BitmapRewriteEquivalentTest {
 
     private ScalarOperator createConstantOperator(Object object, Type type) {

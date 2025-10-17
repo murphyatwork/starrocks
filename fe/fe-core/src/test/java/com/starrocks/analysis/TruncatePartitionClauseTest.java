@@ -19,9 +19,11 @@ import com.starrocks.sql.ast.PartitionNames;
 import com.starrocks.sql.ast.TruncatePartitionClause;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Arrays;
 
+@Tag("fast")
 public class TruncatePartitionClauseTest {
 
     @Test

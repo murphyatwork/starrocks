@@ -25,6 +25,7 @@ import com.starrocks.sql.plan.PlanTestBase;
 import com.starrocks.thrift.TPartialUpdateMode;
 import com.starrocks.utframe.UtFrameUtils;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

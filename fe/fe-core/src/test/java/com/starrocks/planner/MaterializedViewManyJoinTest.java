@@ -27,6 +27,7 @@ import org.junit.jupiter.api.Timeout;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.api.Tag;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -40,6 +41,7 @@ import java.util.stream.Stream;
  * The main purpose of this case is to guarantee that the rewrite-procedure should not take too long even if
  * the query/mv is very complex
  */
+@Tag("fast")
 public class MaterializedViewManyJoinTest extends MaterializedViewTestBase {
 
     private static final AtomicLong MV_ID = new AtomicLong(0);

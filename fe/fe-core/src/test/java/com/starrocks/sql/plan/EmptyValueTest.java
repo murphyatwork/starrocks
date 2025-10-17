@@ -18,7 +18,9 @@ import com.starrocks.common.FeConstants;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class EmptyValueTest extends PlanTestBase {
     @BeforeAll
     public static void beforeClass() throws Exception {

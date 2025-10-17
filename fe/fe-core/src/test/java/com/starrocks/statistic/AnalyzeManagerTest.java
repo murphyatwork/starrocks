@@ -24,11 +24,13 @@ import com.starrocks.server.GlobalStateMgr;
 import com.starrocks.sql.plan.PlanTestBase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+@Tag("fast")
 public class AnalyzeManagerTest extends PlanTestBase {
     @Test
     public void testClearStatisticFromDroppedTable() {

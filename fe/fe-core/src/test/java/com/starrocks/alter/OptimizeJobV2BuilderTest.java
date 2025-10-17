@@ -21,10 +21,12 @@ import com.starrocks.sql.ast.OptimizeClause;
 import com.starrocks.sql.ast.PartitionDesc;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
 
+@Tag("fast")
 public class OptimizeJobV2BuilderTest {
     @Test
     public void testBuildWithOptimizeClause() throws StarRocksException {

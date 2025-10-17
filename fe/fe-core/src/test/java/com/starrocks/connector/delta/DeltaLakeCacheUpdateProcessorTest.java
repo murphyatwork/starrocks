@@ -35,10 +35,12 @@ import org.apache.hadoop.conf.Configuration;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@Tag("fast")
 public class DeltaLakeCacheUpdateProcessorTest {
     private HiveMetaClient client;
     private DeltaLakeMetastore metastore;

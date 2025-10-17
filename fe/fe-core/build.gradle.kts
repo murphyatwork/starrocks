@@ -425,12 +425,60 @@ tasks.named<ProcessResources>("processTestResources") {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
-// Configure test task
+// Configure test task for fast tests (reuse JVM processes)
 tasks.test {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        includeTags("fast")
+    }
     maxParallelForks = (project.findProperty("fe_ut_parallel") as String? ?: "16").toInt()
 
-    // Don't reuse JVM processes for tests
+    // Reuse JVM processes for fast tests
+    forkEvery = 0
+
+    maxHeapSize = "4096m"
+
+    testLogging {
+        // Events to log, like you have
+        events = setOf(
+            TestLogEvent.PASSED,
+            TestLogEvent.SKIPPED,
+            TestLogEvent.FAILED
+        )
+
+        // Show the standard output and error streams of the test JVM(s)
+        showStandardStreams = false
+
+        // Configure how exceptions are displayed
+        exceptionFormat = TestExceptionFormat.SHORT // Or FULL
+        showStackTraces = false
+        showCauses = false // Show underlying causes for exceptions
+    }
+
+    systemProperty("starrocks.home", project.ext["starrocks.home"] as String)
+
+    // Add JMockit Java agent to JVM arguments
+    jvmArgs(
+        "-Djdk.attach.allowAttachSelf",
+        "-Duser.timezone=Asia/Shanghai",
+        "-javaagent:${configurations.testCompileClasspath.get().find { it.name.contains("jmockit") }?.absolutePath}"
+    )
+
+    // Use independent class loading (equivalent to useSystemClassLoader=false)
+    systemProperty("java.security.manager", "allow")
+
+    exclude {
+        it.name.contains("QueryDumpRegressionTest") || it.name.contains("QueryDumpCaseRewriter")
+    }
+}
+
+// Configure slow tests task (isolate each test in separate JVM)
+tasks.register<Test>("slowTests") {
+    useJUnitPlatform {
+        excludeTags("fast")
+    }
+    maxParallelForks = (project.findProperty("fe_ut_parallel") as String? ?: "16").toInt()
+
+    // Don't reuse JVM processes for slow tests to avoid global state pollution
     forkEvery = 1
 
     maxHeapSize = "4096m"

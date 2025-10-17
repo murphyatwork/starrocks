@@ -18,10 +18,12 @@ import com.google.common.collect.Maps;
 import com.starrocks.common.util.UUIDUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Arrays;
 import java.util.Map;
 
+@Tag("fast")
 public class PulsarTaskInfoTest {
 
     @Test

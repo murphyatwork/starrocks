@@ -22,9 +22,11 @@ import com.starrocks.server.GlobalStateMgr;
 import mockit.Expectations;
 import mockit.Mocked;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.HashMap;
 
+@Tag("fast")
 public class HdfsScanNodeTest {
     @Test
     public void testInit(@Mocked GlobalStateMgr globalStateMgr,

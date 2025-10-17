@@ -23,7 +23,9 @@ import mockit.Expectations;
 import okhttp3.Credentials;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class MetricsActionTest {
     public static class MockMetricsAction extends MetricsAction {
         public MockMetricsAction(ActionController controller) {

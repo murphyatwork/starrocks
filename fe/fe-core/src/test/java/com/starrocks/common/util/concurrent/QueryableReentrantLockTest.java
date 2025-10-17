@@ -20,9 +20,11 @@ package com.starrocks.common.util.concurrent;
 import com.starrocks.common.util.LogUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.concurrent.TimeUnit;
 
+@Tag("fast")
 public class QueryableReentrantLockTest {
 
     private QueryableReentrantLock lock = new QueryableReentrantLock(true);

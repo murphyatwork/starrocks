@@ -23,6 +23,7 @@ import com.starrocks.sql.optimizer.statistics.StatisticStorage;
 import mockit.Expectations;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,6 +33,7 @@ import static com.starrocks.sql.optimizer.Utils.getLongFromDateTime;
 import static java.lang.Double.NEGATIVE_INFINITY;
 import static java.lang.Double.POSITIVE_INFINITY;
 
+@Tag("fast")
 public class MultipleEqualityPredicateCardinalityEstimationTest extends PlanWithCostTestBase {
     @BeforeEach
     public void before() throws Exception {

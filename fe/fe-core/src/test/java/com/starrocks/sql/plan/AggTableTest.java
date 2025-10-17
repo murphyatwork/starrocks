@@ -16,10 +16,12 @@
 package com.starrocks.sql.plan;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+@Tag("fast")
 public class AggTableTest extends PlanTestBase {
     public static void assertTestAggOFF(String sql, String reason) {
         if (!sql.contains("TABLE: test_agg")) {

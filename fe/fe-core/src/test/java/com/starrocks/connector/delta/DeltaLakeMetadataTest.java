@@ -56,10 +56,12 @@ import org.apache.hadoop.conf.Configuration;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 import java.util.Optional;
 
+@Tag("fast")
 public class DeltaLakeMetadataTest {
     private HiveMetaClient client;
     private DeltaLakeMetadata deltaLakeMetadata;

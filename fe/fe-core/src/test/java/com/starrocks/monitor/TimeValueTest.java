@@ -16,7 +16,9 @@ package com.starrocks.monitor;
 import com.starrocks.monitor.unit.TimeValue;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class TimeValueTest {
     @Test
     public void testGetMilliseconds() {

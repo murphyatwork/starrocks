@@ -21,9 +21,11 @@ import com.starrocks.sql.optimizer.statistics.StatsVersion;
 import mockit.Mock;
 import mockit.MockUp;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Optional;
 
+@Tag("fast")
 public class AggregateMetaTest extends PlanTestBase {
 
     @Test

@@ -35,10 +35,12 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Tag("fast")
 public class SampleInfoTest extends PlanTestBase {
 
     private static Database db;

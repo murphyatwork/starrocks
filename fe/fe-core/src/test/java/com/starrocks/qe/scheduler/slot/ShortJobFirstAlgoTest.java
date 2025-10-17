@@ -18,10 +18,12 @@ import com.starrocks.server.WarehouseManager;
 import com.starrocks.thrift.TUniqueId;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 import org.mockito.Mockito;
 
 import static com.starrocks.qe.scheduler.slot.ShortJobFirstAlgo.AGING_WEIGHT;
 
+@Tag("fast")
 public class ShortJobFirstAlgoTest {
 
     private LogicalSlot createLogicalSlot(int numSlots) {

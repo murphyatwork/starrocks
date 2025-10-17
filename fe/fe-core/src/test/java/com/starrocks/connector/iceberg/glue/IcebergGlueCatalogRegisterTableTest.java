@@ -25,10 +25,12 @@ import org.apache.iceberg.catalog.TableIdentifier;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Tag("fast")
 public class IcebergGlueCatalogRegisterTableTest {
     @Mocked
     private GlueCatalog glueCatalog;

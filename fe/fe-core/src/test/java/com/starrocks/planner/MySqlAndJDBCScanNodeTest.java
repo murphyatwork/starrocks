@@ -32,11 +32,13 @@ import com.starrocks.sql.parser.NodePosition;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+@Tag("fast")
 public class MySqlAndJDBCScanNodeTest {
 
     private List<Expr> createConjuncts() {

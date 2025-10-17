@@ -26,12 +26,14 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Collection;
 
 import static com.starrocks.sql.plan.ConnectorPlanTestBase.MOCK_PAIMON_CATALOG_NAME;
 
 @TestMethodOrder(MethodName.class)
+@Tag("fast")
 public class PartitionBasedMvRefreshProcessorPaimonTest extends MVTestBase {
 
     @BeforeAll

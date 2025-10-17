@@ -15,7 +15,9 @@
 package com.starrocks.connector.parser.trino;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class TrinoDialectDowngradeTest extends TrinoTestBase {
     @BeforeAll
     public static void beforeClass() throws Exception {

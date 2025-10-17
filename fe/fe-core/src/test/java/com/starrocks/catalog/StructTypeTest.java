@@ -17,7 +17,9 @@ package com.starrocks.catalog;
 import com.google.common.collect.Lists;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class StructTypeTest {
     @Test
     public void testTypeMatch() {

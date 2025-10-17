@@ -38,10 +38,12 @@ import com.starrocks.catalog.EsTable;
 import com.starrocks.catalog.GlobalStateMgrTestUtil;
 import com.starrocks.server.GlobalStateMgr;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@Tag("fast")
 public class EsShardPartitionsTest extends EsTestCase {
 
     @Test

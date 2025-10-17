@@ -22,6 +22,7 @@ import mockit.Mock;
 import mockit.MockUp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -29,6 +30,7 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Set;
 
+@Tag("fast")
 public class FileGroupProviderTest {
     @Test
     public void testFileGroupProvider() throws DdlException {

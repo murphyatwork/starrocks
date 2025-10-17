@@ -15,11 +15,13 @@
 package com.starrocks.catalog;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static com.starrocks.catalog.SchemaChangeTypeCompatibility.canReuseZonemapIndex;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Tag("fast")
 public class SchemaChangeTypeCompatibilityTest {
 
     @Test

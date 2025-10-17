@@ -21,9 +21,11 @@ import com.starrocks.fs.azure.AzBlobFileSystem;
 import com.starrocks.fs.hdfs.HdfsFileSystemWrap;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Map;
 
+@Tag("fast")
 public class FileSystemTest {
 
     @Test

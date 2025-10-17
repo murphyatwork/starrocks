@@ -19,6 +19,7 @@ import com.starrocks.http.SslUtil;
 import com.starrocks.mysql.ssl.SSLContextLoader;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 import org.mockito.ArgumentCaptor;
 import org.mockito.MockedStatic;
 

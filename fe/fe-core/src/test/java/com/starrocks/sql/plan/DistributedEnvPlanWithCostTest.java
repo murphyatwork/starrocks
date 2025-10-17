@@ -35,10 +35,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Tag("fast")
 public class DistributedEnvPlanWithCostTest extends DistributedEnvPlanTestBase {
     @BeforeAll
     public static void beforeClass() throws Exception {

@@ -35,12 +35,14 @@ import com.starrocks.sql.optimizer.operator.scalar.ConstantOperator;
 import mockit.Expectations;
 import mockit.Mocked;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Tag("fast")
 public class PushDownAggRuleTest {
 
     @Test

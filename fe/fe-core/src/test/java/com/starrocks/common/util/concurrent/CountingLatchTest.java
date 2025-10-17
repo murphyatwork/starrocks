@@ -19,10 +19,12 @@ package com.starrocks.common.util.concurrent;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 
+@Tag("fast")
 public class CountingLatchTest {
     @Test
     public void testCountUpAndDown() throws InterruptedException {

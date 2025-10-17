@@ -39,6 +39,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,7 @@ import static com.starrocks.http.TransactionLoadActionTest.newTxnStateWithCoordi
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestMethodOrder(MethodName.class)
+@Tag("fast")
 public class TransactionLoadCoordinatorMgrTest {
     private static long testDbId = 100L;
     private static String DB_NAME = "testDb";

@@ -18,10 +18,12 @@ import com.starrocks.common.FeConstants;
 import com.starrocks.sql.analyzer.AnalyzeTestUtil;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static com.starrocks.sql.analyzer.AnalyzeTestUtil.analyzeFail;
 import static com.starrocks.sql.analyzer.AnalyzeTestUtil.analyzeSuccess;
 
+@Tag("fast")
 public class AlterTableAutoIncrementTest {
     @BeforeAll
     public static void beforeClass() throws Exception {

@@ -23,10 +23,12 @@ import com.starrocks.sql.ast.ShowLoadWarningsStmt;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static com.starrocks.sql.analyzer.AnalyzeTestUtil.analyzeFail;
 import static com.starrocks.sql.analyzer.AnalyzeTestUtil.analyzeSuccess;
 
+@Tag("fast")
 public class ShowLoadWarningsStmtTest {
     @BeforeEach
     public void setUp() throws Exception {

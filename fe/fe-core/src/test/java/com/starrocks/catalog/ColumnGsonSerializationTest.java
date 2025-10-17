@@ -45,6 +45,7 @@ import com.starrocks.sql.ast.expression.StringLiteral;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.DataInputStream;
 import java.io.DataOutput;
@@ -55,6 +56,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+@Tag("fast")
 public class ColumnGsonSerializationTest {
 
     private static String fileName = "./ColumnGsonSerializationTest";

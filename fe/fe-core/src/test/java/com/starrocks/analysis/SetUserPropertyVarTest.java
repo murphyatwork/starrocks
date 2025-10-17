@@ -25,9 +25,11 @@ import com.starrocks.sql.ast.SetStmt;
 import com.starrocks.sql.ast.SetUserPropertyVar;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@Tag("fast")
 public class SetUserPropertyVarTest {
     @Test
     public void testNormal() throws StarRocksException {

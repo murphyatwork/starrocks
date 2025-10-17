@@ -21,9 +21,11 @@ import mockit.Expectations;
 import mockit.Mocked;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.concurrent.atomic.AtomicReference;
 
+@Tag("fast")
 public class BrpcProxyTest {
 
     LakeService getLakeServiceNoException(String hostname, int port) {

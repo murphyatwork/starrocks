@@ -22,6 +22,7 @@ import okhttp3.Response;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+@Tag("fast")
 public class BadHttpRequestTest extends StarRocksHttpTestCase {
     private static final String STREAM_LOAD_URI_FORMAT = "/api/%s/%s/_stream_load";
 

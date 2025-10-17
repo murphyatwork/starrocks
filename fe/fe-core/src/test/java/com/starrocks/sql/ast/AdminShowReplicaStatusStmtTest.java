@@ -17,7 +17,9 @@ package com.starrocks.sql.ast;
 import com.starrocks.qe.ConnectContext;
 import com.starrocks.utframe.UtFrameUtils;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class AdminShowReplicaStatusStmtTest {
     private ConnectContext ctx = UtFrameUtils.createDefaultCtx();
 

@@ -25,12 +25,14 @@ import com.starrocks.catalog.ScalarType;
 import com.starrocks.sql.ast.IndexDef;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.starrocks.sql.ast.ColumnDef.DefaultValueDef.NULL_DEFAULT_VALUE;
 
+@Tag("fast")
 public class IndexAnalyzerTest {
 
     @Test

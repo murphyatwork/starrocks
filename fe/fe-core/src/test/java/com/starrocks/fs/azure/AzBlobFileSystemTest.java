@@ -31,6 +31,7 @@ import org.apache.hadoop.fs.FileStatus;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 import org.mockito.Mockito;
 
 import java.time.OffsetDateTime;
@@ -38,6 +39,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+@Tag("fast")
 public class AzBlobFileSystemTest {
 
     private Map<String, String> properties = Maps.newHashMap();

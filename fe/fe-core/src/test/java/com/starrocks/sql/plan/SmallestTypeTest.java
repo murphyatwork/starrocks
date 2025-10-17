@@ -17,7 +17,9 @@ package com.starrocks.sql.plan;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class SmallestTypeTest extends PlanTestBase {
     @Test
     public void testAdd() throws Exception {

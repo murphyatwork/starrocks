@@ -21,7 +21,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class GroupingSetsTest extends PlanTestBase {
     private static final int NUM_TABLE0_ROWS = 10000;
 

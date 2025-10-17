@@ -20,7 +20,9 @@ import com.starrocks.thrift.TBucketFunction;
 import com.starrocks.thrift.TBucketProperty;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class BucketPropertyTest {
 
     @Test

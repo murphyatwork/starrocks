@@ -19,7 +19,9 @@ import com.starrocks.utframe.StarRocksAssert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class ComplexTypePrunePlanTest extends PlanTestBase {
 
     @BeforeAll

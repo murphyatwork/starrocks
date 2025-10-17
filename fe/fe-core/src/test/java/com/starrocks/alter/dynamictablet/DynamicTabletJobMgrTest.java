@@ -23,9 +23,11 @@ import com.starrocks.utframe.UtFrameUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Collections;
 
+@Tag("fast")
 public class DynamicTabletJobMgrTest {
     public static class TestNormalDynamicTabletJob extends DynamicTabletJob {
 

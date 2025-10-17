@@ -29,6 +29,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 
 import java.util.List;
@@ -43,6 +44,7 @@ import java.util.Random;
  */
 @Disabled
 @BenchmarkMode(org.openjdk.jmh.annotations.Mode.AverageTime)
+@Tag("fast")
 public class MvRefreshConcurrencyTest extends MVTestBase {
 
     private static String buildDbName(int idx) {

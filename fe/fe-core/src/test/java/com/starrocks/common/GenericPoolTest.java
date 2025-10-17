@@ -61,12 +61,14 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
+@Tag("fast")
 public class GenericPoolTest {
     static ThriftConnectionPool<BackendService.Client> backendService;
     static ThriftServer service;

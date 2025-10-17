@@ -21,6 +21,7 @@ import com.starrocks.planner.SlotId;
 import org.apache.iceberg.Schema;
 import org.apache.iceberg.types.Types;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.nio.ByteBuffer;
 import java.util.HashMap;
@@ -30,6 +31,7 @@ import java.util.Map;
 import static org.apache.iceberg.types.Types.NestedField.required;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Tag("fast")
 public class IcebergUtilTest {
 
     @Test

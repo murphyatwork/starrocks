@@ -20,9 +20,11 @@ import com.starrocks.thrift.TAlterTabletReqV2;
 import com.starrocks.thrift.TTabletType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Collections;
 
+@Tag("fast")
 public class AlterReplicaTaskTest {
 
     @Test

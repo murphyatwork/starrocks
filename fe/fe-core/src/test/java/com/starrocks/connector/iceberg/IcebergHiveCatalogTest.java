@@ -44,6 +44,7 @@ import org.apache.iceberg.view.ImmutableSQLViewRepresentation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -56,6 +57,7 @@ import static com.starrocks.catalog.Type.INT;
 import static com.starrocks.connector.iceberg.IcebergCatalogProperties.HIVE_METASTORE_URIS;
 import static com.starrocks.connector.iceberg.IcebergCatalogProperties.ICEBERG_CATALOG_TYPE;
 
+@Tag("fast")
 public class IcebergHiveCatalogTest {
     private static final String CATALOG_NAME = "iceberg_hive_catalog";
     public static final Map<String, String> DEFAULT_CONFIG = new HashMap<>();

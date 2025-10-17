@@ -19,7 +19,9 @@ import com.starrocks.sql.optimizer.rule.transformation.materialization.MVTestBas
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class OptConstFoldRewriterTest extends MVTestBase {
     private static String R2;
 

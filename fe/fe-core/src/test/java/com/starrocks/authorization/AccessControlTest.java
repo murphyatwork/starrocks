@@ -22,7 +22,9 @@ import com.starrocks.sql.ast.expression.FunctionName;
 import com.starrocks.sql.ast.expression.TableName;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class AccessControlTest {
     @Test
     public void testBasic() {

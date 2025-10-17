@@ -18,7 +18,9 @@ import com.starrocks.common.Config;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class DecimalTypeTest extends PlanTestBase {
     @BeforeAll
     public static void beforeClass() throws Exception {

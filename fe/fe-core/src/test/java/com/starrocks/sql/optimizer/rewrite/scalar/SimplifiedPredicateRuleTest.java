@@ -28,9 +28,11 @@ import com.starrocks.sql.optimizer.operator.scalar.ScalarOperator;
 import com.starrocks.sql.plan.PlanTestBase;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Tag("fast")
 public class SimplifiedPredicateRuleTest extends PlanTestBase {
     private static final ConstantOperator OI_NULL = ConstantOperator.createNull(Type.INT);
     private static final ConstantOperator OI_100 = ConstantOperator.createInt(100);

@@ -18,10 +18,12 @@ import com.starrocks.common.jmockit.Deencapsulation;
 import com.starrocks.common.util.TimeUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+@Tag("fast")
 public class TabletSchedulerStatTest {
 
     @Test

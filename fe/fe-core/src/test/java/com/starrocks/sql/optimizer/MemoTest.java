@@ -27,9 +27,11 @@ import com.starrocks.sql.optimizer.operator.logical.LogicalProjectOperator;
 import mockit.Expectations;
 import mockit.Mocked;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Tag("fast")
 public class MemoTest {
     @Test
     public void testInit(@Mocked OlapTable olapTable1,

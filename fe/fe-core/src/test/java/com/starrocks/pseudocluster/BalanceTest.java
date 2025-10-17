@@ -21,10 +21,12 @@ import com.starrocks.thrift.TGetTabletScheduleRequest;
 import com.starrocks.thrift.TGetTabletScheduleResponse;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 import java.util.Random;
 
+@Tag("fast")
 public class BalanceTest {
     @BeforeAll
     public static void setUp() throws Exception {

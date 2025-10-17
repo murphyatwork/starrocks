@@ -26,10 +26,12 @@ import com.starrocks.sql.optimizer.rule.transformation.materialization.MVTestBas
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Map;
 import java.util.Set;
 
+@Tag("fast")
 public class MVMetaVersionRepairerTest extends MVTestBase {
     private static MTable m1;
     @BeforeAll

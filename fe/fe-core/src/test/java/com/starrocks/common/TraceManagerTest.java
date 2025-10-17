@@ -22,11 +22,13 @@ import io.opentelemetry.api.trace.Tracer;
 import io.opentelemetry.sdk.trace.SpanProcessor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Tag("fast")
 public class TraceManagerTest {
 
     private static final String SERVICE_NAME = "starrocks-fe";

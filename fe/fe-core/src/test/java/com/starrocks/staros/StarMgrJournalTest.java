@@ -22,10 +22,12 @@ import mockit.MockUp;
 import mockit.Mocked;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.DataOutput;
 import java.io.IOException;
 
+@Tag("fast")
 public class StarMgrJournalTest {
     @Mocked
     private Journal journal;

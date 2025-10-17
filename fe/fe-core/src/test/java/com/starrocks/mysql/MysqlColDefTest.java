@@ -18,7 +18,9 @@
 package com.starrocks.mysql;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class MysqlColDefTest {
     // TODO(dhc): comment to pass ut coverage
     @Test

@@ -21,10 +21,12 @@ import com.starrocks.connector.ConnectorContext;
 import com.starrocks.connector.exception.StarRocksConnectorException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Tag("fast")
 public class JDBCConnectorTest {
     @Test
     public void testProperties() {

@@ -43,6 +43,7 @@ import com.starrocks.common.ExceptionChecker;
 import mockit.Expectations;
 import mockit.Injectable;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -51,6 +52,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+@Tag("fast")
 public class PartitionPhaseTest extends EsTestCase {
 
     @Test

@@ -32,6 +32,7 @@ import org.apache.iceberg.types.Types;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
@@ -44,6 +45,7 @@ import java.util.stream.Collectors;
 
 import static com.starrocks.connector.iceberg.cost.IcebergFileStats.convertObjectToOptionalDouble;
 
+@Tag("fast")
 public class IcebergStatisticProviderTest extends TableTestBase {
     private static StarRocksAssert starRocksAssert;
 

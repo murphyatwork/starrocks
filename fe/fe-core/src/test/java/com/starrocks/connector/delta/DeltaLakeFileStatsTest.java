@@ -23,12 +23,14 @@ import io.delta.kernel.types.StructType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+@Tag("fast")
 public class DeltaLakeFileStatsTest {
     private StructType schema;
 

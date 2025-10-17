@@ -41,11 +41,13 @@ import mockit.Mock;
 import mockit.MockUp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Random;
 
 import static com.starrocks.sql.analyzer.FeNameFormat.SPECIAL_CHARACTERS_IN_DB_NAME;
 
+@Tag("fast")
 public class FeNameFormatTest {
 
     @Test

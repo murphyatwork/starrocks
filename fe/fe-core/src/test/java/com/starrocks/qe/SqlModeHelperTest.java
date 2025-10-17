@@ -20,9 +20,11 @@ package com.starrocks.qe;
 import com.starrocks.common.DdlException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@Tag("fast")
 public class SqlModeHelperTest {
 
     @Test

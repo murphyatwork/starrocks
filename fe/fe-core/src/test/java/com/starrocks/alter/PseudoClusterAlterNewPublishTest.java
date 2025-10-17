@@ -17,7 +17,9 @@ package com.starrocks.alter;
 import com.starrocks.common.Config;
 import com.starrocks.pseudocluster.PseudoCluster;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class PseudoClusterAlterNewPublishTest extends PseudoClusterAlterTest {
     @BeforeAll
     public static void setUp() throws Exception {

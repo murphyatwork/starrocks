@@ -25,12 +25,14 @@ import com.starrocks.connector.paimon.PaimonMetadata;
 import mockit.Expectations;
 import mockit.Mocked;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Tag("fast")
 public class UnifiedConnectorTest {
     @Mocked private PaimonConnector paimonConnector;
     @Mocked private PaimonMetadata paimonMetadata;

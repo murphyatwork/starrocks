@@ -19,10 +19,12 @@ import com.starrocks.sql.plan.ReplayFromDumpTestBase;
 import com.starrocks.utframe.UtFrameUtils;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 /**
  * Benchmark planner performance for specific query dump
  */
+@Tag("fast")
 public class QueryDumpPlannerBenchTest extends ReplayFromDumpTestBase {
     private static String sql;
 

@@ -16,6 +16,7 @@ package com.starrocks.service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.BufferedReader;
 import java.io.IOException;

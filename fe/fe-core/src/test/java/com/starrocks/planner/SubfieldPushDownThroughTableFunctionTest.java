@@ -22,12 +22,14 @@ import com.starrocks.utframe.UtFrameUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Tag("fast")
 public class SubfieldPushDownThroughTableFunctionTest extends PlanTestNoneDBBase {
     @BeforeAll
     public static void beforeClass() throws Exception {

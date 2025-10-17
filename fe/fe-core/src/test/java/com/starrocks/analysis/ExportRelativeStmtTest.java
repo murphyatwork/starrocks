@@ -18,6 +18,7 @@ import com.starrocks.system.BrokerHbResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +31,7 @@ import static com.starrocks.sql.analyzer.AnalyzeTestUtil.analyzeSuccess;
  * TEST :
  * [Cancel | Show ] Export stmt
  */
+@Tag("fast")
 public class ExportRelativeStmtTest {
     @BeforeAll
     public static void beforeClass() throws Exception {

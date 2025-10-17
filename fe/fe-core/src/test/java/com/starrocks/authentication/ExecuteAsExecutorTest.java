@@ -44,6 +44,7 @@ import mockit.MockUp;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.HashMap;
 import java.util.List;
@@ -55,6 +56,7 @@ import static org.mockito.ArgumentMatchers.anyShort;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.spy;
 
+@Tag("fast")
 public class ExecuteAsExecutorTest {
     private AuthenticationMgr authenticationMgr;
     private AuthorizationMgr authorizationMgr;

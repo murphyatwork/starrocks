@@ -48,10 +48,12 @@ import com.starrocks.utframe.StarRocksAssert;
 import com.starrocks.utframe.UtFrameUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static com.starrocks.sql.optimizer.statistics.CachedStatisticStorageTest.DEFAULT_CREATE_TABLE_TEMPLATE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Tag("fast")
 public class PredicateReorderRuleTest {
 
     private static ColumnRefFactory columnRefFactory;

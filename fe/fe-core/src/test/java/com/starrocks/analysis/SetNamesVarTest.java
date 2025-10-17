@@ -25,9 +25,11 @@ import com.starrocks.sql.ast.SetNamesVar;
 import com.starrocks.sql.ast.SetStmt;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@Tag("fast")
 public class SetNamesVarTest {
 
     @Test

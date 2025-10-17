@@ -20,12 +20,14 @@ import org.apache.iceberg.aws.AwsClientProperties;
 import org.apache.iceberg.aws.s3.S3FileIOProperties;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 import software.amazon.awssdk.regions.Region;
 
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
+@Tag("fast")
 public class IcebergAwsClientFactoryTest {
     @Test
     public void testAKSK() {

@@ -22,12 +22,14 @@ import com.baidu.jprotobuf.pbrpc.client.RpcMethodInfo;
 import com.baidu.jprotobuf.pbrpc.data.RpcDataPackage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.lang.reflect.Method;
 
 /**
  * Tests for serialization and deserialization of {@link PExecPlanFragmentRequest}.
  */
+@Tag("fast")
 public class PExecPlanFragmentRequestTest {
     private static final String ATTACHMENT_PROTOCOL = "binary";
 

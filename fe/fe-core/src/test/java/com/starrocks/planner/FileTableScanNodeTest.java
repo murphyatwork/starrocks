@@ -20,12 +20,14 @@ import com.starrocks.common.DdlException;
 import com.starrocks.connector.RemoteFileBlockDesc;
 import com.starrocks.connector.RemoteFileDesc;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Tag("fast")
 public class FileTableScanNodeTest {
     @Test
     public void testSetupScanRangeLocations() throws Exception {

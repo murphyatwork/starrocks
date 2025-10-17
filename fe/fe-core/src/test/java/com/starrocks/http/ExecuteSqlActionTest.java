@@ -27,12 +27,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.MethodName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.Tag;
 
 import java.io.IOException;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 @TestMethodOrder(MethodName.class)
+@Tag("fast")
 public class ExecuteSqlActionTest extends StarRocksHttpTestCase {
     private static final String QUERY_EXECUTE_API = "/api/v1/catalogs/default_catalog/sql";
 

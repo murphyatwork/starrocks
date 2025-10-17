@@ -21,6 +21,7 @@ import com.starrocks.connector.hive.glue.converters.CatalogToHiveConverter;
 import org.apache.hadoop.hive.metastore.TableType;
 import org.apache.hadoop.hive.metastore.api.MetaException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 import software.amazon.awssdk.services.glue.model.Column;
 import software.amazon.awssdk.services.glue.model.SerDeInfo;
 import software.amazon.awssdk.services.glue.model.StorageDescriptor;
@@ -39,6 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static software.amazon.awssdk.utils.CollectionUtils.isNullOrEmpty;
 
+@Tag("fast")
 public class GlueToHiveConverterTest {
 
     @Test

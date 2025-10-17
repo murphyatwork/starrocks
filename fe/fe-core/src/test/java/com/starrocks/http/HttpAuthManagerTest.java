@@ -18,7 +18,9 @@ import com.starrocks.catalog.UserIdentity;
 import com.starrocks.http.HttpAuthManager.SessionValue;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class HttpAuthManagerTest {
 
     @Test

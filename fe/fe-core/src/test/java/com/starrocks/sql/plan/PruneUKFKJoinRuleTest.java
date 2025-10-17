@@ -19,9 +19,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Map;
 
+@Tag("fast")
 public class PruneUKFKJoinRuleTest extends TPCDSPlanTestBase {
     Map<String, Long> tpcdsStats = null;
 

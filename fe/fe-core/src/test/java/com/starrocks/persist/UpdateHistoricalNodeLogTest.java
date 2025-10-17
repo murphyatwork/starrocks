@@ -24,6 +24,7 @@ import com.starrocks.system.SystemInfoService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -33,6 +34,7 @@ import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
 
+@Tag("fast")
 public class UpdateHistoricalNodeLogTest {
 
     private String fileName = "./UpdateHistoricalNodeLogTest";

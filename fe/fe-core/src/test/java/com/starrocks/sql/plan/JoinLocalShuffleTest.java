@@ -19,7 +19,9 @@ import com.starrocks.qe.SessionVariable;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class JoinLocalShuffleTest extends PlanTestBase {
 
     @BeforeAll

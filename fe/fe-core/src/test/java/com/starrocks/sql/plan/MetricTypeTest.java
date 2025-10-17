@@ -17,7 +17,9 @@ package com.starrocks.sql.plan;
 
 import com.starrocks.catalog.Type;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
+@Tag("fast")
 public class MetricTypeTest extends PlanTestBase {
     @Test
     public void testBitmapQuery() throws Exception {

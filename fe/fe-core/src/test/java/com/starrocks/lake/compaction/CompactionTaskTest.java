@@ -22,11 +22,13 @@ import mockit.Expectations;
 import mockit.Mocked;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.concurrent.Future;
 
+@Tag("fast")
 public class CompactionTaskTest {
 
 

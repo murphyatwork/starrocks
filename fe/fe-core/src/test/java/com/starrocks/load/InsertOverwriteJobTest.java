@@ -22,9 +22,11 @@ import mockit.Expectations;
 import mockit.Injectable;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 
+@Tag("fast")
 public class InsertOverwriteJobTest {
     @Test
     public void testBasic(@Injectable InsertStmt insertStmt) {

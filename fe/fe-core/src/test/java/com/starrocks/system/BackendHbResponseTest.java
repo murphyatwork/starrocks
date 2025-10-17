@@ -24,11 +24,13 @@ import com.starrocks.persist.gson.GsonUtils;
 import com.starrocks.thrift.TStatusCode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 
+@Tag("fast")
 public class BackendHbResponseTest {
     @Test
     public void testSerializeHbResponse() {

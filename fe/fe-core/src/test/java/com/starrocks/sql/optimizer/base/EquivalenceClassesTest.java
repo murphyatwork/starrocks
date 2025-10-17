@@ -20,10 +20,12 @@ import com.starrocks.catalog.Type;
 import com.starrocks.sql.optimizer.operator.scalar.ColumnRefOperator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.List;
 import java.util.Set;
 
+@Tag("fast")
 public class EquivalenceClassesTest {
     @Test
     public void test() {

@@ -26,11 +26,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.junit.jupiter.api.Tag;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.TimeZone;
 
+@Tag("fast")
 public class IcebergPartitionUtilsTest extends TableTestBase {
     @TempDir
     public static File temp;

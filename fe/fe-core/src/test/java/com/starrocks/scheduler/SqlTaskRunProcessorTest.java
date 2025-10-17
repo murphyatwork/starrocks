@@ -24,6 +24,7 @@ import mockit.MockUp;
 import mockit.Mocked;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.util.Collections;
 import java.util.UUID;
@@ -32,6 +33,7 @@ import java.util.UUID;
  * Verify that submit task based SQL records client IP into audit log via SqlTaskRunProcessor
  * and that TaskRunContext propagates the remote host:port from the submitter.
  */
+@Tag("fast")
 public class SqlTaskRunProcessorTest {
 
     @Test

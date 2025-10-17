@@ -43,6 +43,7 @@ import mockit.Mocked;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Tag;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -51,6 +52,7 @@ import java.util.Map;
 
 import static org.mockito.Mockito.when;
 
+@Tag("fast")
 public class OdpsScanTest extends MockedBase {
 
     static ColumnRefOperator intColumnOperator = new ColumnRefOperator(1, Type.INT, "id", true);
