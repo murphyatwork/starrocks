@@ -43,6 +43,7 @@ import com.starrocks.common.CaseSensibility;
 import com.starrocks.common.Config;
 import com.starrocks.common.PatternMatcher;
 import com.starrocks.common.proc.PartitionsProcDir;
+import com.starrocks.common.util.concurrent.lock.AutoCloseableLock;
 import com.starrocks.common.util.concurrent.lock.LockType;
 import com.starrocks.common.util.concurrent.lock.Locker;
 import com.starrocks.lake.DataCacheInfo;
@@ -566,59 +567,32 @@ public class InformationSchemaDataSource {
             }
 
             for (BasicTable table : tables) {
-                Locker tableLocker = new Locker();
-                try {
-                    if (table.isNativeTableOrMaterializedView()) {
-                        tableLocker.lockTablesWithIntensiveDbLock(db.getId(), Lists.newArrayList(((OlapTable) table).getId()),
-                                LockType.READ);
-                    }
+                TTableInfo info = new TTableInfo();
+                info.setTable_catalog(DEF);
+                info.setTable_schema(dbName);
+                info.setTable_name(table.getName());
+                info.setTable_type(table.getMysqlType());
+                info.setEngine(table.getEngine());
+                info.setVersion(DEFAULT_EMPTY_NUM);
+                info.setMax_data_length(DEFAULT_EMPTY_NUM);
+                info.setIndex_length(DEFAULT_EMPTY_NUM);
+                info.setData_free(DEFAULT_EMPTY_NUM);
+                info.setAuto_increment(DEFAULT_EMPTY_NUM);
+                info.setCreate_time(table.getCreateTime());
+                info.setCheck_time(table.getLastCheckTime() / 1000);
+                info.setTable_collation(UTF8_GENERAL_CI);
+                info.setChecksum(DEFAULT_EMPTY_NUM);
+                info.setTable_comment(table.getComment());
 
-                    TTableInfo info = new TTableInfo();
-
-                    // refer to https://dev.mysql.com/doc/refman/8.0/en/information-schema-tables-table.html
-                    // the catalog name is always `def`
-                    info.setTable_catalog(DEF);
-                    info.setTable_schema(dbName);
-                    info.setTable_name(table.getName());
-                    info.setTable_type(table.getMysqlType());
-                    info.setEngine(table.getEngine());
-                    info.setVersion(DEFAULT_EMPTY_NUM);
-                    // TABLE_ROWS (depend on the table type)
-                    // AVG_ROW_LENGTH (depend on the table type)
-                    // DATA_LENGTH (depend on the table type)
-                    info.setMax_data_length(DEFAULT_EMPTY_NUM);
-                    info.setIndex_length(DEFAULT_EMPTY_NUM);
-                    info.setData_free(DEFAULT_EMPTY_NUM);
-                    info.setAuto_increment(DEFAULT_EMPTY_NUM);
-                    info.setCreate_time(table.getCreateTime());
-                    // UPDATE_TIME (depend on the table type)
-                    info.setCheck_time(table.getLastCheckTime() / 1000);
-                    info.setTable_collation(UTF8_GENERAL_CI);
-                    info.setChecksum(DEFAULT_EMPTY_NUM);
-                    info.setTable_comment(table.getComment());
-
-                    if (table.isNativeTableOrMaterializedView() || table.getType() == TableType.OLAP_EXTERNAL) {
-                        // OLAP (done)
-                        // OLAP_EXTERNAL (done)
-                        // MATERIALIZED_VIEW (done)
-                        // LAKE (done)
-                        // LAKE_MATERIALIZED_VIEW (done)
+                if (table.isNativeTableOrMaterializedView()) {
+                    try (AutoCloseableLock tableLock = new AutoCloseableLock(db.getId(), 
+                            Lists.newArrayList(((OlapTable) table).getId()), LockType.READ)) {
                         genNormalTableInfo(table, info);
-                    } else {
-                        // SCHEMA (use default)
-                        // INLINE_VIEW (use default)
-                        // VIEW (use default)
-                        // BROKER (use default)
-                        // EXTERNAL TABLE (use default)
-                        genDefaultConfigInfo(info);
                     }
-                    infos.add(info);
-                } finally {
-                    if (table.isNativeTableOrMaterializedView()) {
-                        tableLocker.unLockTablesWithIntensiveDbLock(db.getId(),
-                                Lists.newArrayList(((OlapTable) table).getId()), LockType.READ);
-                    }
+                } else {
+                    genDefaultConfigInfo(info);
                 }
+                infos.add(info);
             }
         }
         response.setTables_infos(infos);
