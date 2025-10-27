@@ -207,7 +207,6 @@ ROCKSDB_VERSION="6.22.1"
 BITSHUFFLE_VERSION="0.5.1"
 VECTORSCAN_VERSION="5.4.12"
 VELOCYPACK_VERSION="XYZ1.0"
-ASYNC_PROFILER_VERSION="4.1"
 
 # Thrift
 THRIFT_DOWNLOAD="http://archive.apache.org/dist/thrift/0.20.0/thrift-0.20.0.tar.gz"
@@ -256,10 +255,6 @@ SIMDUTF_NAME="simdutf-5.2.8.tar.gz"
 SIMDUTF_SOURCE="simdutf-5.2.8"
 SIMDUTF_MD5SUM="731c78ab5a10c6073942dc93d5c4b04c"
 
-# async-profiler
-ASYNC_PROFILER_DOWNLOAD="https://github.com/async-profiler/async-profiler/releases/download/v4.1/async-profiler-4.1-macos.zip"
-ASYNC_PROFILER_NAME="async-profiler-4.1-macos.zip"
-ASYNC_PROFILER_SOURCE="async-profiler-4.1-macos"
 
 download_source() {
     local name="$1"
@@ -1010,36 +1005,6 @@ build_datasketches() {
     log_success "datasketches headers installed"
 }
 
-# async-profiler distribution copy
-build_async_profiler() {
-    if [[ -d "$INSTALL_DIR/async-profiler/bin" && -d "$INSTALL_DIR/async-profiler/lib" ]]; then
-        log_success "async-profiler already installed, skipping"
-        return 0
-    fi
-
-    log_info "Installing async-profiler ${ASYNC_PROFILER_VERSION} for macOS..."
-
-    local src_dir="$THIRDPARTY_DIR/src"
-    local build_dir="$THIRDPARTY_DIR/build/async-profiler"
-
-    download_source "async-profiler" "$ASYNC_PROFILER_VERSION" \
-        "$ASYNC_PROFILER_DOWNLOAD" \
-        "$ASYNC_PROFILER_NAME"
-
-    mkdir -p "$build_dir"
-    cd "$build_dir"
-
-    if [[ ! -d "$ASYNC_PROFILER_SOURCE" ]]; then
-        unzip -q "$src_dir/$ASYNC_PROFILER_NAME"
-    fi
-
-    mkdir -p "$INSTALL_DIR/async-profiler"
-    rm -rf "$INSTALL_DIR/async-profiler/bin" "$INSTALL_DIR/async-profiler/lib"
-    cp -R "$ASYNC_PROFILER_SOURCE/bin" "$INSTALL_DIR/async-profiler/"
-    cp -R "$ASYNC_PROFILER_SOURCE/lib" "$INSTALL_DIR/async-profiler/"
-
-    log_success "async-profiler installed successfully"
-}
 
 # Build ryu from source and install into $INSTALL_DIR
 build_ryu() {
@@ -1608,7 +1573,6 @@ build_source_deps() {
     build_croaringbitmap
     build_curl
     build_simdutf
-    build_async_profiler
 
     # Layer 2: Libraries that depend on Layer 1
     build_brpc
