@@ -258,22 +258,34 @@ public class TaskManager implements MemoryTrackable {
         return isCancel;
     }
 
+    /**
+     * Kill a task by task name. This method does not require any locks as:
+     * 1. It only reads from ConcurrentHashMap (thread-safe)
+     * 2. removePendingTask() has its own internal lock (wLock in TaskRunFIFOQueue)
+     * 3. killTaskRun() only needs taskId and operates on thread-safe data structures
+     * 
+     * @param taskName task name to kill
+     * @param force whether to force kill the running task run
+     * @return true if task was found and killed, false otherwise
+     */
     public boolean killTask(String taskName, boolean force) {
+        // Read task from ConcurrentHashMap (thread-safe, no lock needed)
         Task task = nameToTaskMap.get(taskName);
         if (task == null) {
             return false;
         }
-        if (!taskRunManager.tryTaskRunLock()) {
-            return false;
-        }
+        // Extract taskId before any potential task deletion
+        long taskId = task.getId();
+
+        // removePendingTask has its own internal lock, no need for taskRunLock
         try {
             taskRunScheduler.removePendingTask(task);
         } catch (Exception ex) {
-            LOG.warn("failed to kill task.", ex);
-        } finally {
-            taskRunManager.taskRunUnlock();
+            LOG.warn("failed to remove pending task.", ex);
         }
-        taskRunManager.killTaskRun(task.getId(), force);
+
+        // killTaskRun only needs taskId, operates independently of any locks
+        taskRunManager.killTaskRun(taskId, force);
         return true;
     }
 
@@ -486,8 +498,23 @@ public class TaskManager implements MemoryTrackable {
         }
     }
 
+    /**
+     * Drop tasks by task ID list. This method may return early without dropping any tasks
+     * if it fails to acquire the taskLock (e.g., when the lock is held by another thread
+     * for an extended period). This is intentional to avoid lock starvation and ensure
+     * system responsiveness.
+     * 
+     * @param taskIdList list of task IDs to drop
+     * @param isReplay whether this is a replay operation
+     */
     public void dropTasks(List<Long> taskIdList, boolean isReplay) {
-        takeTaskLock();
+        if (!tryTaskLock()) {
+            LOG.warn("Failed to acquire task lock for dropTasks, will skip this operation");
+            return;
+        }
+
+        // Collect task information for killing outside the lock
+        List<Long> taskIdsToKill = Lists.newArrayList();
         try {
             for (long taskId : taskIdList) {
                 Task task = idToTaskMap.get(taskId);
@@ -502,10 +529,10 @@ public class TaskManager implements MemoryTrackable {
                     }
                     periodFutureMap.remove(task.getId());
                 }
-                if (!killTask(task.getName(), true)) {
-                    LOG.warn("kill task failed: {}", task.getName());
-                }
-                idToTaskMap.remove(task.getId());
+                // Collect taskId for killing outside the lock
+                taskIdsToKill.add(taskId);
+                // Remove from maps while holding the lock
+                idToTaskMap.remove(taskId);
                 nameToTaskMap.remove(task.getName());
             }
 
@@ -515,6 +542,15 @@ public class TaskManager implements MemoryTrackable {
         } finally {
             taskUnlock();
         }
+
+        // Kill tasks outside the lock to avoid holding the lock for too long
+        // killTaskRun() may take time as it involves canceling tasks and interrupting threads
+        for (long taskId : taskIdsToKill) {
+            if (!taskRunManager.killTaskRun(taskId, true)) {
+                LOG.warn("kill task run failed for taskId: {}", taskId);
+            }
+        }
+
         LOG.info("drop tasks:{}", taskIdList);
     }
 
