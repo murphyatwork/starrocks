@@ -54,3 +54,6 @@ select count(*) from t2;
 -- result:
 7
 -- !result
+admin disable failpoint 'report_exec_state_failed_status';
+-- result:
+-- !result
